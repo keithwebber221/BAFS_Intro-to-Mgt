@@ -1,0 +1,1989 @@
+<!doctype html>
+<html lang="zh-HK">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>管理導論 — 管理功能</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* 管理導論單元專屬配色：經典海軍藍 (Executive Navy) × 琥珀銅 (Terracotta) × 青翠綠 (Teal) */
+      --bg: #f4f6fb;
+      --card: #ffffff;
+      --surface: #f8fafd;
+      --ink: #0f172a;
+      --ink-sec: #334155;
+      --mute: #64748b;
+      --line: #dbe3f0;
+      --primary: #1e40af;
+      --primary-dark: #1e3a8a;
+      --primary-light: #eff6ff;
+      --primary-border: #bfdbfe;
+      --teal: #0f766e;
+      --teal-light: #f0fdfa;
+      --teal-border: #99f6e4;
+      --amber: #c2410c;
+      --amber-light: #fff7ed;
+      --green: #15803d;
+      --green-light: #f0fdf4;
+      --red: #be123c;
+      --red-light: #fff1f2;
+      --radius: 16px;
+      --shadow: 0 4px 20px -2px rgba(30, 64, 175, 0.06), 0 2px 6px -1px rgba(30, 64, 175, 0.04);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.75;
+      padding-bottom: 60px;
+      font-size: 17.5px;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, h4 { margin: 0; font-weight: 800; color: var(--ink); letter-spacing: -0.01em; line-height: 1.35; }
+
+    /* Top Navigation Bar */
+    header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 32px;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      flex-wrap: wrap;
+    }
+    .home-link {
+      text-decoration: none;
+      color: var(--ink-sec);
+      font-weight: 600;
+      font-size: 15px;
+      padding: 8px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      transition: all 0.2s;
+    }
+    .home-link:hover { color: var(--primary); border-color: var(--primary-border); background: var(--primary-light); }
+    .brand { display: flex; align-items: center; gap: 12px; font-size: 19px; font-weight: 800; color: var(--primary-dark); }
+    .brand-tag {
+      background: var(--primary-light);
+      color: var(--primary);
+      border: 1px solid var(--primary-border);
+      font-size: 14px;
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-weight: 700;
+    }
+
+    .main-tabs {
+      margin-left: auto;
+      display: flex;
+      gap: 6px;
+      background: #e2e8f4;
+      padding: 5px;
+      border-radius: 12px;
+      flex-wrap: wrap;
+    }
+    .main-tabs button {
+      border: 0;
+      background: none;
+      padding: 9px 15px;
+      border-radius: 9px;
+      font: 700 15px 'Noto Sans TC', sans-serif;
+      color: var(--ink-sec);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .main-tabs button:hover { color: var(--ink); }
+    .main-tabs button.on {
+      background: var(--card);
+      color: var(--primary);
+      box-shadow: 0 2px 8px rgba(30, 64, 175, 0.12);
+    }
+
+    /* Main Container & Views */
+    .view { display: none; max-width: 1160px; margin: 0 auto; padding: 28px 24px; animation: fadeIn 0.25s ease; }
+    .view.on { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Section Header Banner */
+    .sec-banner {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-left: 6px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      box-shadow: var(--shadow);
+    }
+    .sec-banner h1 { font-size: 25px; margin: 6px 0 8px; }
+    .sec-banner p { margin: 0; color: var(--ink-sec); font-size: 16.5px; max-width: 680px; }
+
+    /* Sub-navigation Switcher */
+    .sub-nav {
+      display: inline-flex;
+      background: #e6ecf7;
+      padding: 5px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .sub-nav button {
+      border: 0;
+      background: none;
+      padding: 9px 16px;
+      border-radius: 8px;
+      font: 700 15px 'Noto Sans TC', sans-serif;
+      color: var(--mute);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .sub-nav button:hover { color: var(--ink); }
+    .sub-nav button.active {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(30, 64, 175, 0.25);
+    }
+    .sub-view { display: none; }
+    .sub-view.active { display: block; animation: fadeIn 0.2s ease; }
+
+    /* Cards & Grids */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 26px 28px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+    }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 12px 0; }
+    .sidebar-layout { display: grid; grid-template-columns: 300px 1fr; gap: 22px; align-items: start; }
+
+    /* Badges & Pills */
+    .badge {
+      display: inline-block;
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 6px;
+      margin-right: 8px;
+    }
+    .b-blue { background: var(--primary-light); color: var(--primary); border: 1px solid var(--primary-border); }
+    .b-teal { background: var(--teal-light); color: var(--teal); border: 1px solid var(--teal-border); }
+    .b-amber { background: var(--amber-light); color: var(--amber); border: 1px solid #fed7aa; }
+    .b-green { background: var(--green-light); color: var(--green); border: 1px solid #bbf7d0; }
+    .b-red { background: var(--red-light); color: var(--red); border: 1px solid #fecdd3; }
+
+    .chips { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0; }
+    .chip {
+      border: 1.5px solid var(--line);
+      background: var(--card);
+      padding: 9px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      font: 700 15.5px 'Noto Sans TC', sans-serif;
+      color: var(--ink-sec);
+      transition: all 0.2s;
+    }
+    .chip:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
+    .chip.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(30, 64, 175, 0.2);
+    }
+
+    .btn {
+      border: 0;
+      background: var(--primary);
+      color: #ffffff;
+      font: 700 15.5px 'Noto Sans TC', sans-serif;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
+    .btn-teal { background: var(--teal); }
+    .btn-teal:hover { background: #115e59; }
+    .btn-green { background: var(--green); }
+    .btn-green:hover { background: #166534; }
+    .btn-outline { background: var(--card); color: var(--primary); border: 1.5px solid var(--primary); }
+    .btn-outline:hover { background: var(--primary-light); }
+
+    /* Interactive Tools Styling */
+    .slider-row { display: grid; grid-template-columns: 185px 1fr 140px; gap: 12px; align-items: center; margin-bottom: 10px; font-size: 15px; }
+    input[type="range"] { width: 100%; accent-color: var(--primary); cursor: pointer; }
+    select.sim-select {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1.5px solid var(--primary-border);
+      font: 700 15px 'Noto Sans TC', sans-serif;
+      background: var(--card);
+      color: var(--primary-dark);
+      cursor: pointer;
+    }
+
+    .meter-wrap { margin-bottom: 10px; }
+    .meter-label { display: flex; justify-content: space-between; font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .meter-bg { height: 11px; background: #e2e8f4; border-radius: 999px; overflow: hidden; }
+    .meter-fill { height: 100%; border-radius: 999px; transition: width 0.3s ease; }
+
+    .smart-pill {
+      padding: 12px 10px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 800;
+      border: 1.5px solid var(--line);
+      transition: all 0.2s;
+    }
+    .smart-pill.pass { background: var(--green-light); color: var(--green); border-color: var(--green); }
+    .smart-pill.fail { background: var(--red-light); color: var(--red); border-color: var(--red); }
+
+    .org-node { cursor: pointer; transition: all 0.15s; }
+    .org-node:hover { opacity: 0.88; }
+
+    .scene-card {
+      border: 1.5px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 16px;
+      background: var(--card);
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    .scene-card:hover { border-color: var(--primary); transform: translateY(-2px); }
+    .scene-card.active { border-color: var(--primary); background: var(--primary-light); box-shadow: 0 4px 12px rgba(30,64,175,0.1); }
+
+    .method-btn {
+      padding: 12px 10px;
+      border-radius: 12px;
+      border: 1.5px solid var(--line);
+      background: var(--card);
+      cursor: pointer;
+      font: 700 14.5px 'Noto Sans TC', sans-serif;
+      text-align: center;
+      transition: all 0.18s;
+      color: var(--ink-sec);
+    }
+    .method-btn:hover { border-color: var(--primary); background: var(--primary-light); color: var(--primary); }
+    .method-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); box-shadow: 0 4px 12px rgba(30, 64, 175, 0.2); }
+
+    /* Comparison Table */
+    table.comp-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 15.5px; }
+    table.comp-table th, table.comp-table td { padding: 12px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    table.comp-table th { background: var(--surface); font-weight: 800; color: var(--ink); }
+
+    /* Builder Specific */
+    .builder-stage {
+      border: 1.5px solid var(--line);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      background: var(--card);
+      box-shadow: var(--shadow);
+    }
+    .opt-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      width: 100%;
+      text-align: left;
+      padding: 15px 18px;
+      margin: 10px 0;
+      border-radius: 12px;
+      border: 1.5px solid var(--line);
+      background: var(--card);
+      font: 500 16.5px 'Noto Sans TC', sans-serif;
+      color: var(--ink);
+      cursor: pointer;
+      transition: all 0.2s;
+      line-height: 1.65;
+    }
+    .opt-card:hover { border-color: var(--primary); background: var(--surface); }
+    .opt-card.selected { border-color: var(--primary); background: var(--primary-light); font-weight: 600; }
+    .opt-card.correct, .opt-card.graded-best { border-color: var(--green); background: var(--green-light); color: #064e3b; }
+    .opt-card.graded-partial { border-color: var(--amber); background: var(--amber-light); color: #7c2d12; }
+    .opt-card.wrong, .opt-card.graded-wrong { border-color: var(--red); background: var(--red-light); color: #881337; }
+    .opt-letter {
+      display: inline-grid;
+      place-items: center;
+      min-width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: #e6ecf7;
+      color: var(--ink);
+      font-weight: 800;
+      font-size: 14.5px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .opt-card.selected .opt-letter { background: var(--primary); color: #ffffff; }
+
+    .hl-s1 { background: #dbeafe; color: #1e40af; padding: 3px 8px; border-radius: 6px; font-weight: 700; }
+    .hl-s2 { background: #fef3c7; color: #92400e; padding: 3px 8px; border-radius: 6px; font-weight: 700; }
+    .hl-s3 { background: #ccfbf1; color: #115e59; padding: 3px 8px; border-radius: 6px; font-weight: 700; }
+
+    .critique-item {
+      padding: 14px 18px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      border-left: 5px solid var(--line);
+      background: var(--card);
+    }
+    .critique-item.c-best { border-left-color: var(--green); background: var(--green-light); }
+    .critique-item.c-partial { border-left-color: var(--amber); background: var(--amber-light); }
+    .critique-item.c-wrong { border-left-color: var(--red); background: var(--red-light); }
+
+    details.guide-Collapsible {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px 22px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+    }
+    details.guide-Collapsible summary {
+      font-weight: 700;
+      font-size: 16.5px;
+      color: var(--primary);
+      cursor: pointer;
+    }
+
+    @media (max-width: 860px) {
+      .grid2, .grid3, .grid5, .sidebar-layout, .slider-row { grid-template-columns: 1fr; }
+      header { padding: 12px 18px; }
+      .main-tabs { width: 100%; justify-content: center; margin-top: 8px; }
+      .sec-banner h1 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="管理導論_目錄.html" class="home-link">返回單元目錄</a>
+  <select onchange="if(this.value) location.href=this.value" style="padding:7px 12px;border-radius:10px;border:1px solid var(--primary-border);background:var(--primary-light);color:var(--primary);font:700 14.5px 'Noto Sans TC',sans-serif;cursor:pointer">
+    <option value="">快速切換課室／測驗...</option>
+    <option value="管理導論_目錄.html">單元總目錄</option>
+    <option value="管理功能.html" selected>第 1 課：管理功能</option>
+    <option value="主要商業功能.html">第 2 課：主要商業功能</option>
+    <option value="中小型企業.html">第 3 課：中小型企業</option>
+    <option value="管理導論_單元綜合測驗.html">單元綜合模擬試卷 (72分)</option>
+  </select>
+  <div class="brand">
+    <span>管理導論</span>
+    <span class="brand-tag">第 1 課：管理功能</span>
+  </div>
+  <nav class="main-tabs" id="mainTabs">
+    <button class="on" data-tab="sec-plan">1. 管理與「計劃」(SMART組裝器)</button>
+    <button data-tab="sec-org">2. 「組織」：動態結構與職權模擬</button>
+    <button data-tab="sec-lead-ctrl">3. 「領導」配對與「控制」模擬器</button>
+    <button data-tab="sec-prin">4. 五大管理原則與違規偵測室</button>
+    <button data-tab="sec-builder">5. 論點建構工作坊</button>
+  </nav>
+</header>
+
+<!-- ==================== 1. 管理與「計劃」(SMART目標組裝器) ==================== -->
+<section class="view on" id="sec-plan">
+  <div class="sec-banner">
+    <div>
+      <span class="badge b-blue">單元一：管理的意義與重要性 ＆ 第一項管理功能：「計劃 (Planning)」</span>
+      <h1>四項管理功能、計劃的三項重要性與五個步驟 ＆ SMART 目標組裝器</h1>
+      <p>管理是透過計劃、組織、領導和控制四項功能以達成組織目標的過程，具有兩大重要性：(1) 幫助企業有效地達成組織目標；及 (2) 確保企業有效地使用資源（將浪費和成本減至最少）。當中「計劃」是訂立組織目標，並制定最佳方案來達成這些目標的過程。</p>
+    </div>
+    <div class="sub-nav">
+      <button class="active" onclick="switchSub('pln', 0, this)">SMART組裝器與計劃五步驟</button>
+      <button onclick="switchSub('pln', 1, this)">計劃與目標概念挑戰</button>
+    </div>
+  </div>
+
+  <!-- 子分頁 1A：SMART 目標組裝器與計劃理論 -->
+  <div class="sub-view active" id="pln-sub-0">
+    <div class="card" style="border:2px solid var(--primary)">
+      <span class="badge b-blue">互動實驗工具一：SMART 企業目標即時組裝與自動檢測儀</span>
+      <h3 style="font-size:20.5px;margin:6px 0 6px">親手選取下方 3 個組件，為本地家電品牌「綠智智能家電」組裝一個企業目標，系統會即時檢測是否同時符合 SMART 五個規則</h3>
+      <div style="background:var(--primary-light);padding:16px 20px;border-radius:12px;border:1px solid var(--primary-border);margin:10px 0">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:16.5px;font-weight:800">
+          <span>組裝目標：「</span>
+          <select class="sim-select" id="smTime" onchange="updateSmartBuilder()">
+            <option value="ok">在未來 6 個月內</option>
+            <option value="vague">盡快在短期內</option>
+            <option value="none">（不設定任何時限）</option>
+          </select>
+          <select class="sim-select" id="smTarget" onchange="updateSmartBuilder()">
+            <option value="ok">把智能空氣清新機的門市銷量</option>
+            <option value="vague">改善全公司各部門的整體表現</option>
+            <option value="irrel">將產品說明書翻譯成 12 種冷門部落語言的數目</option>
+          </select>
+          <select class="sim-select" id="smMeasure" onchange="updateSmartBuilder()">
+            <option value="ok">提高 18%</option>
+            <option value="unmeas">大幅提升</option>
+            <option value="unattain">由 5% 暴增至 950%</option>
+            <option value="easy">提高 0.02%</option>
+          </select>
+          <span>。」</span>
+        </div>
+        <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-outline" style="padding:5px 12px;font-size:13.5px" onclick="setSmartPreset('ok','ok','ok')">載入標準 SMART 目標</button>
+          <button class="btn btn-outline" style="padding:5px 12px;font-size:13.5px" onclick="setSmartPreset('vague','ok','ok')">測試 A：極速物流「盡快將準時率提高18%」</button>
+          <button class="btn btn-outline" style="padding:5px 12px;font-size:13.5px" onclick="setSmartPreset('ok','vague','unmeas')">測試 B：康健診所「6個月內改善整體表現」</button>
+          <button class="btn btn-outline" style="padding:5px 12px;font-size:13.5px" onclick="setSmartPreset('ok','ok','unattain')">測試 C：新創茶飲「銷量暴增至950%」</button>
+        </div>
+      </div>
+      <div class="grid5" id="smartPillsBox"></div>
+      <div id="smartDiagOutput" style="margin-top:10px"></div>
+    </div>
+
+    <div class="card" style="margin-bottom:0">
+      <span class="badge b-teal">「計劃」的三項重要性、五個步驟與多元目標</span>
+      <div class="chips" id="planChips">
+        <button class="chip active" onclick="renderPlanTab(0)">1. 計劃對企業的三項重要性</button>
+        <button class="chip" onclick="renderPlanTab(1)">2. 互動拆解：計劃的五個步驟（麥香工坊烘焙店）</button>
+        <button class="chip" onclick="renderPlanTab(2)">3. 賺取利潤以外的其他目標</button>
+      </div>
+      <div id="planDetailBox" style="margin-top:10px"></div>
+    </div>
+  </div>
+
+  <!-- 子分頁 1B：計劃與 SMART 目標挑戰 -->
+  <div class="sub-view" id="pln-sub-1">
+    <div class="card" style="margin-bottom:0">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <span class="badge b-teal">四項管理功能、計劃過程與 SMART 目標挑戰</span>
+        <span id="planQuizProg" style="font-size:14.5px;font-weight:600;color:var(--mute)"></span>
+      </div>
+      <div id="planQuizQ" style="font-size:17.5px;font-weight:700;margin-bottom:14px"></div>
+      <div id="planQuizBtns" style="display:flex;flex-direction:column;gap:8px"></div>
+      <div id="planQuizFb" style="margin-top:14px;font-size:16px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 2. 「組織」：動態結構與職權模擬 ==================== -->
+<section class="view" id="sec-org">
+  <div class="sec-banner">
+    <div>
+      <span class="badge b-blue">單元二：第二項管理功能：「組織 (Organising)」</span>
+      <h1>三個管理層級、高架式 vs 扁平式結構、控制幅度、直線 vs 幕僚職權與部門劃分</h1>
+      <p>組織是決定須要做哪些工作，以及如何把這些工作組合起來的過程。在組織過程中，管理層會設計一個組織結構（以組織圖展示），明確說明每個職位的職責及各職位之間的關係，從而協調不同員工的工作以達成企業目標。</p>
+    </div>
+    <div class="sub-nav">
+      <button class="active" onclick="switchSub('org', 0, this)">結構動態模擬與職權測試儀</button>
+      <button onclick="switchSub('org', 1, this)">組織功能概念挑戰</button>
+    </div>
+  </div>
+
+  <!-- 子分頁 2A：高架式 vs 扁平式結構模擬 ＋ 控制幅度與職權測試 -->
+  <div class="sub-view active" id="org-sub-0">
+    <div class="grid2" style="margin-bottom:20px">
+      <!-- 高架式 vs 扁平式結構動態滑桿模擬器 -->
+      <div class="card" style="margin-bottom:0;border:2px solid var(--primary)">
+        <span class="badge b-blue">互動實驗工具二：高架式 vs 扁平式結構動態模擬器</span>
+        <h3 style="font-size:19.5px;margin:6px 0 6px">拉動滑桿改變公司的「管理層級數目」，即時觀察組織圖形狀、控制幅度與四項指標的變化</h3>
+        <div class="slider-row" style="margin-top:10px">
+          <b>設定管理層級數目：</b>
+          <input type="range" id="lvlSlider" min="2" max="6" step="1" value="2" oninput="updateTallFlatSim()">
+          <span id="lblLvlCount" style="font-weight:800;color:var(--teal);font-size:15.5px">2 層 (扁平式)</span>
+        </div>
+        <div id="tallFlatSvgBox" style="margin:10px 0"></div>
+        <div id="tallFlatMeters"></div>
+      </div>
+
+      <!-- 組織圖控制幅度點擊計算 ＆ 直線 vs 幕僚職權測試儀 -->
+      <div class="card" style="margin-bottom:0;border:2px solid var(--teal)">
+        <span class="badge b-teal">互動實驗工具三：控制幅度計算 ＆ 直線 vs 幕僚職權測試儀</span>
+        <h3 style="font-size:19.5px;margin:6px 0 6px">(1) 點擊圖中職位計算「控制幅度」；(2) 選擇兩個職位測試它們的職權關係</h3>
+        <svg viewBox="0 0 500 195" style="width:100%;height:auto;background:var(--surface);border-radius:12px;border:1px solid var(--line)">
+          <line x1="250" y1="40" x2="250" y2="60" stroke="#64748b" stroke-width="2"/>
+          <line x1="95" y1="60" x2="415" y2="60" stroke="#64748b" stroke-width="2"/>
+          <line x1="95" y1="60" x2="95" y2="78" stroke="#64748b" stroke-width="2"/>
+          <line x1="265" y1="60" x2="265" y2="78" stroke="#64748b" stroke-width="2"/>
+          <line x1="415" y1="60" x2="415" y2="78" stroke="#64748b" stroke-width="2"/>
+          <line x1="155" y1="94" x2="205" y2="94" stroke="#0f766e" stroke-width="2" stroke-dasharray="4,3"/>
+          <line x1="325" y1="94" x2="355" y2="94" stroke="#0f766e" stroke-width="2" stroke-dasharray="4,3"/>
+
+          <line x1="95" y1="110" x2="95" y2="128" stroke="#64748b" stroke-width="1.8"/>
+          <line x1="38" y1="128" x2="152" y2="128" stroke="#64748b" stroke-width="1.8"/>
+          <line x1="38" y1="128" x2="38" y2="145" stroke="#64748b" stroke-width="1.8"/>
+          <line x1="95" y1="128" x2="95" y2="145" stroke="#64748b" stroke-width="1.8"/>
+          <line x1="152" y1="128" x2="152" y2="145" stroke="#64748b" stroke-width="1.8"/>
+
+          <line x1="265" y1="110" x2="265" y2="128" stroke="#64748b" stroke-width="1.8"/>
+          <line x1="230" y1="128" x2="300" y2="128" stroke="#64748b" stroke-width="1.8"/>
+          <line x1="230" y1="128" x2="230" y2="145" stroke="#64748b" stroke-width="1.8"/>
+          <line x1="300" y1="128" x2="300" y2="145" stroke="#64748b" stroke-width="1.8"/>
+
+          <line x1="415" y1="110" x2="415" y2="145" stroke="#64748b" stroke-width="1.8"/>
+
+          <g class="org-node" onclick="showSpanInfo(0)">
+            <rect x="190" y="8" width="120" height="32" rx="8" fill="#1e40af"/>
+            <text x="250" y="29" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">營運總裁 (點擊)</text>
+          </g>
+          <g class="org-node" onclick="showSpanInfo(1)">
+            <rect x="35" y="78" width="120" height="32" rx="8" fill="#0f766e"/>
+            <text x="95" y="99" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">門市營業經理 (點擊)</text>
+          </g>
+          <g class="org-node" onclick="showSpanInfo(2)">
+            <rect x="205" y="78" width="120" height="32" rx="8" fill="#4338ca"/>
+            <text x="265" y="99" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">財務經理 (點擊)</text>
+          </g>
+          <g class="org-node" onclick="showSpanInfo(3)">
+            <rect x="355" y="78" width="120" height="32" rx="8" fill="#c2410c"/>
+            <text x="415" y="99" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">人力資源經理 (點擊)</text>
+          </g>
+
+          <rect x="12" y="145" width="52" height="28" rx="6" fill="#eff6ff" stroke="#1e40af"/><text x="38" y="163" font-size="11" font-weight="bold" fill="#1e40af" text-anchor="middle">店務主管1</text>
+          <rect x="69" y="145" width="52" height="28" rx="6" fill="#eff6ff" stroke="#1e40af"/><text x="95" y="163" font-size="11" font-weight="bold" fill="#1e40af" text-anchor="middle">店務主管2</text>
+          <rect x="126" y="145" width="52" height="28" rx="6" fill="#eff6ff" stroke="#1e40af"/><text x="152" y="163" font-size="11" font-weight="bold" fill="#1e40af" text-anchor="middle">店務主管3</text>
+          <rect x="204" y="145" width="52" height="28" rx="6" fill="#eef2ff" stroke="#4338ca"/><text x="230" y="163" font-size="11" font-weight="bold" fill="#4338ca" text-anchor="middle">會計主任4</text>
+          <rect x="274" y="145" width="52" height="28" rx="6" fill="#eef2ff" stroke="#4338ca"/><text x="300" y="163" font-size="11" font-weight="bold" fill="#4338ca" text-anchor="middle">會計主任5</text>
+          <rect x="389" y="145" width="52" height="28" rx="6" fill="#fff7ed" stroke="#c2410c"/><text x="415" y="163" font-size="11" font-weight="bold" fill="#c2410c" text-anchor="middle">招聘主任6</text>
+        </svg>
+        <div id="spanInfoBox" style="margin-top:8px"></div>
+
+        <div style="background:var(--surface);padding:12px 14px;border-radius:10px;border:1px solid var(--line);margin-top:8px;font-size:14px">
+          <b>職權關係測試儀：</b>當
+          <select class="sim-select" id="authFrom" style="padding:4px 8px;font-size:13.5px" onchange="testAuthRelation()">
+            <option value="hr_mgr">人力資源經理</option>
+            <option value="fin_mgr">財務經理</option>
+            <option value="gm">營運總裁</option>
+          </select>
+          對
+          <select class="sim-select" id="authTo" style="padding:4px 8px;font-size:13.5px" onchange="testAuthRelation()">
+            <option value="mkt_mgr">門市營業經理（同級他部）</option>
+            <option value="hr_off">招聘主任 6（直屬下級）</option>
+            <option value="fin_off">會計主任 4（跨部門下級）</option>
+          </select>
+          行使權力時：
+          <div id="authTestResult" style="margin-top:6px;font-weight:700;line-height:1.6"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:0">
+      <span class="badge b-blue">三個管理層級與三種部門劃分方法</span>
+      <div class="chips" id="orgFeatChips">
+        <button class="chip active" onclick="renderOrgFeat(0)">1. 高層・中層・前線管理人員的角色與原創例子（連鎖戲院集團）</button>
+        <button class="chip" onclick="renderOrgFeat(1)">2. 三種常用的部門劃分方法（按功能・按產品・按地區）</button>
+      </div>
+      <div id="orgFeatBox" style="margin-top:10px"></div>
+    </div>
+  </div>
+
+  <!-- 子分頁 2B：組織功能挑戰 -->
+  <div class="sub-view" id="org-sub-1">
+    <div class="card" style="margin-bottom:0">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <span class="badge b-teal">管理層級、結構形態、控制幅度、職權與部門劃分挑戰</span>
+        <span id="orgQuizProg" style="font-size:14.5px;font-weight:600;color:var(--mute)"></span>
+      </div>
+      <div id="orgQuizQ" style="font-size:17.5px;font-weight:700;margin-bottom:14px"></div>
+      <div id="orgQuizBtns" style="display:flex;flex-direction:column;gap:8px"></div>
+      <div id="orgQuizFb" style="margin-top:14px;font-size:16px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 3. 「領導」配對與「控制」模擬器 ==================== -->
+<section class="view" id="sec-lead-ctrl">
+  <div class="sec-banner">
+    <div>
+      <span class="badge b-blue">單元三：第三項功能「領導 (Leading)」＆ 第四項功能「控制 (Controlling)」</span>
+      <h1>三種領導風格（獨裁式・參與式・自由放任式）＆ 控制過程四個步驟動態模擬</h1>
+      <p>領導是引導、指示和激勵員工達成組織目標的過程，分為獨裁式領導、參與式領導（民主式領導）和自由放任式領導三種風格。控制則是對各項活動進行監控，以確保活動按計劃完成的過程，包含四個順序步驟。</p>
+    </div>
+    <div class="sub-nav">
+      <button class="active" onclick="switchSub('lc', 0, this)">領導配對器與控制四步模擬器</button>
+      <button onclick="switchSub('lc', 1, this)">領導與控制概念挑戰</button>
+    </div>
+  </div>
+
+  <!-- 子分頁 3A：領導配對器與控制模擬器 -->
+  <div class="sub-view active" id="lc-sub-0">
+    <div class="grid2">
+      <!-- 領導風格情境智能配對模擬器 -->
+      <div class="card" style="margin-bottom:0;border:2px solid var(--primary)">
+        <span class="badge b-blue">互動實驗工具四：三種領導風格情境配對與優缺點模擬器</span>
+        <h3 style="font-size:19.5px;margin:6px 0 6px">設定下屬特點與工作處境，即時診斷最適合採用的「領導風格」及其好壞處</h3>
+        <div style="background:var(--surface);padding:14px 16px;border-radius:12px;border:1px solid var(--line);font-size:14.5px">
+          <div style="margin-bottom:10px">
+            <b>1. 選擇下屬特點與工作情境：</b>
+            <select class="sim-select" id="leadSceneSel" style="width:100%;margin-top:6px" onchange="updateLeadSim()">
+              <option value="0">情境 A：出現突發危機須迅速決策 ／ 員工被動缺乏經驗、只負責簡單重複工作、決策易遭反對</option>
+              <option value="1">情境 B：員工能幹富經驗、願承擔額外責任、比上司掌握更多前線資訊，且決策需員工支持</option>
+              <option value="2">情境 C：員工積極而獨立，且工作需要很大程度表達自由（如珠寶設計）或高度創造力（如新藥研發）</option>
+            </select>
+          </div>
+          <div>
+            <b>2. 假設管理人員決定採用：</b>
+            <div class="chips" style="margin:6px 0 0">
+              <button class="chip active" id="leadTry0" onclick="tryLeadStyle(0)">獨裁式領導 (專制式)</button>
+              <button class="chip" id="leadTry1" onclick="tryLeadStyle(1)">參與式領導 (民主式)</button>
+              <button class="chip" id="leadTry2" onclick="tryLeadStyle(2)">自由放任式領導</button>
+            </div>
+          </div>
+        </div>
+        <div id="leadSimOutput" style="margin-top:12px"></div>
+      </div>
+
+      <!-- 控制過程四步曲動態差異與糾正模擬器（100% 原創美容院與曲奇餅廠） -->
+      <div class="card" style="margin-bottom:0;border:2px solid var(--teal)">
+        <span class="badge b-teal">互動實驗工具五：「控制 (Controlling)」四步曲動態模擬計算機</span>
+        <h3 style="font-size:19.5px;margin:6px 0 6px">選擇部門並拉動滑桿輸入「實際表現」，親身體驗控制過程的四個步驟與修訂標準</h3>
+        <div style="background:var(--teal-light);padding:14px 16px;border-radius:12px;border:1px solid var(--teal-border);font-size:14.5px">
+          <div style="margin-bottom:10px">
+            <b>第 1 步（訂立表現標準）：</b>
+            <select class="sim-select" id="ctrlDeptSel" style="width:100%;margin-top:6px" onchange="resetCtrlSim()">
+              <option value="sales">市場營銷部：連鎖美容院月度新療程營業額（標準：$500,000）</option>
+              <option value="prod">生產部：手工曲奇餅廠月度烘焙焦損次貨率（標準：不高於 1.5%）</option>
+            </select>
+          </div>
+          <div class="slider-row" style="margin-bottom:4px">
+            <b id="ctrlSliderLbl">第 2 步（量度實際表現）：</b>
+            <input type="range" id="ctrlActSlider" min="200" max="550" step="10" value="230" oninput="updateCtrlSim()">
+            <span id="lblCtrlAct" style="font-weight:900;color:var(--red);font-size:16px">$230,000</span>
+          </div>
+        </div>
+        <div id="ctrlSimOutput" style="margin-top:12px"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 子分頁 3B：領導與控制挑戰 -->
+  <div class="sub-view" id="lc-sub-1">
+    <div class="card" style="margin-bottom:0">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <span class="badge b-teal">領導風格適用情況與控制過程實戰挑戰</span>
+        <span id="lcQuizProg" style="font-size:14.5px;font-weight:600;color:var(--mute)"></span>
+      </div>
+      <div id="lcQuizQ" style="font-size:17.5px;font-weight:700;margin-bottom:14px"></div>
+      <div id="lcQuizBtns" style="display:flex;flex-direction:column;gap:8px"></div>
+      <div id="lcQuizFb" style="margin-top:14px;font-size:16px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 4. 五大管理原則與違規偵測室 ==================== -->
+<section class="view" id="sec-prin">
+  <div class="sec-banner">
+    <div>
+      <span class="badge b-blue">單元四：五項有效管理的原則 (Principles of Effective Management)</span>
+      <h1>分工・統一命令・統一的方向・平衡職權和責任（含授權）・目標管理 (MBO)</h1>
+      <p>管理人員可透過採用五項常見的有效管理原則來提升企業的效能和效率：(A) 分工（4優3缺）、(B) 統一命令（每名下屬只有一位直屬上司）、(C) 統一的方向（每個計劃由一人統領）、(D) 平衡職權和責任（職權相稱原則與授權）、以及 (E) 目標管理（6優3缺）。</p>
+    </div>
+    <div class="sub-nav">
+      <button class="active" onclick="switchSub('prn', 0, this)">分工模擬・違規偵測與五原則百科</button>
+      <button onclick="switchSub('prn', 1, this)">有效管理原則實戰挑戰</button>
+    </div>
+  </div>
+
+  <!-- 子分頁 4A：分工模擬、違規偵測與五原則百科 -->
+  <div class="sub-view active" id="prn-sub-0">
+    <div class="grid2" style="margin-bottom:20px">
+      <!-- 分工程度動態權衡模擬器 -->
+      <div class="card" style="margin-bottom:0;border:2px solid var(--teal)">
+        <span class="badge b-teal">互動實驗工具六：「分工 (Division of Work)」程度動態權衡模擬器</span>
+        <h3 style="font-size:19.5px;margin:6px 0 6px">拉動滑桿調整手工眼鏡廠「將製鏡過程分拆為細小工序的程度」，觀察四大優點與三大缺點的消長</h3>
+        <div class="slider-row" style="margin-top:10px">
+          <b>設定分工化程度：</b>
+          <input type="range" id="divWorkSlider" min="1" max="3" step="1" value="3" oninput="updateDivWorkSim()">
+          <span id="lblDivWork" style="font-weight:800;color:var(--teal);font-size:14.5px">高度分工 (拆為6道細小工序)</span>
+        </div>
+        <div id="divWorkSimOutput" style="margin-top:10px"></div>
+      </div>
+
+      <!-- 辦公室管理原則違規情境偵測儀（100% 原創現場） -->
+      <div class="card" style="margin-bottom:0;border:2px solid var(--primary)">
+        <span class="badge b-blue">互動實驗工具七：辦公室管理原則「違規情境偵測儀」</span>
+        <h3 style="font-size:19.5px;margin:6px 0 6px">點擊下方 4 個企業混亂現場，即時揪出違反了哪一項有效管理原則並查看修正方案</h3>
+        <div class="grid2" style="gap:10px;margin-top:10px">
+          <div class="scene-card active" id="bugCard0" onclick="diagnoseBug(0)">
+            <b style="color:var(--red)">現場 1：一僕二主</b>
+            <div style="font-size:13px;color:var(--ink-sec);margin-top:3px">病房經理：「立即去巡房派藥！」<br>行政主任：「立即去整理年度檔案！」</div>
+          </div>
+          <div class="scene-card" id="bugCard1" onclick="diagnoseBug(1)">
+            <b style="color:var(--primary)">現場 2：背道而馳</b>
+            <div style="font-size:13px;color:var(--ink-sec);margin-top:3px">集團目標：「今年緊縮開支過冬！」<br>車隊主管：「動用巨資買十輛豪華房車！」</div>
+          </div>
+          <div class="scene-card" id="bugCard2" onclick="diagnoseBug(2)">
+            <b style="color:var(--amber)">現場 3：有責無權</b>
+            <div style="font-size:13px;color:var(--ink-sec);margin-top:3px">航空地勤主任負責安撫延誤乘客，但連派發一張免費餐券的權力都沒有！</div>
+          </div>
+          <div class="scene-card" id="bugCard3" onclick="diagnoseBug(3)">
+            <b style="color:var(--teal)">現場 4：授權卸責</b>
+            <div style="font-size:13px;color:var(--ink-sec);margin-top:3px">公關總監授權下屬籌辦發布會出錯後說：「我已授權給他，最終結果與我無關！」</div>
+          </div>
+        </div>
+        <div id="bugDiagOutput" style="margin-top:12px"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:0">
+      <span class="badge b-blue">五項有效管理的原則完整筆記</span>
+      <h3 style="font-size:20.5px;margin:6px 0 8px">點擊五項管理原則，溫習定義、優缺點與應試區分提示</h3>
+      <div class="grid5" id="fivePrinBtns"></div>
+      <div id="fivePrinDetail" style="margin-top:10px"></div>
+    </div>
+  </div>
+
+  <!-- 子分頁 4B：有效管理原則挑戰 -->
+  <div class="sub-view" id="prn-sub-1">
+    <div class="card" style="margin-bottom:0">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <span class="badge b-teal">五項有效管理原則辨識與概念判斷挑戰</span>
+        <span id="prinQuizProg" style="font-size:14.5px;font-weight:600;color:var(--mute)"></span>
+      </div>
+      <div id="prinQuizQ" style="font-size:17.5px;font-weight:700;margin-bottom:14px"></div>
+      <div id="prinQuizBtns" style="display:flex;flex-direction:column;gap:8px"></div>
+      <div id="prinQuizFb" style="margin-top:14px;font-size:16px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 5. 論點建構問答工作坊 (12題：100% 原創情境・一題一論點・按論述邏輯點評) ==================== -->
+<section class="view" id="sec-builder">
+  <div class="sec-banner">
+    <div>
+      <span class="badge b-amber">一段一論點 · 100% 原創商業情境與論述邏輯點評訓練</span>
+      <h1>「一段一個獨立論點」論點建構工作坊</h1>
+      <p>本工作坊採用 <b>12 個全新原創的香港商業情境</b>，每道題目均嚴格要求建構<b>單一獨立論點段落</b>（4 道短答題：2 步建構 · 2 分；8 道進階論述題：3 步深度建構 · 3 分）。每個步驟均設有「滿分論述示範（綠燈）」、「能力較弱學生常犯的解說不足示範（琥珀黃燈）」及「概念或邏輯錯誤選項（紅燈）」，並針對<b>論述邏輯、因果推演與情境扣連深度</b>進行點評。</p>
+    </div>
+    <div class="sub-nav">
+      <button class="active" onclick="switchBuilderCat('short', this)">短答單一論點訓練 (4題)</button>
+      <button onclick="switchBuilderCat('essay', this)">論述單一論點訓練 (8題)</button>
+    </div>
+  </div>
+
+  <details class="guide-Collapsible">
+    <summary>查看「一題一論點、一段一論點」建構結構與論述點評標準（點擊展開 / 收起）</summary>
+    <div class="grid2" style="margin-top:14px;font-size:16px">
+      <div style="background:var(--primary-light);padding:14px 18px;border-radius:10px">
+        <b style="color:var(--primary)">短答題／個案題模式（單一論點滿分 2 分 — 2 步建構）</b><br>
+        <span class="hl-s1">第 1 步 (1分)</span> 準確指出單一管理概念、SMART準則、管理原則或領導風格缺點，並界定其核心邏輯<br>
+        <span class="hl-s2">第 2 步 (1分)</span> 緊扣題目企業的具體情況作針對性因果解說，完成單一論點閉環
+      </div>
+      <div style="background:var(--teal-light);padding:14px 18px;border-radius:10px">
+        <b style="color:var(--teal)">進階論述題模式（單一論點滿分 3 分 — 3 步深度建構）</b><br>
+        <span class="hl-s1">第 1 步 (1分)</span> 指出單一重要性、單一步驟、單一比較維度或單一管理原則優點，並闡明其運作機制<br>
+        <span class="hl-s2">第 2 步 (1分)</span> 針對題目企業的業務背景，設定一個具體可行的商業運作例子作說明<br>
+        <span class="hl-s3">第 3 步 (1分)</span> 深化推論該單一論點最終對企業決策效率、產品質素、成本控制或達成目標的具體影響
+      </div>
+    </div>
+  </details>
+
+  <div class="card" style="padding:18px 22px;margin-bottom:18px">
+    <div style="font-size:15px;color:var(--mute);font-weight:700;margin-bottom:8px" id="builderCatLabel">選擇短答題（每題建構單一 2 分論點）：</div>
+    <div class="chips" id="questionChips" style="margin:0"></div>
+  </div>
+
+  <div id="builderWorkspace"></div>
+</section>
+
+<script>
+  // Main Tab Switching
+  document.querySelectorAll('#mainTabs button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#mainTabs button').forEach(b => b.classList.remove('on'));
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('on'));
+      btn.classList.add('on');
+      document.getElementById(btn.dataset.tab).classList.add('on');
+    });
+  });
+
+  // Sub-view Switching
+  function switchSub(prefix, idx, btn) {
+    btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll(`[id^="${prefix}-sub-"]`).forEach((el, i) => {
+      el.classList.toggle('active', i === idx);
+    });
+  }
+
+  // ====== 1A. SMART 目標即時組裝與檢測儀（100% 原創預設） ======
+  function setSmartPreset(t, tg, m) {
+    document.getElementById('smTime').value = t;
+    document.getElementById('smTarget').value = tg;
+    document.getElementById('smMeasure').value = m;
+    updateSmartBuilder();
+  }
+
+  function updateSmartBuilder() {
+    const t = document.getElementById('smTime').value;
+    const tg = document.getElementById('smTarget').value;
+    const m = document.getElementById('smMeasure').value;
+
+    const isS = tg !== 'vague';
+    const isM = m !== 'unmeas' && tg !== 'vague';
+    const isA = m === 'ok';
+    const isR = tg !== 'irrel';
+    const isT = t === 'ok';
+
+    const pills = [
+      { k: "S 具體 (Specific)", ok: isS, reason: isS ? "清楚明確說明要達到的結果" : "「改善整體表現」籠統空泛，容易使人誤解" },
+      { k: "M 可量度 (Measurable)", ok: isM, reason: isM ? "可量化或以數字形式表達" : "不能量化，管理人員難以知道是否已達成目標" },
+      { k: "A 可達到 (Attainable)", ok: isA, reason: m === 'ok' ? "既富挑戰性，又可憑額外努力達成" : (m === 'unattain' ? "暴增至 950% 遙不可及，難以激勵員工" : (m === 'easy' ? "只提高 0.02% 唾手可得，難以激勵員工" : "欠缺量化幅度以評估難度")) },
+      { k: "R 相關 (Relevant)", ok: isR, reason: isR ? "針對影響企業業績的關鍵因素" : "翻譯成 12 種冷門部落語言與香港家電店業績無關" },
+      { k: "T 設有時限 (Time-based)", ok: isT, reason: isT ? "設有合理時限，讓員工有足夠時間達成" : (t === 'vague' ? "「盡快」字眼含糊，未設明確合理時限" : "沒有就達成目標設定時限") }
+    ];
+
+    document.getElementById('smartPillsBox').innerHTML = pills.map(p => `
+      <div class="smart-pill ${p.ok ? 'pass' : 'fail'}">
+        <div style="font-size:14.5px">${p.ok ? '✓' : '✗'} ${p.k}</div>
+        <div style="font-size:12px;font-weight:600;margin-top:4px;opacity:0.9">${p.reason}</div>
+      </div>
+    `).join('');
+
+    const allPass = pills.every(p => p.ok);
+    const failedList = pills.filter(p => !p.ok).map(p => `<b>${p.k}</b>（${p.reason}）`);
+    document.getElementById('smartDiagOutput').innerHTML = allPass
+      ? `<div style="background:var(--green-light);border-left:4px solid var(--green);padding:12px 16px;border-radius:10px;color:#064e3b;font-size:15px"><b>完美組裝！這是一個同時符合五個 SMART 規則的良好目標。</b>有效的目標能為員工提供清晰指引，並作為監控工作進度的標準。</div>`
+      : `<div style="background:var(--red-light);border-left:4px solid var(--red);padding:12px 16px;border-radius:10px;color:#881337;font-size:15px"><b>目標存在缺陷（有效的目標必須同時符合全部五個規則）：</b><br>目前未能展現：${failedList.join('；')}</div>`;
+  }
+  updateSmartBuilder();
+
+  const planTabData = [
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--primary);font-size:15.5px;line-height:1.8">
+      <b style="color:var(--primary);font-size:17px">1. 「計劃 (Planning)」對企業的三項重要性：</b><br>
+      • <b>(1) 幫助管理人員尋找機會和應對挑戰</b>：管理人員在制定計劃時會分析企業的資源，並收集與營商環境相關的資料。由於他們會展望將來，所以能夠<b>發掘出各種商機</b>（如食品商見純素健康飲食人數大幅上升，分配更多資源研發純素產品），並<b>預計可能會出現的問題以採取預防措施</b>（如見鄰區新競爭對手開業搶客，預先增加推廣預算維持市佔率）。<br>
+      • <b>(2) 為員工提供指引</b>：計劃可為員工提供清晰的指引。企業在計劃中明確列出目標（如物理治療診所明確列出每日服務預約目標），有助<b>激勵員工更專注和投入地朝着目標努力工作</b>。<br>
+      • <b>(3) 作為監控工作進度的標準</b>：計劃中所訂立的目標可以作為標準，讓管理人員<b>評估、控制和監督員工的工作進度</b>（如精工手錶廠計劃每月組裝 3,000 隻手錶，但上月只能產出 2,200 隻，管理層便知道工作進度落後了）。
+    </div>`,
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--primary);font-size:15.5px;line-height:1.8">
+      <b style="color:var(--primary);font-size:17px">2. 計劃的過程（五個順序步驟 —— 點擊步驟查看「麥香工坊烘焙店」原創實例）：</b>
+      <div class="chips" style="margin:8px 0">
+        <button class="chip active" onclick="showPlanStep(0,this)">第 1 步：訂立目標</button>
+        <button class="chip" onclick="showPlanStep(1,this)">第 2 步：收集有用和相關的資料</button>
+        <button class="chip" onclick="showPlanStep(2,this)">第 3 步：評估各個計劃，選出最佳方案</button>
+        <button class="chip" onclick="showPlanStep(3,this)">第 4 步：制定計劃</button>
+        <button class="chip" onclick="showPlanStep(4,this)">第 5 步：執行計劃</button>
+      </div>
+      <div id="planStepInner" style="background:var(--card);padding:14px 18px;border-radius:10px;border-left:4px solid var(--primary)">
+        <b>第 1 步（訂立目標）：</b>決定企業想要達到的目標。例如，「麥香工坊」連鎖烘焙店訂下 SMART 銷售目標，要在下一季度將門市營業額提高 15%。
+      </div>
+    </div>`,
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--primary);font-size:15.5px;line-height:1.8">
+      <b style="color:var(--primary);font-size:17px">3. 賺取利潤以外的企業目標：</b><br>
+      所有企業都有多個目標，賺取利潤只是其中之一。如企業只着重賺取利潤而忽略其他目標，便難以取得成功。企業可能想達成的其他目標包括：<br>
+      • <b>(1) 增加市場佔有率</b> ｜ <b>(2) 研發新產品</b> ｜ <b>(3) 降低生產成本</b> ｜ <b>(4) 增加員工對企業的忠誠度</b> ｜ <b>(5) 為顧客提供優質服務</b>。
+    </div>`
+  ];
+  const planStepTexts = [
+    "<b>第 1 步（訂立目標）：</b>決定企業想要達到的目標。例如，「麥香工坊」連鎖烘焙店訂下 SMART 銷售目標，要在下一季度將門市營業額提高 15%。",
+    "<b>第 2 步（收集有用和相關的資料）：</b>分析企業擁有的內部資源，並收集外在有助達成目標的資料。例如，烘焙店發現近年健身及減醣人士對「低糖生酮麵包」需求大增，而店內西餅師傅具備研發無麵粉烘焙品的技術。",
+    "<b>第 3 步（評估各個計劃，選出最佳方案）：</b>制定和評估<b>所有可行（多個）</b>的計劃，然後選出能最有效地達成目標的方案。例如，烘焙店比較「推出低糖生酮牛角包」、「全線傳統麵包八折」及「通宵營業」三個方案後，發現推出「低糖生酮牛角包」最合乎成本效益，所以選擇這個方案。",
+    "<b>第 4 步（制定計劃）：</b>制定<b>執行計劃的時間表</b>並<b>分配資源</b>。例如，烘焙店計劃首兩週先在商業區三間分店早晨時段試推，第三週起擴展至全線分店，並為此分配杏仁粉採購資金及烘焙師人力資源。",
+    "<b>第 5 步（執行計劃）：</b>按計劃展開實際行動，並持續檢討所訂的 15% 營業額增長目標是否達成（注意：若考題問「在執行計劃前的計劃過程」，則只須回答第 1 至第 4 步！）。"
+  ];
+  function showPlanStep(sIdx, btn) {
+    btn.parentElement.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('planStepInner').innerHTML = planStepTexts[sIdx];
+  }
+  function renderPlanTab(idx) {
+    document.querySelectorAll('#planChips .chip').forEach((c, i) => c.classList.toggle('active', i === idx));
+    document.getElementById('planDetailBox').innerHTML = planTabData[idx];
+  }
+  renderPlanTab(0);
+
+  // 對稱深度設計的 6 道計劃與目標挑戰題（100% 原創情境）
+  const planQuizItems = [
+    {
+      q: "1. 本地寵物保健品公司打算參加每年夏季舉辦的「香港國際寵物用品博覽」。指出以下四項工作分別涉及哪項「管理功能」：<br>(a) 每日點算新登記會員人數並與目標比較，採取措施確保按計劃達標 ｜ (b) 激勵和引導現場推廣員積極向狗主介紹產品 ｜ (c) 為員工分配工作，如搭建展位、介紹產品和收銀結帳 ｜ (d) 決定參展的目標，即在四天展期內吸納 500 名新會員",
+      opts: [
+        "A. (a) 控制 ｜ (b) 領導 ｜ (c) 組織 ｜ (d) 計劃",
+        "B. (a) 計劃 ｜ (b) 組織 ｜ (c) 領導 ｜ (d) 控制",
+        "C. (a) 組織 ｜ (b) 控制 ｜ (c) 計劃 ｜ (d) 領導"
+      ],
+      ans: 0,
+      exp: "正確。(a) 監控進度並確保按計劃完成屬「控制」；(b) 激勵和引導員工屬「領導」；(c) 決定並分配組合工作屬「組織」；(d) 訂立參展目標屬「計劃」。"
+    },
+    {
+      q: "2. 下列哪兩項是「管理對企業的重要性」？",
+      opts: [
+        "A. (1) 幫助企業徹底消除所有外在市場競爭；(2) 保證企業在任何經濟衰退時期都必定賺取豐厚利潤",
+        "B. (1) 幫助企業有效地達成組織目標；(2) 確保企業有效地使用資源（充分利用有限的人力、資金、機器和原料，將浪費和成本減至最少）",
+        "C. (1) 讓企業無須再遵守政府的任何法例規定；(2) 讓企業將所有管理人員的職權和責任減至零"
+      ],
+      ans: 1,
+      exp: "正確。管理的兩大重要性是：(1) 幫助企業有效地達成組織目標；及 (2) 確保企業有效地使用資源（注意 A 錯誤：良好管理有助提升表現，但不能保證必定賺取豐厚利潤或消除外在競爭）。"
+    },
+    {
+      q: "3. 辨別以下陳述是否正確：「在計劃的過程中（第 3 步），企業只會制定和評估唯一一個有助達成目標的計劃。」",
+      opts: [
+        "A. 正確 — 為了節省時間，管理人員在收集資料後只會構思單一方案並直接執行，絕不會制定其他備選方案",
+        "B. 不正確 — 在計劃過程的第 3 步（評估各個計劃，選出最佳方案），企業會制定和評估『所有可行的計劃（多個不同方案）』，然後比較並選出能最有效地達成目標的最佳方案",
+        "C. 不正確 — 在計劃過程中，管理人員完全不需要制定或評估任何行動方案，只需在年終計算會計比率即可"
+      ],
+      ans: 1,
+      exp: "正確（陳述不正確）。在第 3 步中，企業會制定和評估所有可行的計劃，然後選出能最有效地達成目標的方案。"
+    },
+    {
+      q: "4. 辨別以下陳述是否正確：「由於未來的營商環境充滿不確定性，企業在制定計劃時不用制定執行計劃的時間表。」",
+      opts: [
+        "A. 正確 — 時間表會限制員工的自由度，因此任何商業計劃都不應包含執行時間表或資源分配安排",
+        "B. 不正確 — 在計劃過程的第 4 步（制定計劃），企業必須『制定執行計劃的時間表並分配資源』，以便按部就班展開行動及作為日後監控進度的依據",
+        "C. 不正確 — 制定執行計劃的時間表屬於控制功能的最後一步，只在計劃徹底失敗後才需要編製"
+      ],
+      ans: 1,
+      exp: "正確（陳述不正確）。在計劃過程的第 4 步中，企業須制定執行計劃的時間表並分配資金和人力資源。"
+    },
+    {
+      q: "5. 以下是三家本地公司所制定的目標：(a) 極速速遞：「盡快把準時派件率提高 12%」 ｜ (b) 康健專科診所：「在未來六個月內減少病人對輪候時間的投訴」 ｜ (c) 初創手工雪糕店：「下月把我們在香港雪糕市場的佔有率由 2% 提升至 85%」。這三個目標分別沒有符合哪一項良好 (SMART) 目標的準則？",
+      opts: [
+        "A. (a) 沒有符合『設有時限』（盡快字眼含糊） ｜ (b) 沒有符合『可量度』（未以數字形式表達減少幅度） ｜ (c) 沒有符合『可達到』（一個月內市佔率由2%升至85%遙不可及）",
+        "B. (a) 沒有符合『相關』 ｜ (b) 沒有符合『設有時限』 ｜ (c) 沒有符合『可量度』",
+        "C. 三個目標全部同時符合具體、可量度、可達到、相關及設有時限五個 SMART 規則"
+      ],
+      ans: 0,
+      exp: "正確。(a) 「盡快」欠明確時限（違反設有時限 Time-based）；(b) 「減少投訴」無量化指標（違反可量度 Measurable）；(c) 下月市佔率由 2% 暴升至 85% 不切實際（違反可達到 Attainable）。"
+    },
+    {
+      q: "6. 下列哪項「不是」有效（良好 SMART）目標的特點？",
+      opts: [
+        "A. 具體 (Specific)：清楚明確說明要達到的結果，避免籠統空泛引致誤解",
+        "B. 容易達到 (Easily Achievable)：目標設定得極為容易、唾手可得，讓員工不費吹灰之力便可達成",
+        "C. 相關 (Relevant)：針對影響企業業績的關鍵因素，如銷售收益、市場佔有率、成本及盈利能力"
+      ],
+      ans: 1,
+      exp: "正確。在「可達到 (Attainable)」規則下，目標應該是「既富挑戰性，又可憑着額外的努力達成（不太容易，也不太困難）」；唾手可得（太容易）或遙不可及（太困難）的目標都難以激勵員工努力工作。"
+    }
+  ];
+  let curPLQ = 0;
+  function renderPlanQuiz() {
+    const it = planQuizItems[curPLQ];
+    document.getElementById('planQuizProg').textContent = `題目 ${curPLQ + 1} / ${planQuizItems.length}`;
+    document.getElementById('planQuizQ').innerHTML = it.q;
+    document.getElementById('planQuizBtns').innerHTML = it.opts.map((o, i) => `<button class="opt-card" style="margin:0;padding:12px 16px" onclick="checkPlanQuiz(${i})">${o}</button>`).join('');
+    document.getElementById('planQuizFb').innerHTML = '';
+  }
+  function checkPlanQuiz(idx) {
+    const it = planQuizItems[curPLQ];
+    const fb = document.getElementById('planQuizFb');
+    if (idx === it.ans) {
+      fb.innerHTML = `<span style="color:var(--green);font-weight:700">${it.exp}</span> <button class="btn btn-outline" style="margin-left:8px;padding:6px 14px;font-size:14.5px" onclick="curPLQ=(curPLQ+1)%planQuizItems.length;renderPlanQuiz()">下一題</button>`;
+    } else {
+      fb.innerHTML = `<span style="color:var(--red);font-weight:700">答案不正確。${it.exp.replace('正確。','')}</span>`;
+    }
+  }
+  renderPlanQuiz();
+
+  // ====== 2. 「組織」：高架式 vs 扁平式結構模擬、控制幅度與職權 ======
+  function updateTallFlatSim() {
+    const lvls = +document.getElementById('lvlSlider').value;
+    const isFlat = lvls <= 3;
+    const typeName = lvls === 2 ? "極扁平式結構" : lvls === 3 ? "扁平式結構" : lvls === 4 ? "中等層級結構" : "高架式結構";
+    document.getElementById('lblLvlCount').textContent = `${lvls} 層 (${typeName})`;
+    document.getElementById('lblLvlCount').style.color = isFlat ? 'var(--teal)' : 'var(--primary)';
+
+    const spanMap = { 2: "16 人 (極廣)", 3: "8 人 (較廣)", 4: "4 人 (適中)", 5: "3 人 (較窄)", 6: "2 人 (極窄)" };
+    const commSpeed = Math.round(105 - lvls * 14);
+    const flexScore = Math.round(108 - lvls * 15);
+    const motivScore = Math.round(102 - lvls * 13);
+    const supTight = Math.round(lvls * 15 + 5);
+
+    let svgRows = '';
+    const rowH = Math.floor(110 / lvls);
+    for (let r = 0; r < lvls; r++) {
+      const boxCount = r === 0 ? 1 : Math.min(12, Math.pow(2, r) + (lvls <= 3 ? (r * 3) : 0));
+      const boxW = Math.min(60, Math.floor(380 / boxCount) - 6);
+      const totalW = boxCount * (boxW + 6);
+      const startX = (440 - totalW) / 2;
+      const y = 8 + r * rowH;
+      const col = r === 0 ? '#1e40af' : (r === lvls - 1 ? '#0f766e' : '#4338ca');
+      for (let b = 0; b < boxCount; b++) {
+        svgRows += `<rect x="${startX + b * (boxW + 6)}" y="${y}" width="${boxW}" height="${Math.max(12, rowH - 5)}" rx="4" fill="${col}" opacity="0.88"/>`;
+      }
+    }
+
+    document.getElementById('tallFlatSvgBox').innerHTML = `
+      <svg viewBox="0 0 440 122" style="width:100%;height:auto;background:var(--surface);border-radius:10px;border:1px solid var(--line)">
+        ${svgRows}
+      </svg>
+      <div style="display:flex;justify-content:space-between;font-size:13.5px;background:var(--surface);padding:8px 12px;border-radius:8px;margin-top:6px;border:1px solid var(--line)">
+        <span><b>管理層級：</b>${lvls} 層</span>
+        <span><b>控制幅度：</b><b style="color:var(--primary)">${spanMap[lvls]}</b></span>
+        <span><b>結構：</b><b style="color:${isFlat?'var(--teal)':'var(--primary)'}">${isFlat?'扁平式結構':'高架式結構'}</b></span>
+      </div>`;
+
+    document.getElementById('tallFlatMeters').innerHTML = `
+      <div class="meter-wrap">
+        <div class="meter-label"><span>溝通速度與準確度（扁平式較快、較少誤解）</span><span>${commSpeed}%</span></div>
+        <div class="meter-bg"><div class="meter-fill" style="width:${commSpeed}%;background:var(--teal)"></div></div>
+      </div>
+      <div class="meter-wrap">
+        <div class="meter-label"><span>效率和靈活性（扁平式決策和行動速度較快）</span><span>${flexScore}%</span></div>
+        <div class="meter-bg"><div class="meter-fill" style="width:${flexScore}%;background:var(--green)"></div></div>
+      </div>
+      <div class="meter-wrap">
+        <div class="meter-label"><span>員工工作動機（扁平式享有較大自主權，動機較高）</span><span>${motivScore}%</span></div>
+        <div class="meter-bg"><div class="meter-fill" style="width:${motivScore}%;background:var(--amber)"></div></div>
+      </div>
+      <div class="meter-wrap" style="margin-bottom:0">
+        <div class="meter-label"><span>監督嚴密程度（高架式控制幅度較窄，嚴密監督）</span><span>${supTight}%</span></div>
+        <div class="meter-bg"><div class="meter-fill" style="width:${supTight}%;background:var(--primary)"></div></div>
+      </div>`;
+  }
+  updateTallFlatSim();
+
+  const spanInfos = [
+    `<div style="background:var(--primary-light);padding:10px 14px;border-radius:8px;border-left:4px solid var(--primary);font-size:13.5px">
+      <b style="color:var(--primary)">【營運總裁】的控制幅度 ＝ 3 人</b>（直接向他匯報的只有門市營業、財務和人力資源 3 位經理；切勿與下屬總人數 9 人混淆！）
+    </div>`,
+    `<div style="background:var(--teal-light);padding:10px 14px;border-radius:8px;border-left:4px solid var(--teal);font-size:13.5px">
+      <b style="color:var(--teal)">【門市營業經理】的控制幅度 ＝ 3 人</b>（下一層級的直接下屬為店務主管 1、2、3）
+    </div>`,
+    `<div style="background:#eef2ff;padding:10px 14px;border-radius:8px;border-left:4px solid #4338ca;font-size:13.5px">
+      <b style="color:#4338ca">【財務經理】的控制幅度 ＝ 2 人</b>（下一層級的直接下屬為會計主任 4、5）
+    </div>`,
+    `<div style="background:var(--amber-light);padding:10px 14px;border-radius:8px;border-left:4px solid var(--amber);font-size:13.5px">
+      <b style="color:var(--amber)">【人力資源經理】的控制幅度 ＝ 1 人</b>（下一層級的直接下屬只有招聘主任 6）
+    </div>`
+  ];
+  function showSpanInfo(idx) {
+    document.getElementById('spanInfoBox').innerHTML = spanInfos[idx];
+  }
+  showSpanInfo(0);
+
+  function testAuthRelation() {
+    const f = document.getElementById('authFrom').value;
+    const t = document.getElementById('authTo').value;
+    let res = '';
+    if (f === 'hr_mgr' && t === 'mkt_mgr') {
+      res = `<span style="color:var(--teal)">屬於【幕僚職權 (Staff Authority) — 諮詢關係】：</span>人力資源經理可為門市營業經理提供招聘與培訓支援、協助和專業意見，幫助後者作出決策，但<b>對其他部門的管理人員沒有直線職權，不能替後者作出決策</b>。`;
+    } else if (f === 'hr_mgr' && t === 'hr_off') {
+      res = `<span style="color:var(--primary)">屬於【直線職權 (Line Authority) — 從屬關係】：</span>擁有幕僚職權的經理，<b>對他們自己的直屬下屬（招聘主任 6）也有直線職權</b>，可向其發出工作指令並進行指導和監督！`;
+    } else if (f === 'hr_mgr' && t === 'fin_off') {
+      res = `<span style="color:var(--red)">【沒有直線職權（越權違規）】：</span>人力資源經理並非會計主任 4 的直屬上司；若直接向會計主任 4 發出工作指令，會<b>違反「統一命令原則」</b>，令下屬混淆及造成管理人員之間的衝突。`;
+    } else if (f === 'fin_mgr' && t === 'mkt_mgr') {
+      res = `<span style="color:var(--teal)">屬於【幕僚職權 (Staff Authority) — 諮詢關係】：</span>財務經理可為門市營業經理提供預算編製與財務分析支援、協助和意見，幫助其作出決策。`;
+    } else if (f === 'fin_mgr' && t === 'fin_off') {
+      res = `<span style="color:var(--primary)">屬於【直線職權 (Line Authority) — 從屬關係】：</span>財務經理是會計主任 4 的直屬上司，擁有直線職權向其發出工作指令、指導和監督。`;
+    } else if (f === 'fin_mgr' && t === 'hr_off') {
+      res = `<span style="color:var(--red)">【沒有直線職權（越權違規）】：</span>財務經理不能跨部門直接向招聘主任 6 發出工作指令，否則會<b>違反「統一命令原則」</b>。`;
+    } else if (f === 'gm' && t === 'mkt_mgr') {
+      res = `<span style="color:var(--primary)">屬於【直線職權 (Line Authority) — 從屬關係】：</span>營運總裁是門市營業經理的直屬上司，擁有直線職權向其發出工作指令。`;
+    } else {
+      res = `<span style="color:var(--red)">【違反統一命令原則（繞過直屬上司越級指揮）】：</span>主任 4、6 的直屬上司分別是財務經理和人力資源經理；若總裁讓基層主任同時向部門經理和總裁兩人匯報，會<b>違反統一命令原則</b>。`;
+    }
+    document.getElementById('authTestResult').innerHTML = res;
+  }
+  testAuthRelation();
+
+  const orgFeatData = [
+    `<table class="comp-table" style="font-size:15px">
+      <thead><tr><th style="width:18%">管理層級</th><th style="width:26%">角色</th><th style="width:36%">原創工作例子（以連鎖戲院集團為例）</th><th style="width:20%">常用職銜例子</th></tr></thead>
+      <tbody>
+        <tr><td><b>1. 高層管理人員</b><br><small>(上層管理人員)</small></td><td>訂立公司的<b>整體目標和方向</b></td><td>• 制定集團的<b>願景和使命</b><br>• 制定公司整體政策和策略<br>• 作出<b>影響全公司的重大決策</b>（如決定收購海外院線、未來三年把市佔率增加 15%）</td><td>總裁、副總裁、行政總裁、營運總監、財務總監</td></tr>
+        <tr><td><b>2. 中層管理人員</b></td><td>擔當<b>高層管理人員和前線管理人員之間的橋樑</b></td><td>• <b>執行由高層管理人員落實的計劃和決策</b>（如制定九龍區戲院的早場票價推廣計劃、物色新戲院合適商場鋪位）<br>• <b>解決跨院線營運上的問題，以改善公司的表現</b></td><td>地區經理、區域經理、分部經理、部門主管、中心主任</td></tr>
+        <tr><td><b>3. 前線管理人員</b><br><small>(第一線管理人員)</small></td><td>負責公司的<b>日常營運</b></td><td>• <b>即場處理觀眾對冷氣或音響的投訴</b><br>• <b>直接監督售票及帶位員工，並解決員工之間的糾紛</b><br>• <b>處理日常營運中出現的問題</b>（如確保放映廳及小食部運作暢順）</td><td>分院經理、助理經理、值班主管、組長、統籌員</td></tr>
+      </tbody>
+    </table>`,
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--teal);font-size:15.5px;line-height:1.8">
+      <b style="color:var(--teal);font-size:17px">部門的組成（部門劃分 ／ 部門化 ／ 分部 Departmentalisation）的三種常用方法：</b><br>
+      • <b>(1) 按功能劃分（功能分部）</b>：指部門由<b>功能相近</b>的職位所組成（如新星室內設計公司設立設計部、財務部、市場營銷部、人力資源部）。普遍用於<b>小型公司和產品較少的公司</b>。<br>
+      • <b>(2) 按產品劃分（產品分部）</b>：指部門由<b>負責生產或售賣同類產品</b>的職位所組成（如精工鐘錶製造商為機械錶、智能運動錶、珠寶腕錶、座枱鐘各設一個部門）。經常用於<b>生產或售賣大量不同產品的公司</b>。<br>
+      • <b>(3) 按地區劃分（區域分部）</b>：指部門由<b>同一地區內</b>的職位所組成（如跨國航運集團為歐美區、亞太區、中東區、非洲區業務設立不同部門）。常用於<b>在世界各地都有生產和／或銷售業務的跨國公司</b>。
+    </div>`
+  ];
+  function renderOrgFeat(idx) {
+    document.querySelectorAll('#orgFeatChips .chip').forEach((c, i) => c.classList.toggle('active', i === idx));
+    document.getElementById('orgFeatBox').innerHTML = orgFeatData[idx];
+  }
+  renderOrgFeat(0);
+
+  // 對稱深度設計的 6 道組織功能挑戰題（100% 原創情境）
+  const orgQuizItems = [
+    {
+      q: "1. 以下是某連鎖戲院集團的六項工作，指出每項工作分別由「高層管理人員」、「中層管理人員」還是「前線管理人員」負責：<br>(a) 監控旺角分院小食部及放映廳的日常運作 ｜ (b) 制定全集團的願景和長遠發展方向 ｜ (c) 制定新界區各分院的暑期票價推廣計劃 ｜ (d) 在戲院大堂指導兼職帶位員 ｜ (e) 決定是否斥資收購澳門另一家院線 ｜ (f) 即場處理觀眾對座位損壞的投訴",
+      opts: [
+        "A. 高層：(b)、(e) ｜ 中層：(c) ｜ 前線：(a)、(d)、(f)",
+        "B. 高層：(a)、(c) ｜ 中層：(b)、(e) ｜ 前線：(d)、(f)",
+        "C. 高層：(b)、(c) ｜ 中層：(a)、(d) ｜ 前線：(e)、(f)"
+      ],
+      ans: 0,
+      exp: "正確。制定集團願景 (b) 及決定是否收購另一院線 (e) 屬高層管理人員；制定分區票價推廣計劃改善銷售業績 (c) 屬執行高層目標的中層管理人員；監控分院日常運作 (a)、指導兼職帶位員 (d) 及即場處理觀眾投訴 (f) 屬負責日常營運的前線管理人員。"
+    },
+    {
+      q: "2. 辨別以下陳述是否正確：「小型企業通常採用扁平式結構，其管理人員的控制幅度狹窄。」",
+      opts: [
+        "A. 正確 — 扁平式結構的管理層級最少，因此每名管理人員只需要直接管理一至兩名下屬，控制幅度最為狹窄",
+        "B. 不正確 — 小型企業通常採用扁平式結構（管理層級較少），但由於公司只有少量管理人員，每名管理人員須管理很多下屬，因此其控制幅度『較廣』而非狹窄",
+        "C. 不正確 — 小型企業必定採用管理層級超過十層的高架式結構，完全不會採用扁平式結構"
+      ],
+      ans: 1,
+      exp: "正確（陳述不正確）。扁平式結構的管理層級較少，但每名管理人員須管理很多下屬，因此控制幅度「較廣」（高架式結構的控制幅度才較窄）。"
+    },
+    {
+      q: "3. 與高架式結構相比，下列哪項關於「扁平式結構」的特點描述最為準確？",
+      opts: [
+        "A. 扁平式結構的管理層級較少、控制幅度較廣、訊息在公司內流通較快且較少出現誤解、決策和行動速度較快（效率和靈活性較高），且員工享有較大自主權故工作動機通常較高",
+        "B. 扁平式結構的管理層級較多、訊息要經過多個層級傳遞故溝通較慢、各層級須先作協調才能行動故效率較低，且員工受嚴密監督故工作動機較低",
+        "C. 扁平式結構與高架式結構在溝通速度、決策效率及員工工作動機上完全沒有任何分別"
+      ],
+      ans: 0,
+      exp: "正確。扁平式結構具備層級較少、溝通較快、效率和靈活性較高、控制幅度較廣，以及員工享有較大自主權（工作動機較高）的特點（B 描述的是高架式結構）。"
+    },
+    {
+      q: "4. 關於「直線職權 (Line Authority)」與「幕僚職權 (Staff Authority)」，下列哪項陳述是正確的？",
+      opts: [
+        "A. 擁有幕僚職權的管理人員（如人力資源經理）對其他部門的管理人員擁有直線職權，可以直接替其他部門作出最終決策並命令其下屬",
+        "B. 擁有幕僚職權的管理人員只能為其他部門提供支援、協助和意見以幫助後者作出決策（不能替其他部門作決策）；但他們對自己部門內的直屬下屬也擁有直線職權，可以指導和監督自己的下屬",
+        "C. 在企業的組織結構中，只有前線員工才擁有直線職權，而高層和中層管理人員則完全沒有任何直線職權"
+      ],
+      ans: 1,
+      exp: "正確。擁有幕僚職權的經理對他們的直屬下屬也有直線職權（因此所有管理人員都擁有直線職權指導監督自己的下屬）；但對其他部門的管理人員沒有直線職權，只能幫助後者作出決策，不能替後者作出決策。"
+    },
+    {
+      q: "5. 指出以下三家公司所採用的「部門劃分方式」：<br>(a) 環球航運設有三個部門來分別處理歐美、亞太和中東的業務 ｜ (b) 新星設計公司指派不同經理來帶領公司的設計部、人力資源部和會計部 ｜ (c) 精工鐘錶設有不同部門來分別處理機械錶、智能運動錶和珠寶腕錶業務",
+      opts: [
+        "A. (a) 按地區劃分 ｜ (b) 按功能劃分 ｜ (c) 按產品劃分",
+        "B. (a) 按產品劃分 ｜ (b) 按地區劃分 ｜ (c) 按功能劃分",
+        "C. (a) 按功能劃分 ｜ (b) 按產品劃分 ｜ (c) 按地區劃分"
+      ],
+      ans: 0,
+      exp: "正確。(a) 歐美、亞太和中東屬「按地區劃分」；(b) 設計部、人力資源部和會計部屬「按功能劃分」；(c) 機械錶、智能運動錶和珠寶腕錶屬「按產品劃分」。"
+    },
+    {
+      q: "6. 某連鎖零售公司設有一名營運總裁，總裁直接管理三名部門經理（門市營業經理、財務經理、人力資源經理）；而該三名部門經理則各自直接管理下屬的 3 名店務主管、2 名會計主任及 1 名招聘主任（合共 6 名基層主管／主任）。在該公司的組織圖中，「營運總裁的控制幅度」是多少？",
+      opts: [
+        "A. 9（將 3 名部門經理及 6 名基層主管的下屬總人數全部相加）",
+        "B. 3（只計算營運總裁在下一層級直接管理並直接向他匯報的 3 位部門經理人數）",
+        "C. 6（只計算最底層的 6 名基層主管與主任人數）"
+      ],
+      ans: 1,
+      exp: "正確。不應將「控制幅度」與上司擁有的「下屬總人數」混淆！控制幅度是指一名上司「直接管理」的下屬人數，因此營運總裁的控制幅度僅為 3（直接向他匯報的三位部門經理）。"
+    }
+  ];
+  let curORQ = 0;
+  function renderOrgQuiz() {
+    const it = orgQuizItems[curORQ];
+    document.getElementById('orgQuizProg').textContent = `題目 ${curORQ + 1} / ${orgQuizItems.length}`;
+    document.getElementById('orgQuizQ').innerHTML = it.q;
+    document.getElementById('orgQuizBtns').innerHTML = it.opts.map((o, i) => `<button class="opt-card" style="margin:0;padding:12px 16px" onclick="checkOrgQuiz(${i})">${o}</button>`).join('');
+    document.getElementById('orgQuizFb').innerHTML = '';
+  }
+  function checkOrgQuiz(idx) {
+    const it = orgQuizItems[curORQ];
+    const fb = document.getElementById('orgQuizFb');
+    if (idx === it.ans) {
+      fb.innerHTML = `<span style="color:var(--green);font-weight:700">${it.exp}</span> <button class="btn btn-outline" style="margin-left:8px;padding:6px 14px;font-size:14.5px" onclick="curORQ=(curORQ+1)%orgQuizItems.length;renderOrgQuiz()">下一題</button>`;
+    } else {
+      fb.innerHTML = `<span style="color:var(--red);font-weight:700">答案不正確。${it.exp.replace('正確。','')}</span>`;
+    }
+  }
+  renderOrgQuiz();
+
+  // ====== 3. 「領導」配對器 ＆ 「控制」模擬器（100% 原創情境） ======
+  let curLeadTry = 0;
+  function tryLeadStyle(idx) {
+    curLeadTry = idx;
+    [0,1,2].forEach(i => document.getElementById('leadTry'+i).classList.toggle('active', i === idx));
+    updateLeadSim();
+  }
+  function updateLeadSim() {
+    const sc = +document.getElementById('leadSceneSel').value;
+    const styleNames = ["獨裁式領導（專制式領導）", "參與式領導（民主式領導）", "自由放任式領導"];
+    const isMatch = sc === curLeadTry;
+
+    const details = [
+      {
+        matchMsg: "<b>完美配對！在此情境下最適宜採用【獨裁式領導（專制式領導）】。</b><br>• <b>適用原因</b>：(i) 員工被動和缺乏經驗；(ii) 員工不願承擔工作責任；(iii) 出現突發危機須迅速作出決策；(iv) 只有管理人員可取得決策所需資訊；(v) 決策很可能遭員工反對；(vi) 員工只負責簡單和重複的工作。<br>• <b>好處</b>：(1) <b>決策迅速</b>（由管理人員全權負責，無須與他人商議）；(2) <b>營運更有效率</b>（嚴密監控下屬工作，減少延誤）。<br>• <b>壞處</b>：(1) <b>員工失去工作動力</b>；(2) <b>過分依賴管理人員</b>；(3) <b>視野狹窄</b>。",
+        mismatch: {
+          1: "<b>配對不當（使用了參與式領導）：</b>在出現危機須迅速決策或員工被動缺乏經驗時，若事事與員工一起商議決策，參與決策的人越多決策速度越慢，會<b>降低營運效率</b>並延誤危機處理！",
+          2: "<b>配對極度危險（使用了自由放任式領導）：</b>面對被動或缺乏經驗的年輕員工，若不向員工提供任何指示和引導，會<b>令被動或缺乏經驗的員工失去方向（感到沮喪和無助，效率和滿意度下降），並為工作間帶來混亂</b>！"
+        }
+      },
+      {
+        matchMsg: "<b>完美配對！在此情境下最適宜採用【參與式領導（民主式領導）】。</b><br>• <b>適用原因</b>：(i) 員工能幹和富有經驗；(ii) 員工願意承擔額外的工作責任；(iii) 員工可能比管理人員掌握更多決策所需的資訊；(iv) 決策需要員工的支持才能成功執行。<br>• <b>好處</b>：(1) <b>拓寬管理人員的視野</b>（收集不同員工想法建議，作出更好決策）；(2) <b>加強員工對公司政策的支持</b>（更願意執行有關決定，增進了解）；(3) <b>令員工更積極投入</b>（感意見受重視）。<br>• <b>壞處</b>：(1) <b>降低營運效率</b>（決策速度較慢）；(2) <b>增加洩露資料的風險</b>（分享敏感資料）。",
+        mismatch: {
+          0: "<b>配對不當（使用了獨裁式領導）：</b>面對能幹富經驗且掌握前線資訊的員工，若管理人員把所有權力集中在自己手上獨自決策，一來<b>視野狹窄</b>易受個人偏見影響作出不當決策，二來會<b>令員工變得被動和失去工作動力</b>！",
+          2: "<b>並非最佳選擇（使用了自由放任式領導）：</b>雖然員工有經驗，但若涉及需要上下級協調執行的公司政策，管理人員完全不提供指引和協調，可能會令員工各自為政、互不合作。"
+        }
+      },
+      {
+        matchMsg: "<b>完美配對！在此情境下最適宜採用【自由放任式領導】。</b><br>• <b>適用原因</b>：(i) 員工積極而獨立；(ii) 員工的工作需要很大程度的表達自由（例如珠寶首飾設計和動畫創作）；(iii) 員工的工作需要高度的創造力（例如人工智能新藥研究和尖端科技研發）。<br>• <b>好處</b>：(1) <b>增加員工的工作動力</b>（享有自主權，從工作中獲得更大挑戰和滿足感，更投入工作）；(2) <b>鼓勵創新</b>（自行決定做甚麼及如何完成工作，發揮創意和創造力）。<br>• <b>壞處</b>：(1) <b>為工作間帶來混亂</b>（不協調工作及指出職責，員工各自為政、爭奪資源）；(2) <b>令被動或缺乏經驗的員工失去方向</b>。",
+        mismatch: {
+          0: "<b>配對極度不當（使用了獨裁式領導）：</b>對需要高度創造力（科研）或表達自由（設計）的積極獨立員工採取嚴密監控與專制指令，會徹底扼殺創意並<b>令員工失去工作動力</b>！",
+          1: "<b>並非最理想（使用了參與式領導）：</b>高度專業獨立的科研專家（知識甚至比主管更多）或藝術設計師需要極大的個人自主空間，由他們自行決定如何完成工作更能鼓勵創新。"
+        }
+      }
+    ];
+
+    document.getElementById('leadSimOutput').innerHTML = isMatch
+      ? `<div style="background:var(--green-light);border-left:4px solid var(--green);padding:14px 16px;border-radius:10px;color:#064e3b;font-size:14.5px;line-height:1.75">${details[sc].matchMsg}</div>`
+      : `<div style="background:var(--red-light);border-left:4px solid var(--red);padding:14px 16px;border-radius:10px;color:#881337;font-size:14.5px;line-height:1.75">${details[sc].mismatch[curLeadTry]}<br><span style="color:var(--ink)">建議點擊上方切換至<b>【${styleNames[sc]}】</b>查看最佳效果。</span></div>`;
+  }
+  updateLeadSim();
+
+  function resetCtrlSim() {
+    const dept = document.getElementById('ctrlDeptSel').value;
+    const sl = document.getElementById('ctrlActSlider');
+    if (dept === 'sales') {
+      sl.min = 200; sl.max = 550; sl.step = 10; sl.value = 230;
+    } else {
+      sl.min = 0; sl.max = 8; sl.step = 0.5; sl.value = 5.5;
+    }
+    updateCtrlSim();
+  }
+
+  function updateCtrlSim() {
+    const dept = document.getElementById('ctrlDeptSel').value;
+    const val = +document.getElementById('ctrlActSlider').value;
+    const lbl = document.getElementById('lblCtrlAct');
+
+    if (dept === 'sales') {
+      lbl.textContent = `$${val},000`;
+      const isOk = val >= 480;
+      lbl.style.color = isOk ? 'var(--green)' : 'var(--red)';
+      document.getElementById('ctrlSimOutput').innerHTML = isOk
+        ? `<div style="background:var(--green-light);border-left:4px solid var(--green);padding:14px 16px;border-radius:10px;color:#064e3b;font-size:14.5px;line-height:1.75">
+            <b>第 3 步（比較實際表現與標準）：</b>實際新療程營業額（$${val},000）沒有嚴重偏離表現標準（$500,000），<b>表現算可以接受</b>！<br>
+            <b>第 4 步（決策）：</b>由於實際表現可以接受，<b>美容院不用採取任何糾正行動</b>。
+          </div>`
+        : `<div style="background:var(--red-light);border-left:4px solid var(--red);padding:14px 16px;border-radius:10px;color:#881337;font-size:14.5px;line-height:1.75">
+            <b>第 3 步（比較實際表現與標準）：</b>實際營業額（$${val},000）遠低於表現標準（$500,000），<b>實際表現不可接受</b>！<br>
+            <b>第 4 步（分析差異並採取糾正行動 ／ 修訂表現標準）：</b><br>
+            • <b>可能原因 1（同區美容院競爭激烈 ／ 新療程定價遠高於對手）</b> ➔ <b>糾正行動：</b>提供首次試做減價促銷、推出更多社交媒體廣告。<br>
+            • <b>可能原因 2（美容顧問的推銷技巧差劣）</b> ➔ <b>糾正行動：</b>為美容顧問提供銷售技巧培訓。<br>
+            • <b>可能原因 3（表現標準訂得太高，脫離淡季現實情況）</b> ➔ <b>修訂表現標準：</b>調整／修訂表現標準至更符合現實的 $320,000！
+          </div>`;
+    } else {
+      lbl.textContent = `${val.toFixed(1)}%`;
+      const isOk = val <= 1.5;
+      lbl.style.color = isOk ? 'var(--green)' : 'var(--red)';
+      document.getElementById('ctrlSimOutput').innerHTML = isOk
+        ? `<div style="background:var(--green-light);border-left:4px solid var(--green);padding:14px 16px;border-radius:10px;color:#064e3b;font-size:14.5px;line-height:1.75">
+            <b>第 3 步（比較實際表現與標準）：</b>實際烘焙焦損次貨率（${val.toFixed(1)}%）符合「不高於 1.5%」的表現標準，<b>實際表現可以接受</b>！<br>
+            <b>第 4 步（決策）：</b>曲奇餅廠<b>不用採取任何糾正行動</b>。
+          </div>`
+        : `<div style="background:var(--red-light);border-left:4px solid var(--red);padding:14px 16px;border-radius:10px;color:#881337;font-size:14.5px;line-height:1.75">
+            <b>第 3 步（比較實際表現與標準）：</b>實際焦損次貨率（${val.toFixed(1)}%）遠高於表現標準（1.5%），<b>實際表現不可接受</b>！<br>
+            <b>第 4 步（分析差異並採取糾正行動）：</b><br>
+            • <b>可能原因 1（生產部新入職烘焙工控溫技術不夠熟練）</b> ➔ <b>糾正行動：</b>為生產部員工提供焗爐操作技術培訓。<br>
+            • <b>可能原因 2（購入的牛油及麵粉原料品質低劣）</b> ➔ <b>糾正行動：</b>改向供應商購買品質較佳的烘焙原料。
+          </div>`;
+    }
+  }
+  updateCtrlSim();
+
+  // 對稱深度設計的 7 道領導與控制挑戰題（100% 原創情境）
+  const lcQuizItems = [
+    {
+      q: "1. 識別以下三位管理人員所採用的「領導風格」：<br>(a) 遊戲動畫工作室總監只給予動畫師故事主題方向，讓他們以自己的方式自由創作完成工作 ｜ (b) 公關公司策劃經理願意接受下屬的想法，並經常與他們一同商議及作出活動決策 ｜ (c) 化驗所安全主管自行作出所有檢驗流程決策，並要求下屬嚴格執行他決定的方案",
+      opts: [
+        "A. (a) 自由放任式領導 ｜ (b) 參與式領導（民主式領導） ｜ (c) 獨裁式領導（專制式領導）",
+        "B. (a) 參與式領導 ｜ (b) 自由放任式領導 ｜ (c) 獨裁式領導",
+        "C. (a) 獨裁式領導 ｜ (b) 參與式領導 ｜ (c) 自由放任式領導"
+      ],
+      ans: 0,
+      exp: "正確。(a) 授權下屬按自己方式完成工作屬「自由放任式領導」；(b) 與下屬分享權力一同決策屬「參與式領導（民主式領導）」；(c) 自行作出所有決策要下屬服從屬「獨裁式領導（專制式領導）」。"
+    },
+    {
+      q: "2. 兆康開立一家獨資珠寶設計工坊，設計及出售時尚銀飾。工坊的設計部員工可自由繪畫不同的耳環及戒指草圖，但「最終揀選哪款草圖投入生產只由兆康一人決定，其他設計師不得參與」。兆康在揀選新首飾設計投產上採用了哪種領導風格？該風格有何缺點？",
+      opts: [
+        "A. 採用了自由放任式領導；缺點是兆康完全不參與任何揀選決策，導致工坊沒有任何新首飾推出",
+        "B. 採用了獨裁式領導（專制式領導），因為揀選投產款式的最終決策權完全集中在兆康一人手上，其他設計師不得參與；其缺點包括視野狹窄（易受個人偏見影響作出不當決策）、員工失去工作動力，以及過分依賴管理人員",
+        "C. 採用了參與式領導（民主式領導）；缺點是因為全體設計師共同投票揀選款式，導致決策速度極慢及增加洩露資料的風險"
+      ],
+      ans: 1,
+      exp: "正確。採用獨裁式領導的管理人員也可能會讓下屬提出建議或設計草圖，但他會「獨自決定是否採納（其他員工不得參與最終決策）」。因此兆康採用的是獨裁式領導，其三大缺點為：員工失去工作動力、過分依賴管理人員、視野狹窄。"
+    },
+    {
+      q: "3. 方博士是某人工智能新藥研發中心的主任，他採用「自由放任式領導風格」來領導科研團隊。下列哪項是方博士採用這種領導風格的合理原因？",
+      opts: [
+        "A. 因為研發中心的下屬非常被動和缺乏經驗，且每天只負責簡單和重複的試管清洗工作",
+        "B. 因為研發中心的下屬積極而獨立（擁有的專門科研知識甚至可能比他多），而且新藥研究工作需要高度的創造力",
+        "C. 因為實驗室正發生化學品洩漏危機，必須由方博士一人在十秒鐘內獨自作出疏散決策"
+      ],
+      ans: 1,
+      exp: "正確。自由放任式領導適用於三種情況：(i) 員工積極而獨立；(ii) 工作需要很大程度的表達自由；(iii) 工作需要高度的創造力（例如科學和科技研究）。A 和 C 均適宜採用獨裁式領導。"
+    },
+    {
+      q: "4. 皇冠智能門鎖製造廠的生產部有很多年輕、缺乏經驗的裝配工人，新任生產經理發現前任經理對生產部採用了「自由放任式領導風格」。在有很多年輕缺乏經驗工人的生產部採用自由放任式領導風格會帶來甚麼壞處？",
+      opts: [
+        "A. 會令生產部工人受到過於嚴密的監督，完全沒有任何自主權，並導致生產經理一個人的決策工作量過大",
+        "B. (1) 令被動或缺乏經驗的年輕工人失去方向（得不到管理層任何指示和指引，感到沮喪和無助，導致工作效率和工作滿意度下降）；(2) 為工作間帶來混亂（不協調工作和明確指出職責，員工可能各自為政、互不合作甚至爭奪資源）",
+        "C. 會令生產部工人因為經常與經理開會共同投票決策，而向外界競爭對手洩露公司的新門鎖機密資料"
+      ],
+      ans: 1,
+      exp: "正確。自由放任式領導的兩大壞處正是：(i) 為工作間帶來混亂；及 (ii) 令被動或缺乏經驗的員工失去方向（注意 A 是獨裁式領導的壞處；C 是參與式領導的壞處）。"
+    },
+    {
+      q: "5. 關於管理功能中的「控制 (Controlling)」，辨別下列哪項陳述是正確的？",
+      opts: [
+        "A. 控制過程的第一步是量度實際表現；而且管理人員在比較實際表現與標準後，無論結果如何都必須採取糾正行動",
+        "B. 控制的目的是對各項活動進行監控以確保活動按計劃完成；控制過程的第一步是『訂立表現標準』，且若實際表現沒有嚴重偏離標準（表現可以接受），企業便不用採取任何行動",
+        "C. 在控制過程中，表現標準一旦在第 1 步訂立後便永遠不能更改，即使標準訂得太高或太低亦不得修訂"
+      ],
+      ans: 1,
+      exp: "正確。控制過程的四個順序步驟為：(1) 訂立表現標準 ➔ (2) 量度實際表現 ➔ (3) 比較實際表現與標準（若無嚴重偏離則可接受，不用採取行動） ➔ (4) 分析差異並採取糾正行動（若標準訂得太高或太低，便應修訂或調整表現標準）。"
+    },
+    {
+      q: "6. 下列哪類管理人員在工作中會執行「控制」這項管理功能？",
+      opts: [
+        "A. 只有前線管理人員（如分店經理和組長）才會執行控制功能，高層和中層管理人員只負責計劃而不負責控制",
+        "B. 只有高層管理人員（如行政總裁）才會執行控制功能，中層和前線管理人員無權進行任何監控工作",
+        "C. 高層管理人員、中層管理人員和前線管理人員全部都會執行控制的功能，以確保各自負責範疇的活動按計劃完成"
+      ],
+      ans: 2,
+      exp: "正確。所有層級的管理人員（包括高層、中層和前線管理人員）都會執行計劃、組織、領導和控制四項管理功能。"
+    },
+    {
+      q: "7. 除了「次貨的數量」外，智能門鎖製造廠的「生產部」在執行控制功能的第 1 步時，還可以採用哪兩項「表現標準」來控制生產活動？",
+      opts: [
+        "A. 可採用『每工時生產的貨品數量（生產效率）』以及『產品的平均生產成本』作為生產部的表現標準",
+        "B. 可採用『全港市場佔有率』以及『每名新員工的招聘廣告成本』作為生產部的表現標準",
+        "C. 可採用『公司的股東資金回報率』以及『銀行貸款的年利率』作為生產部的表現標準"
+      ],
+      ans: 0,
+      exp: "正確。生產部的表現標準例子包括 (1) 每工時生產的貨品數量、(2) 次貨的數量、以及 (3) 產品的平均成本（而市場佔有率屬市場營銷部標準；招聘成本屬人力資源部標準）。"
+    }
+  ];
+  let curLCQ = 0;
+  function renderLcQuiz() {
+    const it = lcQuizItems[curLCQ];
+    document.getElementById('lcQuizProg').textContent = `題目 ${curLCQ + 1} / ${lcQuizItems.length}`;
+    document.getElementById('lcQuizQ').innerHTML = it.q;
+    document.getElementById('lcQuizBtns').innerHTML = it.opts.map((o, i) => `<button class="opt-card" style="margin:0;padding:12px 16px" onclick="checkLcQuiz(${i})">${o}</button>`).join('');
+    document.getElementById('lcQuizFb').innerHTML = '';
+  }
+  function checkLcQuiz(idx) {
+    const it = lcQuizItems[curLCQ];
+    const fb = document.getElementById('lcQuizFb');
+    if (idx === it.ans) {
+      fb.innerHTML = `<span style="color:var(--green);font-weight:700">${it.exp}</span> <button class="btn btn-outline" style="margin-left:8px;padding:6px 14px;font-size:14.5px" onclick="curLCQ=(curLCQ+1)%lcQuizItems.length;renderLcQuiz()">下一題</button>`;
+    } else {
+      fb.innerHTML = `<span style="color:var(--red);font-weight:700">答案不正確。${it.exp.replace('正確。','')}</span>`;
+    }
+  }
+  renderLcQuiz();
+
+  // ====== 4. 五項有效管理的原則（100% 原創情境） ======
+  function updateDivWorkSim() {
+    const lv = +document.getElementById('divWorkSlider').value;
+    const names = ["1. 不實行分工 (一人包辦整副眼鏡製作)", "2. 中度分工 (拆為 3 個工種)", "3. 高度分工 (拆為 6 道細小專門工序)"];
+    document.getElementById('lblDivWork').textContent = names[lv - 1];
+
+    const eff = lv === 1 ? 35 : lv === 2 ? 72 : 95;
+    const auto = lv === 1 ? 20 : lv === 2 ? 65 : 95;
+    const sat = lv === 1 ? 88 : lv === 2 ? 60 : 25;
+    const flex = lv === 1 ? 90 : lv === 2 ? 55 : 20;
+
+    document.getElementById('divWorkSimOutput').innerHTML = `
+      <div class="meter-wrap">
+        <div class="meter-label"><span style="color:var(--green)">優點 1 & 2：提升效率（熟能生巧減出錯）及節省時間（免轉崗與省培訓時間）</span><span>${eff}%</span></div>
+        <div class="meter-bg"><div class="meter-fill" style="width:${eff}%;background:var(--green)"></div></div>
+      </div>
+      <div class="meter-wrap">
+        <div class="meter-label"><span style="color:var(--teal)">優點 3 & 4：促進自動化（易用專門機器代替人手省成本）及使監督更容易</span><span>${auto}%</span></div>
+        <div class="meter-bg"><div class="meter-fill" style="width:${auto}%;background:var(--teal)"></div></div>
+      </div>
+      <div class="meter-wrap">
+        <div class="meter-label"><span style="color:var(--red)">缺點 1：員工工作滿足感（高度分工重複同一工作易感沉悶厭倦）</span><span>${sat}%</span></div>
+        <div class="meter-bg"><div class="meter-fill" style="width:${sat}%;background:var(--red)"></div></div>
+      </div>
+      <div class="meter-wrap" style="margin-bottom:0">
+        <div class="meter-label"><span style="color:var(--amber)">缺點 2 & 3：人手調配靈活度（技術專門難調崗，且各工序依賴牽一髮動全身）</span><span>${flex}%</span></div>
+        <div class="meter-bg"><div class="meter-fill" style="width:${flex}%;background:var(--amber)"></div></div>
+      </div>`;
+  }
+  updateDivWorkSim();
+
+  const bugDiagnoses = [
+    `<div style="background:var(--red-light);border-left:4px solid var(--red);padding:12px 16px;border-radius:10px;color:#881337;font-size:14.5px;line-height:1.75">
+      <b>現場 1 診斷：違反了【統一命令原則 (Unity of Command)】！</b><br>
+      • <b>原因與問題</b>：統一命令原則規定每名員工只聽從一名上司的指揮，並只向他一人匯報（每名下屬只有一位直屬上司）。當病房經理與行政主任向同一名護士發出互相衝突的指令時：<b>(i) 會令下屬混淆和無所適從，最終無法執行任何工作</b>；<b>(ii) 造成管理人員之間的衝突</b>，對醫院營運造成負面影響。<br>
+      • <b style="color:var(--green)">修正方案：</b>明確界定醫院的命令線（指揮鏈），確保每名護士只向一名直屬上司匯報及接收指令。
+    </div>`,
+    `<div style="background:var(--red-light);border-left:4px solid var(--red);padding:12px 16px;border-radius:10px;color:#881337;font-size:14.5px;line-height:1.75">
+      <b>現場 2 診斷：違反了【統一的方向原則 (Unity of Direction)】！</b><br>
+      • <b>原因與問題</b>：統一的方向規定企業內每個計劃都只由一名管理人員統領，而所有擁有相同目標的活動都應納入同一項計劃內（確保所有員工有相同目標）。車隊主管動用巨資購買豪華房車的行動與集團「緊縮開支」的整體目標互相衝突！<br>
+      • <b style="color:var(--green)">採用統一方向的好處：</b><b>(i) 有效地達成組織目標</b>（凝聚所有員工力量達成共同目標）；<b>(ii) 避免部門之間發生衝突</b>；<b>(iii) 提升團隊精神和士氣</b>。
+    </div>`,
+    `<div style="background:var(--red-light);border-left:4px solid var(--red);padding:12px 16px;border-radius:10px;color:#881337;font-size:14.5px;line-height:1.75">
+      <b>現場 3 診斷：違反了【平衡職權和責任（職權相稱原則 Parity of Authority and Responsibility）】！</b><br>
+      • <b>原因與問題</b>：根據職權相稱原則，職權（正式和合法權力）和責任（完成職務的義務）是相輔相成的，兩者必須平衡。若航空公司要求地勤主任承擔安撫延誤乘客的責任，卻不授予他相稱的職權（如無須請示即可派發免費餐券的職權），他便無法有效地履行責任！<br>
+      • <b style="color:var(--green)">修正方案：</b>授予員工與其職責相稱的職權。
+    </div>`,
+    `<div style="background:var(--red-light);border-left:4px solid var(--red);padding:12px 16px;border-radius:10px;color:#881337;font-size:14.5px;line-height:1.75">
+      <b>現場 4 診斷：違反了【授權 (Delegation) 的最終責任歸屬原則】！</b><br>
+      • <b>原因與問題</b>：授權指上司委派工作給下屬，並把正式的職權和責任轉移到下屬身上；然而，管理人員須擔當監督角色，<b>雖然管理人員可以授權下屬完成某項工作，但他們仍須對該項工作的「最終結果」負責</b>！<br>
+      • <b style="color:var(--green)">何時才應作出授權（兩大條件）：</b>(i) 下屬具備相關的能力、知識和責任感；及 (ii) 該項工作不會對企業帶來重大影響。
+    </div>`
+  ];
+  function diagnoseBug(idx) {
+    [0,1,2,3].forEach(i => document.getElementById('bugCard'+i).classList.toggle('active', i === idx));
+    document.getElementById('bugDiagOutput').innerHTML = bugDiagnoses[idx];
+  }
+  diagnoseBug(0);
+
+  const fivePrins = [
+    {
+      name: "1. 分工",
+      def: "<b>分工 (Division of Work)：</b>生產過程會分拆成多個工序，每名員工只專門負責其中一項或幾項工序（不會參與整個生產過程，例如眼鏡廠分拆為切框、打磨、裝鏡片、調校、包裝；製造業和服務業公司均可採用）。",
+      pros: "<b>優點（4項）：</b><br>• <b>(i) 提升效率</b>：熟能生巧，員工不斷重複專門負責的工作，能更快掌握和改進技術，提升生產效率並減少出錯機會。<br>• <b>(ii) 節省時間</b>：不用轉換工作崗位；且每人只須學習一項或幾項工序，可<b>節省培訓員工的時間</b>。<br>• <b>(iii) 促進自動化</b>：分拆為細小工序後，較容易使用專門的機器或設備代替人手工作，提升生產力和節省人工成本。<br>• <b>(iv) 使監督更容易</b>：每人只負責固定工序，較容易監督整個生產過程。",
+      cons: "<b>缺點（3項）：</b><br>• <b>(i) 減低工作滿足感</b>：不斷重複同一項工作，容易感到沉悶和厭倦，工作滿足感減少。<br>• <b>(ii) 牽一髮而動全身</b>：各工序須依賴其他工序才可進行，任何工序出錯都會對整個生產過程造成嚴重影響，最壞情況下須全面停工。<br>• <b>(iii) 靈活度低</b>：員工掌握的技術較專門，未必能執行其他工作，較難調配人手。"
+    },
+    {
+      name: "2. 統一命令",
+      def: "<b>統一命令原則 (Unity of Command，又稱命令統一原則)：</b>指每名員工只聽從一名上司的指揮，並只向他一人匯報。換言之，企業內<b>每名下屬都只有一位直屬上司</b>。",
+      pros: "<b>作用與優點：</b><br>• 明確界定企業的<b>命令線（命令鏈／指揮鏈 Chain of Command）</b>。<br>• 每名下屬都會知道自己應向哪名上司匯報，以及應從哪名上司接收工作指令，<b>員工不會從兩名上司收到互相衝突的指令</b>，同時有助管理人員監督員工。",
+      cons: "<b>違反統一命令原則可能造成的兩個問題：</b><br>• <b>(i) 令下屬混淆</b>：兩個或以上的管理人員發出互相衝突的指令，會令下屬混淆和無所適從，最終無法執行任何工作。<br>• <b>(ii) 造成管理人員之間的衝突</b>：沒有明確界定命令線或職權，兩名或以上管理人員可直接向同一組員工發指令，導致管理人員之間容易發生衝突。"
+    },
+    {
+      name: "3. 統一的方向",
+      def: "<b>統一的方向 (Unity of Direction)：</b>指企業內<b>每個計劃都只由一名管理人員統領；而所有擁有相同目標的活動都應納入同一項計劃內</b>。有助確保在同一計劃或項目下工作的員工都有相同的目標。",
+      pros: "<b>採用統一的方向的三個好處：</b><br>• <b>(i) 有效地達成組織目標</b>：凝聚所有員工的力量去達成共同目標，有助企業有效地達成組織目標。<br>• <b>(ii) 避免部門之間發生衝突</b>：確保企業內不會出現互相衝突的目標，避免部門之間發生衝突。<br>• <b>(iii) 提升團隊精神</b>：所有員工都朝着共同的目標努力工作，有助提升團隊精神和加強員工的士氣。",
+      cons: "<b>概念區分提示：</b><br>• 不要將「目標管理」和「統一的方向」混淆：<b>目標管理</b>關乎上司和下屬一起共同訂立目標的上下級關係；而<b>統一的方向</b>則關乎每個計劃由一人統領及確保不同活動／部門目標一致，不出現互相衝突的目標。"
+    },
+    {
+      name: "4. 平衡職權和責任",
+      def: "• <b>職權</b>：組織賦予在位者的正式和合法權力，有助完成獲委派的職務（在位者的職權會在他離任後終止）。<br>• <b>責任</b>：員工完成獲委派職務的義務。<br>• <b>職權相稱原則</b>：職權和責任是相輔相成的，而且兩者必須平衡（高層管理人員須承擔較大責任，故擁有較大職權）。",
+      pros: "<b>授權 (Delegation) 的定義與作用：</b><br>• 指上司委派工作給下屬，並把正式的<b>職權和責任</b>轉移到下屬身上，讓他能完成工作。<br>• 下屬執行工作時，管理人員須擔當監督角色並就重要事項作決策；<b>雖然管理人員可授權下屬完成工作，但仍須對該項工作的「最終結果」負責</b>！授權可讓管理人員專注於重要的工作。",
+      cons: "<b>何時才應作出授權（兩大條件）：</b><br>• <b>(i) 下屬具備相關的能力、知識和責任感以完成獲委派的工作；</b>及<br>• <b>(ii) 該項工作不會對企業帶來重大影響。</b>"
+    },
+    {
+      name: "5. 目標管理 (MBO)",
+      def: "<b>目標管理 (Management by Objectives, MBO)：</b>指把組織的整體目標轉化成個別單位、部門和員工的工作目標（過程：1. 管理人員和下屬一起訂立與企業目標一致的目標 ➔ 2. 共同制定行動計劃 ➔ 3. 執行計劃並定期會面討論問題 ➔ 4. 定期檢討表現並評估進度）。",
+      pros: "<b>目標管理的 6 項優點：</b><br>• <b>(i) 下屬更投入</b>：參與訂立目標故理解更深、更投入達成目標，士氣提升。<br>• <b>(ii) 增進管理人員與下屬之間的溝通和關係</b>：定期會面討論問題。<br>• <b>(iii) 加強員工之間的協調</b>：明白自己工作如何助企業達標，互相合作。<br>• <b>(iv) 員工更積極，表現更出色</b>：定期獲意見支持，達標獲獎勵。<br>• <b>(v) 有效監控工作進度</b>：定期檢討表現，減少工作延誤。<br>• <b>(vi) 確保下屬的目標與企業目標一致</b>：一起訂立目標，助企業有效達標。",
+      cons: "<b>目標管理的 3 項缺點：</b><br>• <b>(i) 耗時</b>：管理人員和下屬須定期會面來訂立目標和討論問題，花費很多時間。<br>• <b>(ii) 增加工作量</b>：雙方都要積極參與整個過程，增加雙方的工作量。<br>• <b>(iii) 偏重短期目標</b>：過程中所訂立的通常是短期目標，<b>企業的長期目標或會遭忽略</b>。"
+    }
+  ];
+  function renderFivePrin(idx) {
+    document.querySelectorAll('#fivePrinBtns .method-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+    const p = fivePrins[idx];
+    document.getElementById('fivePrinDetail').innerHTML = `
+      <div style="background:var(--surface);padding:16px 20px;border-radius:14px;border:1.5px solid var(--primary);font-size:15px;line-height:1.8">
+        <div style="margin-bottom:10px">${p.def}</div>
+        <div class="grid2" style="gap:14px">
+          <div style="background:var(--card);padding:12px 16px;border-radius:10px;border-left:4px solid var(--green)">${p.pros}</div>
+          <div style="background:var(--card);padding:12px 16px;border-radius:10px;border-left:4px solid var(--red)">${p.cons}</div>
+        </div>
+      </div>`;
+  }
+  document.getElementById('fivePrinBtns').innerHTML = fivePrins.map((p, i) => `<button class="method-btn ${i===0?'active':''}" onclick="renderFivePrin(${i})">${p.name}</button>`).join('');
+  renderFivePrin(0);
+
+  // 對稱深度設計的 7 道有效管理原則挑戰題（100% 原創情境）
+  const prinQuizItems = [
+    {
+      q: "1. 指出以下五個情況分別運用了哪項「有效管理的原則」：<br>(a) 每名下屬只直接向一名上司匯報 ｜ (b) 每名工人專門負責眼鏡生產過程中的其中一項工序 ｜ (c) 所有擁有相同目標的活動都納入同一項計劃內，並由一名管理人員統領 ｜ (d) 企業的整體目標轉化為每個部門和員工的具體目標 ｜ (e) 高層管理人員比中層和前線管理人員擁有較多職權和責任",
+      opts: [
+        "A. (a) 統一命令 ｜ (b) 分工 ｜ (c) 統一的方向 ｜ (d) 目標管理 ｜ (e) 平衡職權和責任",
+        "B. (a) 統一的方向 ｜ (b) 分工 ｜ (c) 統一命令 ｜ (d) 平衡職權和責任 ｜ (e) 目標管理",
+        "C. (a) 統一命令 ｜ (b) 目標管理 ｜ (c) 統一的方向 ｜ (d) 分工 ｜ (e) 平衡職權和責任"
+      ],
+      ans: 0,
+      exp: "正確。(a) 每名下屬只向一名上司匯報屬「統一命令」；(b) 專門負責一項或幾項工序屬「分工」；(c) 相同目標活動納入同一計劃由一人統領屬「統一的方向」；(d) 整體目標轉化為部門及員工目標屬「目標管理」；(e) 職權與責任隨層級匹配屬「平衡職權和責任」。"
+    },
+    {
+      q: "2. 若一家企業嚴格採用「統一命令原則 (Unity of Command)」，下列哪項陳述必定是正確的？",
+      opts: [
+        "A. 企業內每名上司只會有一名直屬下級，而且下屬每次只可以接受上司的一項工作命令",
+        "B. 企業內每名下屬只會有一名直屬上司（只聽從一名上司的指揮並只向他一人匯報），因此員工不會從兩名上司收到互相衝突的指令",
+        "C. 企業內所有部門的員工都不需要向任何上司匯報，可以各自按個人喜好決定工作方向"
+      ],
+      ans: 1,
+      exp: "正確。統一命令原則規定的是「每名下屬只會有一名直屬上司」（而非每名上司只有一名下級），主要優點是員工不會從兩名上司收到互相衝突的指令。"
+    },
+    {
+      q: "3. 星耀語文教育中心的校長想增加暑期班的學費收益，於是同時安排了甲、乙兩名課程主任負責統領這項計劃（甲只着重推銷低價幼兒興趣班，乙則只着重推銷高價成人商用英語班）。另外，泰安物流公司本年度以「緊縮營運開支」為目標，但車隊經理卻動用上年度營業額 45% 的巨資購買多輛豪華宣傳車。這兩個個案均違反了哪項有效管理原則？",
+      opts: [
+        "A. 違反了『分工原則』，因為教育中心和物流公司沒有把工作過程分拆為細小工序",
+        "B. 違反了『統一的方向原則 (Unity of Direction)』，因為每個計劃都應只由一名管理人員統領，且所有擁有相同目標的活動應納入同一項計劃內（確保各部門目標一致，不出現互相衝突的目標）",
+        "C. 違反了『職權相稱原則』，因為車隊經理擁有的職權太小而未能花光公司所有資金"
+      ],
+      ans: 1,
+      exp: "正確。同一計劃由兩名主任各自統領，或部門購車計劃與公司緊縮開支的整體目標背道而馳，均違反了「統一的方向」。"
+    },
+    {
+      q: "4. 某私家醫院院長對新上任的門診部經理說：「在你完全熟識門診部的運作之前，我會讓門診部護士同時向你和醫療副院長兩人匯報。」這項安排違反了哪項有效管理的原則？會帶來哪兩個問題？",
+      opts: [
+        "A. 違反了『統一命令原則』；會帶來兩個問題：(1) 令下屬混淆和無所適從（當門診部經理與副院長發出互相衝突的指令時，護士無法執行工作）；(2) 造成兩名管理人員之間的衝突（職權與命令線不清）",
+        "B. 違反了『目標管理原則』；會令門診部護士太過投入工作而忽略了短期目標",
+        "C. 違反了『分工原則』；會令門診部護士因不斷重複同一工序而感到沉悶厭倦"
+      ],
+      ans: 0,
+      exp: "正確。讓門診部護士同時向門診部經理和副院長兩人匯報，直接違反了「統一命令原則」，會導致下屬混淆無所適從及造成管理人員之間的衝突。"
+    },
+    {
+      q: "5. 營運經理「授權 (Delegate)」直屬下屬採購主任完成一項器材招標工作。關於這項授權，下列哪項陳述是正確的？",
+      opts: [
+        "A. 營運經理只可以將工作的責任授予採購主任，但不能把任何職權授予他；而且授權後營運經理對採購主任只擁有幕僚職權",
+        "B. 營運經理同時向採購主任轉移了完成該工作的正式職權和責任（符合職權相稱原則）；但營運經理作為上司仍須擔當監督角色，並必須對該項工作的『最終結果』負責",
+        "C. 只要營運經理把工作授權給採購主任，即使該項工作對企業帶來重大災難性影響，營運經理在任何情況下都無須負上任何責任"
+      ],
+      ans: 1,
+      exp: "正確。在授權中，上司會把正式的職權和責任同時轉移到下屬身上，但上司仍須對該項工作的「最終結果」負責。"
+    },
+    {
+      q: "6. 辨別以下關於「目標管理 (MBO)」的陳述是否正確：「管理人員採用目標管理，便可由上司單方面為下屬訂立目標，而且目標管理能節省管理人員和下屬的所有會議時間。」",
+      opts: [
+        "A. 正確 — 目標管理規定由行政總裁一人單方面下達所有目標，完全無須與下屬開會討論",
+        "B. 不正確 — 在目標管理中，是由『管理人員和下屬一起共同訂立目標』（而非單方面為下屬訂立）；而且由於雙方須定期會面來訂立目標、制定行動計劃和討論問題，其缺點是『耗時』及『增加雙方的工作量』（同時偏重短期目標）",
+        "C. 不正確 — 目標管理只關注企業三十年後的超長期願景，完全不會訂立任何短期工作目標"
+      ],
+      ans: 1,
+      exp: "正確（陳述不正確）。目標管理是由管理人員和下屬「一起訂立目標」；其三大缺點是耗時、增加工作量，以及偏重短期目標（長期目標或遭忽略）。"
+    },
+    {
+      q: "7. 關於在生產線上採用「分工 (Division of Work)」原則的優點和缺點，下列哪項描述最為準確？",
+      opts: [
+        "A. 在分工原則下，即使其中一名員工在某個工序犯錯或停工，整個生產過程也絕對不會受到任何影響，而且調配人手的靈活度最高",
+        "B. 分工的優點包括提升效率（熟能生巧減少出錯）、節省時間（免轉崗及省培訓時間）、促進自動化（易用機器代替人手省人工成本）及使監督更容易；但缺點是減低工作滿足感、牽一髮而動全身（任何工序出錯影響整個過程）及靈活度低",
+        "C. 分工會令每名員工必須學習整個生產過程的所有工序，大幅增加企業培訓新員工所需的時間"
+      ],
+      ans: 1,
+      exp: "正確。分工有四大優點（提升效率、節省時間、促進自動化、使監督更容易）及三大缺點（減低工作滿足感、牽一髮而動全身、靈活度低）。"
+    }
+  ];
+  let curPRNQ = 0;
+  function renderPrinQuiz() {
+    const it = prinQuizItems[curPRNQ];
+    document.getElementById('prinQuizProg').textContent = `題目 ${curPRNQ + 1} / ${prinQuizItems.length}`;
+    document.getElementById('prinQuizQ').innerHTML = it.q;
+    document.getElementById('prinQuizBtns').innerHTML = it.opts.map((o, i) => `<button class="opt-card" style="margin:0;padding:12px 16px" onclick="checkPrinQuiz(${i})">${o}</button>`).join('');
+    document.getElementById('prinQuizFb').innerHTML = '';
+  }
+  function checkPrinQuiz(idx) {
+    const it = prinQuizItems[curPRNQ];
+    const fb = document.getElementById('prinQuizFb');
+    if (idx === it.ans) {
+      fb.innerHTML = `<span style="color:var(--green);font-weight:700">${it.exp}</span> <button class="btn btn-outline" style="margin-left:8px;padding:6px 14px;font-size:14.5px" onclick="curPRNQ=(curPRNQ+1)%prinQuizItems.length;renderPrinQuiz()">下一題</button>`;
+    } else {
+      fb.innerHTML = `<span style="color:var(--red);font-weight:700">答案不正確。${it.exp.replace('正確。','')}</span>`;
+    }
+  }
+  renderPrinQuiz();
+
+  // ====== 5. 論點建構問答工作坊 (12題：100% 原創商業情境・一題一論點・按論述邏輯點評) ======
+  const workshopQuestions = [
+    {
+      id: "s1", cat: "short", typeBadge: "短答題（單一論點 · 2 分 · 2 步建構）",
+      title: "短答 1：康盛私家醫療集團（舉例解釋「幕僚職權」的概念與應用）", topic: "組織結構：單一論點闡釋「幕僚職權 (Staff Authority)」", maxMarks: 2,
+      scenario: "「康盛醫療集團」在全港經營多間專科診所。在重整組織架構時，營運總監向新入職的見習行政人員指出，集團的人力資源經理對專科門診部主管擁有「幕僚職權 (Staff Authority)」，而非直線職權。",
+      question: "試以該醫療集團的人力資源經理為例，建構一個獨立論點段落，解釋何謂「幕僚職權」。（2 分）",
+      steps: [
+        { label: "第 1 步：準確界定「幕僚職權」的核心概念與權力性質（1分）", colorClass: "hl-s1", opts: [
+          { text: "幕僚職權是指企業授予較上級工作職位的權力，讓他可以直接向其他部門的下屬發出工作指令並強制對方服從。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】混淆了命令權與諮詢權的本質。向直屬下級發出工作指令並強制服從屬於「直線職權（從屬關係）」，而非幕僚職權。" },
+          { text: "幕僚職權是指企業授予特定工作職位的權力，讓這些職位為其他部門提供專業支援、協助和意見，以幫助其他部門作出決策，兩者屬於諮詢關係。", score: 1, status: "best", comment: "【滿分論述示範】精準界定「幕僚職權」的核心定義，清楚點出「提供專業支援、協助和意見以幫助其他部門作決策」的諮詢性質。" },
+          { text: "幕僚職權是指醫療集團入面的人力資源經理所擁有的一種特別工作權力，可以用來幫助集團處理人事問題。", score: 0, status: "partial", comment: "【常見失分示範：定義空泛／同義反覆】僅重複了題目的職位名稱，完全沒有闡明幕僚職權的權力性質——即「向其他部門提供支援、協助和專業意見以協助作決策，但無權直接替對方作決策或發號施令」。" }
+        ]},
+        { label: "第 2 步：扣連「醫療集團人力資源經理與專科門診部」說明如何具體行使該職權（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如集團的人力資源經理可向專科門診部主管提供醫護人員薪酬市場數據及招聘篩選建議，協助門診部主管決定聘用哪位專科醫生，但人力資源經理不能越權替門診部主管作最終決定或直接命令門診部醫生工作。", score: 1, status: "best", comment: "【滿分論述示範】緊扣醫療集團背景，具體說明人力資源經理如何提供招聘與薪酬專業意見以支援門診部主管決策，同時釐清不能越權命令的界線，論證完整嚴密。" },
+          { text: "例如當專科門診部有需要的時候，人力資源經理就會用幕僚職權去幫門診部主管解決問題。", score: 0, status: "partial", comment: "【常見失分示範：未結合情境具體解說】停留於「幫手解決問題」的表面空話，沒有結合人力資源經理的職能舉出具體支援事項（如提供醫護招聘或薪酬福利的專業意見以協助門診部主管作決策）。" },
+          { text: "例如人力資源經理可直接下令專科門診部的所有醫生更改手術排期及治療方案。", score: 0, status: "wrong", comment: "【概念應用錯誤】直接下令更改手術排期屬於跨越部門行使直線指揮權，違背了幕僚職權僅提供專業支援與諮詢意見的原則。" }
+        ]}
+      ]
+    },
+    {
+      id: "s2", cat: "short", typeBadge: "短答題（單一論點 · 2 分 · 2 步建構）",
+      title: "短答 2：綠源環保餐具製造商（以「可量度」準則診斷企業目標的缺陷）", topic: "計劃：單一論點剖析良好目標的「可量度 (Measurable)」特點", maxMarks: 2,
+      scenario: "本地餐具製造商「綠源環保」為了控制營運成本，訂立了以下的公司目標：「在今年內盡量減少廠房的電力消耗。」商業顧問指出，這個目標未能展現良好 (SMART) 目標中「可量度 (Measurable)」的特點。",
+      question: "試建構一個獨立論點段落，解釋何謂「可量度」的目標，並說明為何該環保餐具商的目標未能展現這項特點。（2 分）",
+      steps: [
+        { label: "第 1 步：闡明良好目標中「可量度 (Measurable)」準則的核心要求與管理作用（1分）", colorClass: "hl-s1", opts: [
+          { text: "良好的目標必須符合「可量度」的準則，即目標應該可以量化或以具體的數字、百分比形式表達，讓管理人員能夠客觀量度企業的實際表現並判斷是否已經達成目標。", score: 1, status: "best", comment: "【滿分論述示範】清晰闡明「可量度」的定義（可量化或以數字形式表達）及其管理作用（用以量度實際表現並判斷有否達標），為下一步批評判斷建立穩固準則。" },
+          { text: "良好的目標必須符合「可量度」的準則，即目標必須設定得極為容易、唾手可得，讓廠房工人無須付出額外努力也能達成。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】將「可量度（量化數字）」與「可達到（難度適中）」混淆，且錯誤地認為目標應唾手可得。" },
+          { text: "良好的目標必須符合「可量度」的準則，即環保餐具商所訂立的目標應該要能夠被管理人員量度出來。", score: 0, status: "partial", comment: "【常見失分示範：同義反覆】用「能夠被量度出來」去解釋「可量度」，沒有點出「可量化或以具體數字、百分比形式表達」這一關鍵判準。" }
+        ]},
+        { label: "第 2 步：緊扣「盡量減少廠房的電力消耗」目標，剖析其缺乏量化指標的弊病（1分）", colorClass: "hl-s2", opts: [
+          { text: "因為綠源環保訂立的這個目標沒有寫清楚，所以不是一個可量度的好目標。", score: 0, status: "partial", comment: "【常見失分示範：解說不足／缺乏因果推論】沒有扣連「盡量減少廠房的電力消耗」這句目標，指出其「欠缺減少耗電度數或百分比的具體數字」，亦未說明這會導致管理層在年終無法評估是否達標。" },
+          { text: "綠源環保的目標只含糊地說「盡量減少電力消耗」，卻沒有以數字或百分比形式列明要把耗電量減少多少度電或百分之幾（例如減少 15%），導致管理層在年終評估進度時，缺乏客觀數字標準去判斷廠房是否已經達成目標。", score: 1, status: "best", comment: "【滿分論述示範】直接引用題目目標字眼，指出其缺乏具體數字或百分比的缺陷，並完整推演出「管理層在年終無法客觀判斷是否已達成目標」的管理後果。" },
+          { text: "廠房減少電力消耗與公司的生產成本和盈利表現完全無關，因此無法用數字量度。", score: 0, status: "wrong", comment: "【邏輯推論錯誤】減少電力消耗能直接降低水電生產成本並提升盈利（符合相關性）；問題在於目標表述方式沒有量化，而非事項本身與業績無關。" }
+        ]}
+      ]
+    },
+    {
+      id: "s3", cat: "short", typeBadge: "短答題（單一論點 · 2 分 · 2 步建構）",
+      title: "短答 3：泰安物流公司（從「避免部門衝突」角度解釋採用「統一的方向」的好處）", topic: "有效管理原則：單一論點闡釋「統一的方向 (Unity of Direction)」", maxMarks: 2,
+      scenario: "本年度，「泰安物流公司」以「緊縮營運開支」為整體目標；可是，車隊主管卻動用上年度營業額的 45% 購買多輛豪華宣傳車，導致車隊部門與控制開支的財務部發生激烈爭拗，違反了「統一的方向」原則。",
+      question: "試以「避免部門之間發生衝突」這項好處為核心，建構一個獨立論點段落，解釋泰安物流為何應採用「統一的方向」原則。（2 分）",
+      steps: [
+        { label: "第 1 步：界定「統一的方向」原則，並點出其「避免部門之間發生衝突」的核心機制（1分）", colorClass: "hl-s1", opts: [
+          { text: "統一的方向是指每名下屬只聽從一名直屬上司的指揮並向其匯報，藉此避免一名下屬同時收到兩名上司的指令。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】混淆了「統一命令（每名下屬只有一名直屬上司）」與「統一的方向（每個計劃由一人統領，相同目標活動納入同一計劃）」。" },
+          { text: "統一的方向原則要求企業內每個計劃都只由一名管理人員統領，且所有擁有相同目標的活動都應納入同一項計劃內；採用此原則能確保企業內各部門不會出現互相衝突的目標，從而避免部門之間發生衝突。", score: 1, status: "best", comment: "【滿分論述示範】準確界定「統一的方向」的核心內涵，並清晰建立「統一計劃與目標 ➔ 消除互相矛盾的目標 ➔ 避免部門間發生衝突」的因果邏輯。" },
+          { text: "泰安物流採用統一的方向原則，可以避免公司入面不同部門的經理經常吵架和發生衝突。", score: 0, status: "partial", comment: "【常見失分示範：有結論無機制】直接抄錄了題目的「避免部門衝突」標題，但漏了闡明統一方向如何透過「將相同目標活動納入同一計劃、確保各部門目標一致不互相矛盾」來避免衝突。" }
+        ]},
+        { label: "第 2 步：扣連「泰安物流緊縮開支目標與巨資買豪華車」的情境作具體解說（1分）", colorClass: "hl-s2", opts: [
+          { text: "在泰安物流中，車隊主管耗資上年度營業額 45% 買豪華車的行動，與公司「緊縮營運開支」的整體目標背道而馳；若採用統一的方向原則，便能確保車隊的用車計劃服從於公司緊縮開支的共同目標（改為保養現有貨車），消除車隊部門與控制預算的財務部之間的目標矛盾與爭拗。", score: 1, status: "best", comment: "【滿分論述示範】精準扣連個案中「整體緊縮開支 vs 耗資45%營業額買豪華車」的矛盾點，具體說明統一方向如何協調車隊部門與財務部的分歧。" },
+          { text: "這樣泰安物流的車隊主管就不會再用那麼多錢去買新車，大家便不會再有衝突了。", score: 0, status: "partial", comment: "【常見失分示範：解說過於表面】未有明確指出個案中的核心矛盾是「車隊主管的巨額購車開支與公司『緊縮營運開支』的整體目標互相衝突」，以及統一方向如何使各部門活動朝着共同的緊縮開支目標協調一致。" },
+          { text: "採用統一的方向後，泰安物流便可將搬運過程分拆為十個細小工序，以機械臂完全取代貨車司機。", score: 0, status: "wrong", comment: "【概念應用錯誤】分拆工序並以機器代人屬於「分工」原則在生產線的應用，與協調部門開支與公司整體目標無關。" }
+        ]}
+      ]
+    },
+    {
+      id: "s4", cat: "short", typeBadge: "短答題（單一論點 · 2 分 · 2 步建構）",
+      title: "短答 4：雅緻珠寶設計工坊（以「視野狹窄」為核心解釋獨裁式領導的缺點）", topic: "領導風格：單一論點剖析「獨裁式領導」的缺點", maxMarks: 2,
+      scenario: "兆康開立了一家獨資珠寶設計工坊，設計及出售時尚銀飾。工坊的設計部員工可自由繪畫不同的耳環及戒指草圖，但「最終揀選哪款草圖投入生產只由兆康一人決定，其他設計師不得參與」，展示了「獨裁式領導」風格。",
+      question: "試單獨以「視野狹窄」這項缺點為核心，建構一個獨立論點段落，解釋兆康採用獨裁式領導在揀選新首飾投產上的弊病。（2 分）",
+      steps: [
+        { label: "第 1 步：指出獨裁式領導「視野狹窄」的缺點及其形成原因（1分）", colorClass: "hl-s1", opts: [
+          { text: "兆康採用獨裁式領導的一項主要缺點是「視野狹窄」：由於他把決策權完全集中在自己手上，不讓下屬參與決策而獨自作出所有決定，缺乏不同員工的多元觀點與前線資訊，思考角度會變得狹窄。", score: 1, status: "best", comment: "【滿分論述示範】準確點出「視野狹窄」這項單一缺點，並清楚解釋其成因（獨攬決策權、拒絕下屬參與導致缺乏多元觀點與資訊）。" },
+          { text: "兆康採用獨裁式領導的缺點是因為參與決策的設計師太多，導致揀選新首飾的決策速度極度緩慢。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】參與人數多導致決策緩慢是「參與式領導」的缺點；獨裁式領導由一人全權決定，其決策速度迅速。" },
+          { text: "兆康採用獨裁式領導的缺點是他的視野會變得很狹窄，看東西不夠全面。", score: 0, status: "partial", comment: "【常見失分示範：未解釋形成原因】只重複了「視野狹窄」的字面意思，沒有從領導方式解釋為何會視野狹窄——即「因為管理人員不讓下屬參與決策，單憑一人獨自決策無法獲得所有資訊與多元意見」。" }
+        ]},
+        { label: "第 2 步：扣連「兆康一人揀選新首飾設計草圖」的情境，推演其對產品決策的負面影響（1分）", colorClass: "hl-s2", opts: [
+          { text: "因為兆康自己一個人揀選新首飾，所以他揀出來的首飾款式一定會賣得不好。", score: 0, status: "partial", comment: "【常見失分示範：武斷跳躍／缺乏中間推論】直接斷言「一定賣得不好」過於武斷；應推論「由於不聽取年輕設計師對最新首飾潮流與顧客喜好的專業意見，兆康容易受個人主觀偏見影響，作出不當的款式揀選決策」。" },
+          { text: "在揀選新銀飾草圖投產時，由於兆康完全不聽取設計團隊對最新年輕配飾潮流及顧客喜好的專業意見，他很容易受個人主觀審美偏見影響，作出不當的揀選決策，錯失真正受市場歡迎的創新首飾設計。", score: 1, status: "best", comment: "【滿分論述示範】緊扣首飾草圖揀選情境，清楚推演出「排斥設計師專業潮流意見 ➔ 易受個人偏見影響 ➔ 作出不當產品決策而錯失良機」的完整因果鏈。" },
+          { text: "這會令設計部員工因為獲授過大自主權而各自為政，在工坊內爭奪銀料資源並帶來混亂。", score: 0, status: "wrong", comment: "【概念應用錯誤】各自為政與爭奪資源帶來混亂，是「自由放任式領導」缺乏協調的缺點，而非兆康獨攬揀選權的缺點。" }
+        ]}
+      ]
+    },
+    {
+      id: "e1", cat: "essay", typeBadge: "進階論述題（單一論點 · 3 分 · 3 步深度建構）",
+      title: "論述 1：環球郵輪渡假集團（以「尋找機會和應對挑戰」闡釋計劃的重要性）", topic: "計劃的重要性：單一論點深度建構", maxMarks: 3,
+      scenario: "「環球郵輪渡假集團」每年均會投入大量時間進行管理功能中的「計劃 (Planning)」工作。",
+      question: "試單獨以「幫助管理人員尋找機會和應對挑戰」這項重要性為核心，以該郵輪渡假集團為例，建構一個 3 分深度論述段落。（3 分）",
+      steps: [
+        { label: "第 1 步：指出「幫助管理人員尋找機會和應對挑戰」的論點標題並闡明其運作機制（1分）", colorClass: "hl-s1", opts: [
+          { text: "計劃對郵輪集團的重要性之一是「幫助管理人員尋找機會和應對挑戰」：管理人員在制定計劃時，會分析企業自身的資源並收集與外在營商環境相關的資料；由於他們會展望將來，因此能夠及早發掘出各種商機，並預計可能會出現的問題以採取預防措施。", score: 1, status: "best", comment: "【滿分論述示範】準確提出單一論點標題，並清晰闡明「分析內部資源＋收集外在環境資料＋展望將來 ➔ 發掘商機與預計問題採取預防措施」的完整理論機制。" },
+          { text: "計劃對郵輪集團的重要性是能夠直接免除所有船員的航海安全培訓，將培訓成本降至零。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】計劃是訂立目標並制定最佳方案的過程，絕不能取代保障航海安全所需的船員培訓。" },
+          { text: "計劃對環球郵輪渡假集團十分重要，因為做好計劃可以幫助管理人員找到新機會同埋應付新挑戰。", score: 0, status: "partial", comment: "【常見失分示範：同義反覆／缺乏機制說明】純粹重抄題目的論點標題，沒有解釋管理人員在制定計劃時為何能找到機會和應對挑戰（漏了「分析企業資源、收集營商環境資料並展望將來以採取預防措施」的機制）。" }
+        ]},
+        { label: "第 2 步：針對「環球郵輪渡假集團」設定一個兼具發掘商機與應對挑戰的具體例子（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如郵輪集團在制定來年航次計劃時，透過收集旅遊市場數據，發掘出銀髮族長者對「沖繩及九州慢活養生郵輪假期」的需求急升（商機），同時預計到國際船用燃油價格可能上漲及港口泊位費增加（挑戰），從而預先規劃調配郵輪加開日本養生主題航次，並提早鎖定燃油期貨合約以採取預防措施控制成本。", score: 1, status: "best", comment: "【滿分論述示範】緊扣郵輪集團業務背景，具體呈現如何透過收集市場數據發掘銀髮養生航次商機，以及如何預計船用油價問題並預先採取應對措施，例子極具說服力。" },
+          { text: "例如郵輪集團的管理層在每年年底做計劃的時候，都會開會研究一下出年有甚麼賺錢機會和有甚麼困難。", score: 0, status: "partial", comment: "【常見失分示範：例子空泛／未結合行業特徵】沒有結合郵輪渡假集團的具體業務（如主題航次需求變化、競爭對手或船用燃油成本波動）設定實質商業例子，無法展示應用能力。" },
+          { text: "例如郵輪上的餐飲經理在自助餐廳現場監督侍應收拾餐桌，確保餐廳日常運作暢順。", score: 0, status: "wrong", comment: "【概念應用錯誤】現場監督侍應收拾餐桌屬於日常營運中的「領導」與「控制」工作，並非展望將來尋找市場機會的「計劃」例子。" }
+        ]},
+        { label: "第 3 步：深化論述至把握市場先機、減低潛在危機衝擊並協助達成目標的企業影響（1分）", colorClass: "hl-s3", opts: [
+          { text: "這能讓郵輪集團比競爭對手更早分配船隊與餐飲資源把握銀髮旅遊新商機以擴大收益，並在燃油成本危機真正造成嚴重打擊前作好防範，為集團的長遠商業策略奠定基礎，協助集團有效地達成組織目標。", score: 1, status: "best", comment: "【滿分論述示範】將具體例子的效果提升至企業整體層面，清楚推演出「把握先機擴大收益＋預先防範減低衝擊 ➔ 協助有效達成組織目標」的深遠影響。" },
+          { text: "這樣環球郵輪渡假集團的管理層便能夠成功找到市場機會和應對未來的挑戰了。", score: 0, status: "partial", comment: "【常見失分示範：首尾重複／未深化影響】結尾僅重複第 1 步的標題字眼，未有進一步推論這對郵輪集團「搶佔市場先機、減低外在環境衝擊及達成整體組織目標」的實質效益。" },
+          { text: "這能保證郵輪在海上航行時永遠不會遇到任何颱風或惡劣天氣。", score: 0, status: "wrong", comment: "【邏輯推論錯誤】企業的內部規劃可以預先制定應變措施減低天氣延誤衝擊，但不可能控制自然界的颱風天氣。" }
+        ]}
+      ]
+    },
+    {
+      id: "e2", cat: "essay", typeBadge: "進階論述題（單一論點 · 3 分 · 3 步深度建構）",
+      title: "論述 2：鮮果物語連鎖果汁店（闡釋計劃過程的第 3 步：「評估各個計劃，選出最佳方案」）", topic: "計劃的過程：單一步驟深度建構（第 3 步）", maxMarks: 3,
+      scenario: "「鮮果物語」連鎖鮮榨果汁店面對其他手搖飲品店的激烈競爭，營業額大減。管理層為應付這個情況，正進行「計劃」過程以提升來季的銷售額，目前已完成了訂立目標（第 1 步）及收集市場與內部資源資料（第 2 步）。",
+      question: "試單獨以計劃過程的「第 3 步：評估各個計劃，選出最佳方案」為核心，結合該連鎖果汁店的情境建構一個 3 分深度論述段落。（3 分）",
+      steps: [
+        { label: "第 1 步：指出計劃過程「第 3 步」的準確名稱與核心工作機制（1分）", colorClass: "hl-s1", opts: [
+          { text: "在完成訂立目標及收集資料後，果汁店管理層須執行計劃過程的「第 3 步：評估各個計劃，選出最佳方案」：即根據所收集的資料，制定和評估所有可行的計劃方案，然後從中比較並選出能最有效地達成銷售目標的最佳方案。", score: 1, status: "best", comment: "【滿分論述示範】準確指出單一步驟名稱，並清晰點出「制定和評估所有可行方案（多方案比較）➔ 選出最能有效達成目標的最佳方案」的核心機制。" },
+          { text: "在計劃過程的第 3 步中，管理層只會隨意構思唯一一個方案並立即執行，無須制定或評估任何其他備選方案。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】若只構思單一方案而不作多方案比較評估，便無法得知該方案是否最合乎成本效益，違背了第 3 步「評估各個可行計劃以選出最佳方案」的要求。" },
+          { text: "接下來果汁店管理層會進行計劃過程的第三個步驟，想一個好方法出來幫果汁店增加生意。", score: 0, status: "partial", comment: "【常見失分示範：漏寫「評估比較多個可行方案」的關鍵機制】不能只寫「想一個好方法」，必須明確指出管理層須「制定和評估所有可行的計劃（多個備選方案），經權衡比較後選出最佳方案」。" }
+        ]},
+        { label: "第 2 步：針對「鮮果物語連鎖果汁店提升銷售額」設定多方案評估與選擇的具體例子（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如果汁店管理層根據早前收集到健身及上班族喜愛高纖代餐的資料，制定出三個可行方案作評估：方案一是推出「牛油果希臘乳酪能量昔系列」、方案二是將全線傳統果汁減價三成、方案三是租用大型戶外廣告牌；管理層評估各方案的成本與預期收益後，發現方案一毛利率最高且最能吸引目標客群，遂選出方案一為最佳方案。", score: 1, status: "best", comment: "【滿分論述示範】緊扣果汁店業務，具體列出三個不同的可行方案，並展示管理層如何以「成本效益」為準則進行評估比較及選出最佳方案，完美演繹第 3 步。" },
+          { text: "例如果汁店管理層在開會時討論了幾個不同的方法，最後大家決定揀其中一個最好的方法去實行。", score: 0, status: "partial", comment: "【常見失分示範：例子空泛抽象】沒有針對「連鎖果汁店」設定任何具體的產品或營銷方案內容（如推出新口味牛油果乳酪飲品 vs 減價促銷），亦未說明以甚麼準則（如成本效益）去評估方案。" },
+          { text: "例如果汁店管理層在季末統計收銀機的實際銷售金額，並與季初訂立的銷售標準作比較。", score: 0, status: "wrong", comment: "【概念應用錯誤】在季末統計實際銷售額並與標準比較，屬於計劃執行後的「控制」過程，而非執行計劃前篩選方案的「計劃第 3 步」。" }
+        ]},
+        { label: "第 3 步：深化論述至避免盲目決策浪費資源、確保所選方案最具成本效益以達成目標的影響（1分）", colorClass: "hl-s3", opts: [
+          { text: "透過在行動前系統地評估和比較各個可行方案的利弊與成本效益，果汁店能避免因盲目減價或胡亂投放昂貴廣告而浪費寶貴資源，確保最終付諸實行的方案能最有效地協助果汁店在激烈競爭中提升來季銷售額。", score: 1, status: "best", comment: "【滿分論述示範】清楚推演出多方案評估比較如何「避免盲目決策與資源浪費，確保以最具成本效益的方式達成提升銷售額的目標」。" },
+          { text: "這樣鮮果物語連鎖果汁店便完成了計劃過程的第三個步驟，可以繼續做第四個步驟了。", score: 0, status: "partial", comment: "【常見失分示範：缺乏管理效益總結】僅交代步驟次序，未有說明「評估比較多個方案並選出最佳方案」對於避免決策失誤、善用有限資源及確保達成銷售目標的管理意義。" },
+          { text: "選出最佳方案後，果汁店便無須再制定任何執行時間表或分配資金與人力資源，計劃會自動完成。", score: 0, status: "wrong", comment: "【邏輯推論錯誤】選出最佳方案（第 3 步）後，仍須進入第 4 步制定執行時間表並分配資金和人力資源，才能落實執行。" }
+        ]}
+      ]
+    },
+    {
+      id: "e3", cat: "essay", typeBadge: "進階論述題（單一論點 · 3 分 · 3 步深度建構）",
+      title: "論述 3：迅捷金融科技公司（以「溝通速度與準確度」比較高架式與扁平式結構）", topic: "組織結構：單一維度比較「高架式結構」與「扁平式結構」", maxMarks: 3,
+      scenario: "現今數碼支付及投資市場瞬息萬變，「迅捷金融科技公司」為了加快推出創新的電子錢包跨境支付功能，決定進行組織重組，減少管理層級，將現時的「高架式結構 (Tall Structure)」轉變為「扁平式結構 (Flat Structure)」。",
+      question: "試單獨以「內部溝通的速度與準確度」這個比較維度為核心，建構一個 3 分雙向對比論述段落，比較高架式結構與扁平式結構的分別，並解釋為何扁平式結構對迅捷金融科技公司更有利。（3 分）",
+      steps: [
+        { label: "第 1 步：鎖定「內部溝通」單一比較維度，雙向對比高架式與扁平式結構的差異及成因（1分）", colorClass: "hl-s1", opts: [
+          { text: "高架式結構與扁平式結構在「內部溝通的速度與準確度」上截然不同：高架式結構的管理層級較多，由於訊息要經過多個層級傳遞，溝通較慢且容易出現延誤和誤解；相反，扁平式結構的管理層級較少，訊息可以迅速在公司內流通，溝通較快且較少出現誤解。", score: 1, status: "best", comment: "【滿分論述示範】嚴格聚焦於「內部溝通」單一維度，清晰進行雙向對比，並準確點出「管理層級數目多寡 ➔ 訊息傳遞路徑長短 ➔ 溝通速度與出現延誤誤解機會」的因果關係。" },
+          { text: "高架式結構的管理層級較多，因此訊息在公司內流通的速度最快且絕對不會出現誤解；而扁平式結構的溝通則最慢。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】因果方向完全顛倒。管理層級越多，訊息傳遞所需經過的關卡越多，溝通速度必然越慢且越易失真誤解。" },
+          { text: "高架式結構和扁平式結構在溝通、效率、控制幅度和員工工作動機四個方面都有很大的分別。", score: 0, status: "partial", comment: "【常見失分示範：羅列多維度標題而無深入對比】違反「一段一論點」原則，把四個維度的標題混在一起，卻沒有針對「內部溝通」說明為何層級多會導致延誤和誤解。" }
+        ]},
+        { label: "第 2 步：扣連「迅捷金融科技公司研發電子錢包新功能」的情境作具體對比說明（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如在迅捷金融科技公司現時的高架式結構下，前線程式工程師發現的支付系統漏洞或新跨境匯款功能意念，須逐級向上匯報經過組長、主任、副經理及部門經理等多重關卡才能傳達至行政總裁，途中極易被扭曲原意或延誤時機；轉為扁平式結構減少管理層級後，研發團隊能直接迅速地與高層管理人員雙向溝通，確保新功能意念與指令準確無誤地傳達。", score: 1, status: "best", comment: "【滿分論述示範】緊扣電子錢包研發團隊與高層傳遞系統反饋及新功能意念的具體場景，生動展現多層級延誤失真與扁平化直接溝通的對比。" },
+          { text: "例如迅捷公司將高架式結構變成扁平式結構之後，公司入面的工程師同老細傾偈就會比以前快好多。", score: 0, status: "partial", comment: "【常見失分示範：解說過於口語簡略】未有結合「研發電子錢包新功能、傳遞技術意念與市場反饋」的個案背景，亦未點出「減少中層傳話關卡以降低訊息失真誤解」的具體過程。" },
+          { text: "例如迅捷公司按個人支付、商戶收款及財富管理設立三個不同的產品部門。", score: 0, status: "wrong", comment: "【概念應用錯誤】按服務種類設立部門屬於「按產品劃分部門」的方式，並非解釋高架式與扁平式結構在垂直溝通層級上的分別。" }
+        ]},
+        { label: "第 3 步：深化論述至配合瞬息萬變的金融科技市場、加快新功能推出速度以搶佔先機的發展優勢（1分）", colorClass: "hl-s3", opts: [
+          { text: "由於數碼支付與金融科技市場瞬息萬變，扁平式結構所帶來的快速、準確內部溝通，能讓迅捷公司的高層與研發團隊緊密配合，避免因訊息延誤或誤解而錯失市場良機，協助公司比競爭對手更快推出創新的電子錢包功能搶佔市場佔有率，因此對其發展更為有利。", score: 1, status: "best", comment: "【滿分論述示範】緊扣個案「瞬息萬變的金融科技市場與加快推出新功能」的背景，清楚推演出快速準確溝通如何避免錯失商機並促進業務發展。" },
+          { text: "因此，在溝通方面來看，扁平式結構比高架式結構更好，對迅捷金融科技公司的發展更有利。", score: 0, status: "partial", comment: "【常見失分示範：同義反覆】結尾照抄題目文字，沒有說明快速且少誤解的溝通如何協助迅捷公司「在瞬息萬變的數碼支付市場中迅速應變、減少研發失誤並搶佔市場先機」。" },
+          { text: "這能令迅捷公司的每名管理人員需要直接管理的下屬人數減少至一人，實現最嚴密的貼身監督。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】減少管理層級轉為扁平式結構後，每名管理人員直接管理的下屬人數會增加（控制幅度變廣），而非減少至一人。" }
+        ]}
+      ]
+    },
+    {
+      id: "e4", cat: "essay", typeBadge: "進階論述題（單一論點 · 3 分 · 3 步深度建構）",
+      title: "論述 4：皇冠智能門鎖製造廠（闡釋控制過程的第 4 步：「分析差異並採取糾正行動」）", topic: "控制的過程：單一步驟深度建構（第 4 步）", maxMarks: 3,
+      scenario: "「皇冠智能門鎖製造廠」眼見住戶對指紋識別失靈及門鎖故障的退貨投訴大幅增加，決定透過管理功能中的「控制 (Controlling)」過程改善產品質量。生產經理已完成前三個步驟：訂立了每月出廠門鎖次貨率不高於 0.5% 的表現標準（第 1 步）、量度出上月實際次貨率高達 4.5%（第 2 步），並比較發現實際次貨率遠高於標準，表現不能接受（第 3 步）。",
+      question: "試單獨以控制過程的「第 4 步：分析差異並採取糾正行動」為核心，結合該智能門鎖製造廠的情境建構一個 3 分深度論述段落。（3 分）",
+      steps: [
+        { label: "第 1 步：指出控制過程「第 4 步」的準確名稱與核心運作機制（1分）", colorClass: "hl-s1", opts: [
+          { text: "當在第 3 步比較發現實際表現遠偏離標準而不可接受後，生產經理須執行控制過程的「第 4 步：分析差異並採取糾正行動」：即深入分析實際表現與標準之間的差異，找出導致出現問題的根源原因，然後針對原因採取相應的糾正行動（或當發現原定標準不切實際時修訂表現標準）。", score: 1, status: "best", comment: "【滿分論述示範】準確指出單一步驟名稱，並清晰闡明「分析差異找出問題根源 ➔ 針對成因採取糾正行動（或修訂標準）」的邏輯機制。" },
+          { text: "在控制過程的第 4 步中，即使發現實際次貨率遠高於標準，生產經理亦無須分析原因或採取任何行動，只需等待下月再量度。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】只有當實際表現沒有嚴重偏離標準（表現可接受）時才不用採取行動；當次貨率遠高於標準而不可接受時，必須分析差異並採取糾正行動。" },
+          { text: "接下來智能門鎖廠的生產經理會進行控制過程的第四個步驟，採取一些行動去解決門鎖次貨太多的問題。", score: 0, status: "partial", comment: "【常見失分示範：漏寫「分析差異以找出問題原因」的前置動作】在採取糾正行動之前，必須先寫出「分析差異，找出導致次貨率過高的原因」，否則無法對症下藥。" }
+        ]},
+        { label: "第 2 步：針對「智能門鎖廠次貨率遠高於標準」設定具體的成因分析與對應糾正行動例子（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如生產經理分析差異後，發現導致智能門鎖次貨率高達 4.5% 的原因有兩個：一是新入職的生產部工人焊接電路板技術不夠熟練，二是採購部早前購入了一批品質低劣的指紋感應晶片原料；經理遂對症下藥採取糾正行動——為生產部工人提供精密焊接技術培訓，並改向供應商購買品質較佳的感應晶片原料。", score: 1, status: "best", comment: "【滿分論述示範】緊扣智能門鎖廠次貨過多的情境，具體配對兩項典型成因（工人焊接技術不夠熟練、感應晶片原料品質低劣）與相應的糾正行動（提供員工培訓、購買較佳原料），因果對應極為嚴密。" },
+          { text: "例如生產經理看到次貨太多之後，就叫工廠入面的工人以後組裝門鎖的時候小心一點，不要再整壞門鎖。", score: 0, status: "partial", comment: "【常見失分示範：解說空泛／缺乏具體管理措施】「叫工人小心一點」並非具體的管理糾正行動；應先分析具體成因（如工人焊接技術不熟練或晶片原料劣質），再提出具體糾正措施（如提供技術培訓、購買優質原料或定期檢查設備）。" },
+          { text: "例如生產經理決定將所有指紋識別失靈的次貨門鎖減價五成當作正貨出售予大廈住戶。", score: 0, status: "wrong", comment: "【概念應用錯誤】將故障門鎖減價出售並不能解決「生產過程產生大量次貨及住戶投訴產品質量差」的根源問題，反而會危及住戶家居安全並摧毀商譽。" }
+        ]},
+        { label: "第 3 步：深化論述至把不濟表現糾正過來、恢復產品質量達至理想水平並挽回商譽的影響（1分）", colorClass: "hl-s3", opts: [
+          { text: "糾正行動是控制功能中非常關鍵的一環；透過針對次貨根源實施培訓與改善晶片原料，能有效把智能門鎖廠不濟的生產表現糾正過來，使門鎖質量回復至符合表現標準的理想水平，從而減少住戶退貨投訴並維護品牌聲譽。", score: 1, status: "best", comment: "【滿分論述示範】清楚點出糾正行動在控制功能中的核心價值——「把企業不濟的表現糾正過來並達至理想水平，確保活動按計劃完成以挽回商譽」。" },
+          { text: "這樣皇冠智能門鎖製造廠便完成了控制過程的最後一步，解決了次貨太多的問題。", score: 0, status: "partial", comment: "【常見失分示範：同義反覆】未有深化說明糾正行動如何「把不濟的生產表現糾正過來並達至預定標準的理想水平，確保工廠生產活動按計劃完成」。" },
+          { text: "採取糾正行動後，智能門鎖廠在未來十年便永遠無須再進行任何品質檢查或控制工作。", score: 0, status: "wrong", comment: "【邏輯推論錯誤】控制是一個持續不斷的循環監控過程，完成糾正行動後仍須持續量度及監控後續的生產表現。" }
+        ]}
+      ]
+    },
+    {
+      id: "e5", cat: "essay", typeBadge: "進階論述題（單一論點 · 3 分 · 3 步深度建構）",
+      title: "論述 5：皇冠智能門鎖製造廠（以「促進自動化」闡釋生產過程採用分工的好處）", topic: "有效管理原則：單一論點深度建構「分工 (Division of Work)」的好處", maxMarks: 3,
+      scenario: "承上題，商業顧問同時建議「皇冠智能門鎖製造廠」在生產過程中採用「分工 (Division of Work)」原則，把智能門鎖生產過程分拆成多個細小工序，每名員工只專門負責其中一項工序。",
+      question: "試單獨以「促進自動化」這項優點為核心，結合該智能門鎖製造廠的情境建構一個 3 分深度論述段落。（3 分）",
+      steps: [
+        { label: "第 1 步：指出分工「促進自動化」的單一優點標題並闡明其運作邏輯（1分）", colorClass: "hl-s1", opts: [
+          { text: "在生產過程中採用分工的優點之一是「促進自動化」：當原本複雜的整個生產過程被分拆為多個簡單、重複及細小的獨立工序後，管理人員便可較容易使用專門的機器或設備來代替人手執行這些單一工序。", score: 1, status: "best", comment: "【滿分論述示範】聚焦於「促進自動化」單一論點，清楚解釋「複雜過程分拆為簡單細小工序 ➔ 較易設計及引入專門機器代替人手工作」的因果機制。" },
+          { text: "在生產過程中採用分工的優點是能大幅提高人手調配的靈活度，讓每名工人隨時勝任工廠內所有不同崗位的工作。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】在分工下，每名員工只掌握單一專門工序的技術，未必能執行其他工作，因此「靈活度低（較難調配人手）」是分工的缺點而非優點。" },
+          { text: "智能門鎖廠在生產過程中採用分工，有提升效率、節省時間、促進自動化和使監督更容易四個好處。", score: 0, status: "partial", comment: "【常見失分示範：羅列多個標題而無解釋】違反「一段一論點」的深度論述要求，把四個優點標題全部抄在一起，卻沒有解釋為何分拆工序能夠「促進自動化」。" }
+        ]},
+        { label: "第 2 步：針對「智能門鎖製造廠生產線」設定分拆工序以引入專門機器的具體例子（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如若由一名技工由頭到尾包辦整把智能門鎖的外殼切割、拋光、電路板焊接、指紋鏡頭安裝及包裝，動作複雜多變而難以用單一機器取代；但當門鎖廠實行分工，將生產過程分拆為「金屬外殼切割、表面拋光、焊接晶片電路板、入盒封裝」等獨立細小工序後，廠方便可輕易在「外殼切割」及「焊接電路板」環節引入全自動激光切割機及自動焊接機械臂來代替人手操作。", score: 1, status: "best", comment: "【滿分論述示範】透過對比「一人包辦複雜製鎖工序」與「分拆出外殼切割及焊接電路板等單一重複動作」，具體展示如何引入專門激光切割機與焊接機械臂代替人手，論證極具說服力。" },
+          { text: "例如智能門鎖廠將生產門鎖的工作分拆開來之後，就可以去買一些新機器返來工廠幫手生產門鎖。", score: 0, status: "partial", comment: "【常見失分示範：例子空泛／缺乏橋樑連接】沒有具體說明門鎖生產分拆成哪些細小重複工序（如金屬切割、焊接電路板、包裝），導致無法解釋為何分拆後會更容易用專門機器代替人手。" },
+          { text: "例如智能門鎖廠為營業部員工購買手提電腦，讓他們在外出拜訪地產發展商時可透過電郵與總部溝通。", score: 0, status: "wrong", comment: "【概念應用錯誤】使用手提電腦收發電郵屬於「資訊管理」的網絡溝通工具，並非生產線上透過「分工」將細小生產工序自動化的例子。" }
+        ]},
+        { label: "第 3 步：深化論述至提升大批量生產力、穩定焊接規格品質並節省長遠人工成本的影響（1分）", colorClass: "hl-s3", opts: [
+          { text: "透過使用專門機器代替人手執行細分工序，智能門鎖廠不但能大幅加快大批量生產門鎖的速度、確保每塊電路板的焊接規格精準一致（減少人手疲勞出錯），更能長遠為工廠提升整體生產力和節省龐大的人工成本。", score: 1, status: "best", comment: "【滿分論述示範】清楚推演出以專門機器代替人手後，對智能門鎖廠「提升生產力、穩定品質及節省人工成本」的具體企業效益。" },
+          { text: "這樣智能門鎖廠便能夠促進生產自動化，令工廠的生產過程變得更加先進。", score: 0, status: "partial", comment: "【常見失分示範：同義反覆】未有明確點出促進自動化最終為企業帶來的兩大核心經濟效益：「提升生產力」以及「節省人工成本」。" },
+          { text: "這能令智能門鎖廠完全消除各生產工序之間的互相依賴，即使首個外殼切割工序停頓亦不會影響後續組裝。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】即使引入機器自動化，分工下的各個工序依然環環相扣、互相依賴，任何一個前置工序停頓仍會「牽一髮而動全身」導致後續工序停擺。" }
+        ]}
+      ]
+    },
+    {
+      id: "e6", cat: "essay", typeBadge: "進階論述題（單一論點 · 3 分 · 3 步深度建構）",
+      title: "論述 6：尚雅大型傢俬連鎖店（以舉行「季末清貨大減價」為例，闡釋「組織」管理功能）", topic: "四項管理功能：單一功能深度建構（「組織 Organising」）", maxMarks: 3,
+      scenario: "「尚雅傢俬連鎖店」受倉庫梳化及餐桌存貨過多的問題困擾。一名商業顧問建議傢俬店舉行一場為期兩週的「季末陳列品清貨大減價」來清理多餘的存貨。",
+      question: "試單獨以四項管理功能中的「組織 (Organising)」功能為核心，以上述清貨大減價活動為例，建構一個 3 分深度論述段落。（3 分）",
+      steps: [
+        { label: "第 1 步：指出「組織 (Organising)」管理功能的核心定義與作用（1分）", colorClass: "hl-s1", opts: [
+          { text: "在籌備季末清貨大減價活動時，管理層須執行「組織 (Organising)」功能：組織是指決定須要做哪些工作，以及如何把這些工作組合起來並分配予合適部門和人員的過程，藉此明確界定各職位的職責與相互關係。", score: 1, status: "best", comment: "【滿分論述示範】準確界定「組織」功能的核心定義（決定所需工作、把工作組合並分配、明確職責與關係），聚焦單一功能。" },
+          { text: "在籌備季末清貨大減價活動時，組織功能是指為減價活動訂立清理 80% 梳化存貨的目標，並在活動後量度實際銷量。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】訂立清貨目標屬於「計劃」功能，量度實際銷量屬於「控制」功能，兩者均非「組織」功能。" },
+          { text: "尚雅傢俬連鎖店在搞季末清貨大減價活動的時候，需要用到計劃、組織、領導和控制四項管理功能。", score: 0, status: "partial", comment: "【常見失分示範：羅列四項功能標題而無界定「組織」】題目要求單獨以「組織」功能為核心建構論點，必須明確寫出組織的定義：「決定須要做哪些工作，以及如何把這些工作組合起來」。" }
+        ]},
+        { label: "第 2 步：針對「尚雅傢俬連鎖店舉行清貨大減價」設定具體的工作分配與組合例子（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如為推行是次傢俬清貨大減價，管理層決定所需的各項籌備工作並按部門職能組合分配：指派「市場營銷部」負責設計社交媒體減價廣告及印製特價傢俬目錄、指派「營運及物流部」負責盤點過多梳化存貨、在各展廳劃出特價陳列專區及安排送貨車隊，並指派「人力資源部」增聘臨時銷售員及搬運工人應付減價人流。", score: 1, status: "best", comment: "【滿分論述示範】緊扣傢俬店清貨促銷場景，具體展示如何識別出宣傳、展廳陳列、車隊送貨及臨時人手編配等工作，並有條理地分配組合予不同部門執行。" },
+          { text: "例如傢俬店的分店經理在減價期間向銷售員派發達標獎金，鼓勵他們對顧客有禮貌並努力推銷特價梳化。", score: 0, status: "wrong", comment: "【概念應用錯誤】指示和激勵員工努力推銷屬於「領導 (Leading)」功能的例子，而非分配及組合工作職責的「組織」例子。" },
+          { text: "例如傢俬店的管理層會把今次季末清貨大減價要做的工作組織起來，分給店舖入面的員工去做。", score: 0, status: "partial", comment: "【常見失分示範：同義反覆／缺乏具體工作內容】用「把工作組織起來分給員工做」重複題目字眼，沒有舉出傢俬清貨大減價具體涉及哪些工作（如設計減價目錄、佈置展廳特價陳列區、安排送貨車隊與收銀人手）。" }
+        ]},
+        { label: "第 3 步：深化論述至協調各部門人力物力、避免工作重疊或送貨混亂以確保促銷順利進行的影響（1分）", colorClass: "hl-s3", opts: [
+          { text: "透過妥善執行組織功能，能讓傢俬店各部門及前線店員清楚了解自己在清貨活動中的職責及匯報關係，有效協調全線展廳、倉庫與送貨車隊資源，避免在減價期間出現工作重疊、訂單錯漏或送貨延誤混亂，確保清貨計劃順利推行以達成目標。", score: 1, status: "best", comment: "【滿分論述示範】清楚推演出明確職責與協調跨部門工作，如何「避免混亂與浪費資源，提升運作效率以確保清貨目標達成」。" },
+          { text: "這樣尚雅傢俬連鎖店便做好了組織這項管理功能，令今次的清貨大減價活動可以順利完成。", score: 0, status: "partial", comment: "【常見失分示範：未點出協調與避免混亂的效益】應深化說明組織功能如何「讓每名員工了解自己職責、有效協調各部門資源並避免混亂，從而提升效率達成清貨目標」。" },
+          { text: "這能保證所有進入傢俬展廳的顧客都必定會購買兩張以上的特價梳化。", score: 0, status: "wrong", comment: "【邏輯推論錯誤】內部組織分工能確保促銷活動運作暢順，但不能強制規定每位顧客的購買數量。" }
+        ]}
+      ]
+    },
+    {
+      id: "e7", cat: "essay", typeBadge: "進階論述題（單一論點 · 3 分 · 3 步深度建構）",
+      title: "論述 7：康體連鎖健身集團（以「拓寬管理人員視野」闡釋參與式領導的好處）", topic: "領導風格：單一論點深度建構「參與式領導」的好處", maxMarks: 3,
+      scenario: "「康體健身」是香港一家大型連鎖健身集團。分區營運經理思遠每兩星期與各分店的「場館經理」會面一次，他採用「參與式領導（民主式領導）」風格，經常與場館經理一同作出決策，並願意接納他們提出增設 24 小時智能刷卡入場及新興空中瑜伽課堂等建議。",
+      question: "試單獨以「拓寬管理人員的視野」這項好處為核心，結合康體健身集團的情境建構一個 3 分深度論述段落，解釋思遠採用參與式領導的好處。（3 分）",
+      steps: [
+        { label: "第 1 步：指出參與式領導「拓寬管理人員的視野」的單一好處標題並闡明其邏輯（1分）", colorClass: "hl-s1", opts: [
+          { text: "思遠採用參與式領導的好處之一是「拓寬管理人員的視野」：因為單憑管理人員一人，是無法獲得所有決策資訊的；透過與下屬分享權力、讓下屬參與決策並收集不同員工的想法和建議，管理人員得以開拓視野，突破個人盲點。", score: 1, status: "best", comment: "【滿分論述示範】聚焦於「拓寬管理人員的視野」單一論點，清楚闡明「單憑一人無法獲得所有資訊 ➔ 收集下屬多元想法建議可開拓視野、突破個人盲點」的因果邏輯。" },
+          { text: "思遠採用參與式領導的最大好處是決策速度在所有領導風格中最快，因為完全無須與任何人商量。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】無須與人商量而決策迅速是「獨裁式領導」的好處；參與式領導因參與決策的人較多，決策速度通常較慢（這是其缺點）。" },
+          { text: "思遠採用參與式領導，同各分店的場館經理一齊作決策，這樣做對思遠管理健身集團有很多好處。", score: 0, status: "partial", comment: "【常見失分示範：未點出具體好處標題與機制】必須明確寫出「拓寬管理人員的視野（單憑管理人員一人無法獲得所有資訊，收集下屬想法可開拓視野）」這一核心論點。" }
+        ]},
+        { label: "第 2 步：扣連「康體健身分區經理與前線場館經理」設定具體的資訊互補例子（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如各分店的場館經理每天身處健身場館最前線，比坐在總部的思遠更清楚各區會員的運動時段習慣、對深夜自助健身的渴求，以及市場上最新興起的空中瑜伽及普拉提課堂趨勢；思遠在雙周會議中接納場館經理的建議，便能獲取這些寶貴的第一手前線市場資訊。", score: 1, status: "best", comment: "【滿分論述示範】緊扣個案中「場館經理比管理人員掌握更多前線資訊及提出24小時入場與新課堂建議」的背景，具體展示下屬資訊如何彌補上級的視野局限。" },
+          { text: "例如思遠每兩星期同場館經理開會的時候，場館經理會講很多不同的意見給思遠聽，令思遠知道更多野。", score: 0, status: "partial", comment: "【常見失分示範：例子空泛／未結合健身集團情境】「講很多意見、知道更多野」過於籠統，應結合健身中心業務說明場館經理掌握甚麼前線資訊（如各區會員運動時段偏好、對 24 小時智能入場與新興運動課堂的需求）。" },
+          { text: "例如思遠要求所有場館經理嚴格服從他一人獨自制定的器械採購指令，不得提出任何異議。", score: 0, status: "wrong", comment: "【概念應用錯誤】要求下屬嚴格服從一人指令且不得異議屬於「獨裁式領導」，與思遠採用的參與式領導完全相反。" }
+        ]},
+        { label: "第 3 步：深化論述至提升決策質素、制定更切合市場轉變的營運策略以強化競爭力的影響（1分）", colorClass: "hl-s3", opts: [
+          { text: "集思廣益能避免思遠因個人視野狹窄或脫離前線實況而作出錯誤判斷，協助他作出更全面、更優質的營運決策（如適時引入 24 小時智能刷卡系統及熱門瑜伽課程），帶領康體健身把握健身市場新商機並提升整體競爭力。", score: 1, status: "best", comment: "【滿分論述示範】清楚推演出「集思廣益開拓視野 ➔ 避免主觀誤判、作出更佳決策 ➔ 協助企業把握新商機提升競爭力」的深遠影響。" },
+          { text: "這樣思遠的視野便能夠拓寬了，對康體健身集團的發展很有幫助。", score: 0, status: "partial", comment: "【常見失分示範：未推演至「作出更好決策」的結果】拓寬視野並非最終目的，必須進一步推論至「避免個人偏見誤判，從而作出更切合會員需要的優質決策以提升競爭力」。" },
+          { text: "這能保證康體健身集團在與全體員工分享新業務敏感資料時，洩露商業機密的風險降至零。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】管理人員與眾多員工一起決策並分享敏感資料（如新店擴張意念），反而會「增加洩露資料的風險」（這是參與式領導的缺點）。" }
+        ]}
+      ]
+    },
+    {
+      id: "e8", cat: "essay", typeBadge: "進階論述題（單一論點 · 3 分 · 3 步深度建構）",
+      title: "論述 8：領先數碼公關顧問公司（以「下屬更投入達成目標」闡釋目標管理 MBO 的優點）", topic: "有效管理原則：單一論點深度建構「目標管理 (MBO)」的優點", maxMarks: 3,
+      scenario: "「領先數碼公關顧問公司」的所有部門都採用「目標管理 (Management by Objectives, MBO)」原則，把公司的整體營業目標轉化成各部門和員工的工作目標。",
+      question: "試單獨以「下屬更投入達成目標（及確保目標一致）」這項優點為核心，結合該公關顧問公司的情境建構一個 3 分深度論述段落。（3 分）",
+      steps: [
+        { label: "第 1 步：界定「目標管理」的核心機制，並指出「下屬更投入」的單一優點標題（1分）", colorClass: "hl-s1", opts: [
+          { text: "公關顧問公司採用目標管理的優點之一是「下屬更投入（並確保下屬目標與企業目標一致）」：目標管理將組織整體目標轉化為部門及員工的工作目標，而在過程中，並非由上司單方面強制下達指標，而是由管理人員和下屬「一起共同訂立目標」及制定行動計劃。", score: 1, status: "best", comment: "【滿分論述示範】準確點出單一優點標題，並清晰闡明其背後的關鍵機制——「把整體目標轉化為個人目標，並由管理人員與下屬一起共同訂立目標」。" },
+          { text: "公關顧問公司採用目標管理的優點是完全不需要管理人員與下屬開會討論，可節省所有溝通時間及減輕工作量。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】在目標管理過程中，管理人員與下屬須定期會面訂立目標及討論問題，因此「耗時」及「增加雙方工作量」是其缺點而非優點。" },
+          { text: "領先數碼公關顧問公司採用目標管理，由老闆幫每個員工定出今年的工作目標，這樣員工就會更加投入工作。", score: 0, status: "partial", comment: "【常見失分示範：誤解目標管理的訂立方式】若由老闆「單方面幫員工定出目標」，員工只會覺得被迫服從而不會更投入；目標管理令下屬更投入的核心原因，在於「下屬有份與管理人員一起參與訂立目標」。" }
+        ]},
+        { label: "第 2 步：針對「公關顧問公司的部門主管與下屬」設定共同訂立目標的具體例子（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如為配合公關顧問公司全年收益增長 20% 的整體目標，公關部總監會與下屬的公關策劃主任及社交媒體編輯坐下來一起商議，共同訂立每位主任本季負責簽約的新品牌公關活動數目及網上曝光率指標，並一起制定具體的客戶提案行動計劃。", score: 1, status: "best", comment: "【滿分論述示範】緊扣數碼公關顧問公司背景，具體呈現公關總監與下屬策劃主任如何將公司整體增長目標，透過共同商議轉化為個人季度簽約與曝光率指標。" },
+          { text: "例如公關公司的經理同下屬一齊開會傾下計，大家關係變得好好，下屬就好開心。", score: 0, status: "partial", comment: "【常見失分示範：偏離本段核心論點且例子空泛】本段聚焦於「共同訂立目標令下屬更投入」，例子應具體說明上下級如何「共同商議訂立個人公關專案目標與行動計劃」，而非只空談傾偈開心。" },
+          { text: "例如公關公司規定所有策劃主任只准在長期目標上花時間，完全不訂立任何季度或月度的短期工作目標。", score: 0, status: "wrong", comment: "【概念應用錯誤】目標管理過程中所訂立的目標通常是具體可量度的「短期目標」（偏重短期目標而或會忽略長期目標正是其缺點之一）。" }
+        ]},
+        { label: "第 3 步：深化論述至加深對目標的理解與認同感、提升工作士氣以助公司有效達標的影響（1分）", colorClass: "hl-s3", opts: [
+          { text: "由於公關策劃主任與編輯親身參與訂立自己的工作目標，他們會對目標的要求及自己工作如何協助公司達標有更深入的理解，並對親口承諾的目標產生強烈責任感與認同感，從而更積極投入達成目標、提升工作士氣，確保個人表現與公關公司的整體目標一致。", score: 1, status: "best", comment: "【滿分論述示範】深入剖析員工心理與行為邏輯：「親身參與訂立 ➔ 加深理解並產生認同與責任感 ➔ 提升士氣並更投入達成目標」，論證層次極為飽滿。" },
+          { text: "這樣領先數碼公關顧問公司入面的下屬就會更加投入工作，幫助公關公司達成目標了。", score: 0, status: "partial", comment: "【常見失分示範：缺乏心理與行為推演】未能解釋為何參與訂立目標會令下屬更投入——應補充「因為下屬參與訂立目標，會對目標有更深入的理解和認同，士氣亦會提升，並確保個人目標與企業整體目標一致」。" },
+          { text: "這能令公關公司在租用商場展覽場地時自動獲得商場業主給予的百分之五十租金折扣。", score: 0, status: "wrong", comment: "【邏輯推論錯誤】內部目標管理與外部商場業主的場租折扣毫無因果關係。" }
+        ]}
+      ]
+    }
+  ];
+
+  let curBuilderCat = 'short';
+  let curQIdx = 0;
+  let userSelections = {};
+  let isSubmitted = false;
+
+  function switchBuilderCat(cat, btn) {
+    curBuilderCat = cat;
+    btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('builderCatLabel').textContent = cat === 'short' ? '選擇短答題（每題建構單一 2 分論點）：' : '選擇進階論述題（每題建構單一 3 分深度論點）：';
+    curQIdx = cat === 'short' ? 0 : 4;
+    userSelections = {};
+    isSubmitted = false;
+    renderQuestionChips();
+    renderWorkshop();
+  }
+
+  function renderQuestionChips() {
+    document.getElementById('questionChips').innerHTML = workshopQuestions
+      .map((q, i) => ({ q, i }))
+      .filter(x => x.q.cat === curBuilderCat)
+      .map(x => `<button class="chip ${x.i===curQIdx?'active':''}" onclick="selectWorkshopQ(${x.i})">${x.q.title}</button>`)
+      .join('');
+  }
+
+  function selectWorkshopQ(idx) {
+    curQIdx = idx;
+    userSelections = {};
+    isSubmitted = false;
+    renderQuestionChips();
+    renderWorkshop();
+  }
+
+  function pickStepOption(sIdx, oIdx) {
+    userSelections[sIdx] = oIdx;
+    isSubmitted = false;
+    renderWorkshop();
+  }
+
+  function submitConstructedAnswer() {
+    const q = workshopQuestions[curQIdx];
+    if (Object.keys(userSelections).length < q.steps.length) {
+      alert(`請先完成全部 ${q.steps.length} 個步驟的選擇，再點擊批改。`);
+      return;
+    }
+    isSubmitted = true;
+    renderWorkshop();
+  }
+
+  function fillBestChoices() {
+    const q = workshopQuestions[curQIdx];
+    q.steps.forEach((st, sIdx) => {
+      userSelections[sIdx] = st.opts.findIndex(o => o.status === 'best');
+    });
+    isSubmitted = true;
+    renderWorkshop();
+  }
+
+  function renderWorkshop() {
+    const q = workshopQuestions[curQIdx];
+    const letters = ['A', 'B', 'C'];
+
+    let totalScore = 0;
+    q.steps.forEach((st, sIdx) => {
+      if (userSelections[sIdx] !== undefined) {
+        totalScore += st.opts[userSelections[sIdx]].score;
+      }
+    });
+
+    const previewParts = q.steps.map((st, sIdx) => {
+      const selIdx = userSelections[sIdx];
+      if (selIdx === undefined) {
+        return `<span style="color:var(--mute);border-bottom:1px dashed var(--mute)">［未選擇第 ${sIdx + 1} 步］</span>`;
+      }
+      return `<span class="${st.colorClass}">${st.opts[selIdx].text}</span>`;
+    });
+
+    document.getElementById('builderWorkspace').innerHTML = `
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px">
+          <div>
+            <span class="badge b-blue">${q.typeBadge}</span>
+            <span class="badge b-teal">${q.topic}</span>
+          </div>
+          <b style="color:var(--primary);font-size:16px">本段單一論點滿分：${q.maxMarks} 分</b>
+        </div>
+        <div style="background:var(--surface);padding:16px 20px;border-radius:12px;border-left:4px solid var(--primary);font-size:16.5px;margin-bottom:14px"><b>背景情境：</b>${q.scenario}</div>
+        <div style="font-size:18px;font-weight:800;color:var(--ink)">${q.question}</div>
+      </div>
+
+      ${q.steps.map((st, sIdx) => {
+        const selIdx = userSelections[sIdx];
+        return `
+          <div class="builder-stage">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+              <h4 style="font-size:16.5px"><span class="${st.colorClass}">${st.label}</span></h4>
+              <span style="font-size:14px;font-weight:600;color:var(--mute)">${selIdx !== undefined ? '已選 ' + letters[selIdx] : '請點選一項'}</span>
+            </div>
+            ${st.opts.map((o, oIdx) => {
+              const isSel = selIdx === oIdx;
+              let gradeCls = '';
+              if (isSubmitted && isSel) {
+                gradeCls = o.status === 'best' ? 'graded-best' : o.status === 'partial' ? 'graded-partial' : 'graded-wrong';
+              }
+              return `
+                <button class="opt-card ${isSel ? 'selected' : ''} ${gradeCls}" onclick="pickStepOption(${sIdx}, ${oIdx})">
+                  <span class="opt-letter">${letters[oIdx]}</span>
+                  <span style="flex:1">${o.text}</span>
+                </button>
+              `;
+            }).join('')}
+          </div>
+        `;
+      }).join('')}
+
+      <div class="card" style="border:2px solid var(--primary);margin-bottom:0">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:14px">
+          <h3 style="color:var(--primary);font-size:19px">單一論點段落預覽</h3>
+          <div style="display:flex;gap:10px">
+            <button class="btn btn-green" onclick="submitConstructedAnswer()">批改論述邏輯</button>
+            <button class="btn btn-outline" onclick="fillBestChoices()">示範滿分論點建構</button>
+          </div>
+        </div>
+        <div style="font-size:17px;line-height:1.85;background:var(--surface);padding:18px 22px;border-radius:12px;border:1px solid var(--line)">
+          ${previewParts.join(' ')}
+        </div>
+
+        ${isSubmitted ? `
+          <div style="margin-top:20px;padding-top:18px;border-top:1px solid var(--line)">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+              <h4 style="font-size:17.5px">逐層論述邏輯點評</h4>
+              <span class="badge ${totalScore === q.maxMarks ? 'b-green' : totalScore >= 1 ? 'b-amber' : 'b-red'}" style="font-size:15px;padding:6px 14px">
+                本段得分：${totalScore} / ${q.maxMarks} 分
+              </span>
+            </div>
+            ${q.steps.map((st, sIdx) => {
+              const chosen = st.opts[userSelections[sIdx]];
+              const cCls = chosen.status === 'best' ? 'c-best' : chosen.status === 'partial' ? 'c-partial' : 'c-wrong';
+              return `
+                <div class="critique-item ${cCls}">
+                  <b>第 ${sIdx + 1} 步（選項 ${letters[userSelections[sIdx]]} · ${chosen.score} 分）：</b>${chosen.comment}
+                </div>
+              `;
+            }).join('')}
+          </div>
+        ` : ''}
+      </div>
+    `;
+  }
+
+  renderQuestionChips();
+  renderWorkshop();
+</script>
+</body>
+</html>

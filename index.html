@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="zh-HK">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HKDSE 企會財 (商業管理) — 第一單元：管理導論目錄</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* 管理導論單元專屬配色：經典海軍藍 (Executive Navy) × 琥珀銅 (Terracotta) × 青翠綠 (Teal) */
+      --bg: #f4f6fb;
+      --card: #ffffff;
+      --surface: #f8fafd;
+      --ink: #0f172a;
+      --ink-sec: #334155;
+      --mute: #64748b;
+      --line: #dbe3f0;
+      --primary: #1e40af;
+      --primary-dark: #1e3a8a;
+      --primary-light: #eff6ff;
+      --primary-border: #bfdbfe;
+      --teal: #0f766e;
+      --teal-light: #f0fdfa;
+      --teal-border: #99f6e4;
+      --amber: #c2410c;
+      --amber-light: #fff7ed;
+      --green: #15803d;
+      --green-light: #f0fdf4;
+      --radius: 16px;
+      --shadow: 0 4px 20px -2px rgba(30, 64, 175, 0.06), 0 2px 6px -1px rgba(30, 64, 175, 0.04);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.75;
+      padding-bottom: 60px;
+      font-size: 17px;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, h4 { margin: 0; font-weight: 800; color: var(--ink); letter-spacing: -0.01em; line-height: 1.35; }
+
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 32px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      flex-wrap: wrap;
+    }
+    .header-left { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .home-link {
+      text-decoration: none;
+      color: var(--ink-sec);
+      font-weight: 600;
+      font-size: 14.5px;
+      padding: 7px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      transition: all 0.2s;
+    }
+    .home-link:hover { color: var(--primary); border-color: var(--primary-border); background: var(--primary-light); }
+    .brand { display: flex; align-items: center; gap: 10px; font-size: 19px; font-weight: 800; color: var(--primary-dark); }
+    .brand-badge {
+      background: var(--primary-light);
+      color: var(--primary);
+      border: 1px solid var(--primary-border);
+      font-size: 13.5px;
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-weight: 700;
+    }
+
+    .container { max-width: 1160px; margin: 0 auto; padding: 28px 24px; }
+
+    /* Hero Banner */
+    .hero {
+      background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+      color: #ffffff;
+      border-radius: 20px;
+      padding: 28px 32px;
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      box-shadow: 0 10px 25px -5px rgba(30, 58, 138, 0.25);
+    }
+    .hero h1 { font-size: 26px; color: #ffffff; margin: 8px 0 10px; }
+    .hero p { margin: 0; color: #e2e8f0; font-size: 16px; max-width: 680px; line-height: 1.7; }
+    .hero-kpis { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-kpi {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 12px 18px;
+      border-radius: 14px;
+      text-align: center;
+      min-width: 110px;
+    }
+    .hero-kpi b { display: block; font-size: 22px; color: #fbbf24; }
+    .hero-kpi span { font-size: 13px; color: #cbd5e1; font-weight: 600; }
+
+    /* Search & Progress Toolbar */
+    .toolbar {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px 22px;
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      box-shadow: var(--shadow);
+    }
+    .search-input {
+      flex: 1;
+      min-width: 260px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      border: 1.5px solid var(--line);
+      font: 600 15px 'Noto Sans TC', sans-serif;
+      background: var(--surface);
+      color: var(--ink);
+      transition: border-color 0.2s;
+    }
+    .search-input:focus { outline: none; border-color: var(--primary); background: var(--card); }
+    .prog-wrap { display: flex; align-items: center; gap: 12px; min-width: 260px; }
+    .prog-bg { flex: 1; height: 12px; background: #e2e8f4; border-radius: 999px; overflow: hidden; min-width: 120px; }
+    .prog-fill { height: 100%; background: var(--green); border-radius: 999px; transition: width 0.3s ease; }
+
+    /* Mock Exam Feature Banner */
+    .mock-banner {
+      background: var(--card);
+      border: 2px solid var(--primary);
+      border-left: 7px solid var(--primary);
+      border-radius: 18px;
+      padding: 24px 28px;
+      margin-bottom: 26px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      box-shadow: var(--shadow);
+    }
+    .score-box {
+      background: var(--surface);
+      border: 1.5px solid var(--line);
+      padding: 16px 20px;
+      border-radius: 14px;
+      min-width: 310px;
+    }
+    .score-box input {
+      width: 62px;
+      padding: 5px 8px;
+      border-radius: 8px;
+      border: 1.5px solid var(--primary);
+      font: 800 15px 'Inter', sans-serif;
+      color: var(--primary);
+      text-align: center;
+      background: var(--card);
+    }
+
+    /* Lesson Cards Grid */
+    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .lesson-card {
+      background: var(--card);
+      border: 1.5px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.22s ease;
+      box-shadow: var(--shadow);
+    }
+    .lesson-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px -4px rgba(30, 64, 175, 0.12);
+      border-color: var(--primary);
+    }
+    .lesson-card.done-card { background: #f8fdfa; border-color: #86efac; }
+
+    /* Badges & Buttons */
+    .badge {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 4px 11px;
+      border-radius: 6px;
+    }
+    .b-blue { background: var(--primary-light); color: var(--primary); border: 1px solid var(--primary-border); }
+    .b-teal { background: var(--teal-light); color: var(--teal); border: 1px solid var(--teal-border); }
+    .b-amber { background: var(--amber-light); color: var(--amber); border: 1px solid #fed7aa; }
+    .b-green { background: var(--green-light); color: var(--green); border: 1px solid #bbf7d0; }
+
+    .done-btn {
+      border: 1.5px solid var(--line);
+      background: var(--card);
+      color: var(--mute);
+      font: 700 13px 'Noto Sans TC', sans-serif;
+      padding: 4px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .done-btn:hover { border-color: var(--green); color: var(--green); }
+    .done-btn.is-done { background: var(--green); color: #ffffff; border-color: var(--green); }
+
+    .c-tags { display: flex; gap: 6px; flex-wrap: wrap; margin: 14px 0 18px; }
+    .c-tag {
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 6px;
+      background: var(--surface);
+      color: var(--ink-sec);
+      border: 1px solid var(--line);
+    }
+
+    .btn {
+      border: 0;
+      background: var(--primary);
+      color: #ffffff;
+      font: 700 15px 'Noto Sans TC', sans-serif;
+      padding: 11px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      display: inline-block;
+      transition: all 0.2s;
+    }
+    .btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
+    .btn-teal { background: var(--teal); }
+    .btn-teal:hover { background: #115e59; }
+
+    /* Quick Trap Buster Table */
+    .trap-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin-top: 26px;
+      box-shadow: var(--shadow);
+    }
+    table.trap-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 15px; }
+    table.trap-table th, table.trap-table td { padding: 12px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    table.trap-table th { background: var(--surface); font-weight: 800; color: var(--ink); }
+
+    @media (max-width: 900px) {
+      .grid3 { grid-template-columns: 1fr; }
+      header { padding: 12px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <a href="index.html" class="home-link">返回總目錄</a>
+    <div class="brand">
+      <span>第一單元：管理導論 (Introduction to Management)</span>
+      <span class="brand-badge">共 3 課 ＋ Paper 2B 單元模擬試卷</span>
+    </div>
+  </div>
+  <select onchange="if(this.value) location.href=this.value" style="padding:7px 12px;border-radius:8px;border:1.5px solid var(--primary-border);background:var(--primary-light);color:var(--primary-dark);font:700 14px 'Noto Sans TC',sans-serif;cursor:pointer">
+    <option value="">快速跳轉至各課室或試卷...</option>
+    <option value="管理功能.html">第 1 課：管理功能</option>
+    <option value="主要商業功能.html">第 2 課：主要商業功能</option>
+    <option value="中小型企業.html">第 3 課：中小型企業</option>
+    <option value="管理導論_單元綜合測驗.html">單元綜合模擬試卷 (72分)</option>
+  </select>
+</header>
+
+<div class="container">
+  <div class="hero">
+    <div>
+      <span class="badge b-amber" style="margin-bottom:6px">100% 課外原創商業情境 · 一段一論點與論述邏輯點評系統</span>
+      <h1>第一單元：《管理導論》互動溫習總目錄</h1>
+      <p>全面涵蓋<b>第 1 課《管理功能》</b>、<b>第 2 課《主要商業功能》</b>及<b>第 3 課《中小型企業》</b>。每課均配備動態模擬器、對稱概念挑戰題及 12 道「一題一論點、一段一論點」實戰工作坊；完成三課溫習後，可挑戰下方 <b>72 分 DSE Paper 2B 標準格式單元綜合模擬試卷</b>。</p>
+    </div>
+    <div class="hero-kpis">
+      <div class="hero-kpi"><b>3 課</b><span>核心互動課室</span></div>
+      <div class="hero-kpi"><b>36 題</b><span>單一論點工作坊</span></div>
+      <div class="hero-kpi"><b id="doneKpi">0 / 3</b><span>已完成課數</span></div>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <input type="text" id="kwInput" class="search-input" placeholder="搜尋本單元概念（如：SMART、扁平結構、控制幅度、直線與幕僚職權、統一命令、授權、MBO、六大商業功能、中小企、企業家精神...）" oninput="renderUnit()">
+    <div class="prog-wrap">
+      <span style="font-size:14.5px;font-weight:800;color:var(--green)" id="progTxt">進度：0% (0/3課)</span>
+      <div class="prog-bg"><div class="prog-fill" id="progBar" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <!-- 本單元 DSE Paper 2B 綜合模擬試卷專區 -->
+  <div class="mock-banner">
+    <div style="max-width:680px">
+      <span class="badge b-amber">DSE Paper 2B 格式單元評估（全文字建構・不設選擇題・滿分 72 分）</span>
+      <h2 style="font-size:22px;color:var(--primary-dark);margin:8px 0">《管理導論》單元綜合模擬試卷（甲部短答 24分 ＋ 乙部單一個案 24分 ＋ 丙部論述 24分）</h2>
+      <p style="font-size:15.5px;color:var(--ink-sec);margin:0">內置自由設定時限計時器、100% 原創單一整合商業個案《智寵鮮食工坊與康盛寵物醫療集團》、一鍵隱藏選項紙筆寫作練習模式，以及 DSE 商管組雙軌等級換算表（Level 1 至 Level 5**）。</p>
+    </div>
+    <div class="score-box">
+      <div style="font-size:15px;font-weight:800;margin-bottom:8px;color:var(--ink)">
+        記錄模擬試卷得分：
+        <input type="number" id="mockScoreIn" min="0" max="72" placeholder="--" onchange="saveMock(this.value)"> / 72 分
+      </div>
+      <div style="font-size:13.5px;color:var(--mute);margin-bottom:12px" id="gradePreview">預計 DSE 等級：未記錄</div>
+      <a href="管理導論_單元綜合測驗.html" class="btn btn-teal" style="width:100%">進入《管理導論》模擬試卷</a>
+    </div>
+  </div>
+
+  <!-- 三課卡片網格 -->
+  <div class="grid3" id="lessonGrid"></div>
+
+  <!-- 跨課題高頻概念與職責邊界排雷速查表 -->
+  <div class="trap-card">
+    <span class="badge b-blue">考前必讀：跨課題高頻概念與 DSE 常見失分陷阱速查表</span>
+    <h3 style="font-size:20.5px;margin-top:6px">《管理導論》三大課題核心區分要點</h3>
+    <table class="trap-table">
+      <thead>
+        <tr>
+          <th style="width:20%">所屬課題</th>
+          <th style="width:28%">易混淆概念／常考陷阱</th>
+          <th style="width:52%">準確概念界定與滿分答題要訣</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>第 1 課：管理功能</b></td>
+          <td><b>控制幅度</b> vs <b>下屬總人數</b><br><b>統一命令</b> vs <b>統一的方向</b></td>
+          <td>• <b>控制幅度</b>：只計算一名上司在下一層級<b>直接管理</b>的下屬人數，切勿把間接下屬相加。<br>• <b>統一命令</b>：每名下屬只有<b>一位直屬上司</b>（防雙重指令混淆）；<b>統一的方向</b>：每個計劃由<b>一名管理人員統領</b>，相同目標活動納入同一計劃（防部門目標矛盾）。</td>
+        </tr>
+        <tr>
+          <td><b>第 2 課：主要商業功能</b></td>
+          <td><b>六大商業功能的職責邊界排雷</b></td>
+          <td>• <b>釐定產品價格</b>及<b>處理顧客對品質的投訴</b>屬<b>市場營銷部</b>（非財務部或營運部）。<br>• <b>為廠房招聘工人、決定薪酬花紅、舉辦培訓</b>屬<b>人力資源部</b>（非營運部）。<br>• <b>維護會計／考績系統</b>屬<b>資訊管理部</b>；<b>計算會計比率與NPV</b>屬<b>財務部</b>；<b>買保險與災後索償</b>屬<b>風險管理部</b>。</td>
+        </tr>
+        <tr>
+          <td><b>第 3 課：中小型企業</b></td>
+          <td><b>香港中小企人數定義</b><br><b>中小企特徵</b> ≠ <b>獨資企業特徵</b></td>
+          <td>• <b>工業貿易署定義</b>：製造業僱用<b>少於 100 人</b>；非製造業僱用<b>少於 50 人</b>（佔全港企業逾 98%，合共聘用約 45% 工作人口）。<br>• <b>特徵排雷</b>：中小企亦可以是合夥或有限公司，答中小企特徵時<b>絕不可寫「由一人擁有」、「無限責任」或「享較低稅率」</b>！</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  const unitId = 'u1';
+  const mockKey = 'mock_u1';
+  const lessons = [
+    {
+      id: "u1_l1", num: "第 1 課", title: "管理功能", file: "管理功能.html",
+      desc: "全面剖析計劃（SMART目標組裝器與五步驟）、組織（三個管理層級、高架與扁平結構動態模擬、控制幅度、直線與幕僚職權、三種部門劃分）、領導（三種領導風格配對）及控制四步驟，以及五項有效管理原則與違規偵測。",
+      tags: ["計劃 SMART", "高架 vs 扁平結構", "控制幅度", "直線 vs 幕僚職權", "按功能/產品/地區劃分", "獨裁/參與/自由放任領導", "統一命令 vs 統一方向", "授權與職權相稱", "目標管理 MBO"]
+    },
+    {
+      id: "u1_l2", num: "第 2 課", title: "主要商業功能", file: "主要商業功能.html",
+      desc: "深入拆解人力資源管理（6角色）、財務管理（5角色）、營運管理（生產程序5工作、存貨、品質、物流）、市場營銷管理（5角色與4P/CRM）、資訊管理（跨部門系統支援台）及風險管理（4策略），以及六大功能如何互相支援與合作。",
+      tags: ["六大部門分流器", "人力資源六角色", "財務管理五角色", "營運系統轉化與品質保證", "市場營銷 4P 與 CRM", "資訊系統跨部門支援", "風險迴避/承擔/減少/轉移", "商業功能互相支援與合作"]
+    },
+    {
+      id: "u1_l3", num: "第 3 課", title: "中小型企業", file: "中小型企業.html",
+      desc: "掌握香港製造業（<100人）與非製造業（<50人）中小企資格鑑定器、四大標準特徵與擁有權排雷、對香港經濟的四大貢獻（填補狹小市場、創造就業、引入創新、充當供應商/承包商/分銷商支援大企），以及企業家精神的三大重要性。",
+      tags: ["製造業<100人/非製造業<50人", "中小企四大標準特徵", "專注狹小市場", "支援大企(供應商/承包商/分銷商)", "企業家定義", "鼓勵創新/促進競爭/促進經濟增長"]
+    }
+  ];
+
+  let doneMap = JSON.parse(localStorage.getItem('bafs_done_lessons') || '{}');
+  let mockMap = JSON.parse(localStorage.getItem('bafs_mock_scores') || '{}');
+
+  function toggleDone(id) {
+    doneMap[id] = !doneMap[id];
+    localStorage.setItem('bafs_done_lessons', JSON.stringify(doneMap));
+    renderUnit();
+  }
+
+  function saveMock(val) {
+    const n = parseInt(val, 10);
+    if (isNaN(n) || val === '') delete mockMap[mockKey];
+    else mockMap[mockKey] = Math.max(0, Math.min(72, n));
+    localStorage.setItem('bafs_mock_scores', JSON.stringify(mockMap));
+    updateMockUI();
+  }
+
+  function getDualGrade(sc) {
+    if (sc === undefined || isNaN(sc)) return '未記錄';
+    const p = sc >= 61 ? '5**' : sc >= 56 ? '5*' : sc >= 50 ? '5' : sc >= 40 ? '4' : sc >= 30 ? '3' : sc >= 22 ? '2' : sc >= 13 ? '1' : 'U';
+    const b = sc >= 63 ? '5**' : sc >= 58 ? '5*' : sc >= 52 ? '5' : sc >= 43 ? '4' : sc >= 35 ? '3' : sc >= 25 ? '2' : sc >= 16 ? '1' : 'U';
+    return `紙筆標準: <b style="color:var(--teal)">Level ${p}</b> ｜ 互動標準: <b style="color:var(--primary)">Level ${b}</b>`;
+  }
+
+  function updateMockUI() {
+    const sc = mockMap[mockKey];
+    document.getElementById('mockScoreIn').value = sc !== undefined ? sc : '';
+    document.getElementById('gradePreview').innerHTML = getDualGrade(sc);
+  }
+
+  function renderUnit() {
+    const kw = document.getElementById('kwInput').value.trim().toLowerCase();
+    const doneCnt = lessons.filter(l => doneMap[l.id]).length;
+    const pct = Math.round((doneCnt / lessons.length) * 100);
+    document.getElementById('doneKpi').textContent = `${doneCnt} / ${lessons.length}`;
+    document.getElementById('progTxt').textContent = `進度：${pct}% (${doneCnt}/${lessons.length}課)`;
+    document.getElementById('progBar').style.width = `${pct}%`;
+    updateMockUI();
+
+    const list = lessons.filter(l => !kw || l.title.toLowerCase().includes(kw) || l.desc.toLowerCase().includes(kw) || l.tags.some(t => t.toLowerCase().includes(kw)));
+    document.getElementById('lessonGrid').innerHTML = list.map(l => {
+      const isD = !!doneMap[l.id];
+      return `
+        <div class="lesson-card ${isD ? 'done-card' : ''}">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+              <span class="badge b-blue">${l.num}</span>
+              <button class="done-btn ${isD ? 'is-done' : ''}" onclick="toggleDone('${l.id}')">${isD ? '✓ 已完成溫習' : '標記完成'}</button>
+            </div>
+            <h3 style="font-size:21px;margin-bottom:8px">${l.title}</h3>
+            <p style="font-size:15px;color:var(--ink-sec);margin:0;line-height:1.7">${l.desc}</p>
+            <div class="c-tags">${l.tags.map(t => `<span class="c-tag">${t}</span>`).join('')}</div>
+          </div>
+          <a href="${l.file}" class="btn">進入互動課室與 12 題工作坊</a>
+        </div>`;
+    }).join('');
+  }
+  renderUnit();
+</script>
+</body>
+</html>

@@ -1,0 +1,1695 @@
+<!doctype html>
+<html lang="zh-HK">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>管理導論 — 中小型企業</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* 管理導論單元專屬配色：經典海軍藍 (Executive Navy) × 琥珀銅 (Terracotta) × 青翠綠 (Teal) */
+      --bg: #f4f6fb;
+      --card: #ffffff;
+      --surface: #f8fafd;
+      --ink: #0f172a;
+      --ink-sec: #334155;
+      --mute: #64748b;
+      --line: #dbe3f0;
+      --primary: #1e40af;
+      --primary-dark: #1e3a8a;
+      --primary-light: #eff6ff;
+      --primary-border: #bfdbfe;
+      --teal: #0f766e;
+      --teal-light: #f0fdfa;
+      --teal-border: #99f6e4;
+      --amber: #c2410c;
+      --amber-light: #fff7ed;
+      --green: #15803d;
+      --green-light: #f0fdf4;
+      --red: #be123c;
+      --red-light: #fff1f2;
+      --radius: 16px;
+      --shadow: 0 4px 20px -2px rgba(30, 64, 175, 0.06), 0 2px 6px -1px rgba(30, 64, 175, 0.04);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.75;
+      padding-bottom: 60px;
+      font-size: 17.5px;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, h4 { margin: 0; font-weight: 800; color: var(--ink); letter-spacing: -0.01em; line-height: 1.35; }
+
+    /* Top Navigation Bar */
+    header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 32px;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      flex-wrap: wrap;
+    }
+    .home-link {
+      text-decoration: none;
+      color: var(--ink-sec);
+      font-weight: 600;
+      font-size: 15px;
+      padding: 8px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      transition: all 0.2s;
+    }
+    .home-link:hover { color: var(--primary); border-color: var(--primary-border); background: var(--primary-light); }
+    .brand { display: flex; align-items: center; gap: 12px; font-size: 19px; font-weight: 800; color: var(--primary-dark); }
+    .brand-tag {
+      background: var(--primary-light);
+      color: var(--primary);
+      border: 1px solid var(--primary-border);
+      font-size: 14px;
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-weight: 700;
+    }
+
+    .main-tabs {
+      margin-left: auto;
+      display: flex;
+      gap: 6px;
+      background: #e2e8f4;
+      padding: 5px;
+      border-radius: 12px;
+      flex-wrap: wrap;
+    }
+    .main-tabs button {
+      border: 0;
+      background: none;
+      padding: 9px 15px;
+      border-radius: 9px;
+      font: 700 15px 'Noto Sans TC', sans-serif;
+      color: var(--ink-sec);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .main-tabs button:hover { color: var(--ink); }
+    .main-tabs button.on {
+      background: var(--card);
+      color: var(--primary);
+      box-shadow: 0 2px 8px rgba(30, 64, 175, 0.12);
+    }
+
+    /* Main Container & Views */
+    .view { display: none; max-width: 1160px; margin: 0 auto; padding: 28px 24px; animation: fadeIn 0.25s ease; }
+    .view.on { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Section Header Banner */
+    .sec-banner {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-left: 6px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      box-shadow: var(--shadow);
+    }
+    .sec-banner h1 { font-size: 25px; margin: 6px 0 8px; }
+    .sec-banner p { margin: 0; color: var(--ink-sec); font-size: 16.5px; max-width: 680px; }
+
+    /* Sub-navigation Switcher */
+    .sub-nav {
+      display: inline-flex;
+      background: #e6ecf7;
+      padding: 5px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .sub-nav button {
+      border: 0;
+      background: none;
+      padding: 9px 16px;
+      border-radius: 8px;
+      font: 700 15px 'Noto Sans TC', sans-serif;
+      color: var(--mute);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .sub-nav button:hover { color: var(--ink); }
+    .sub-nav button.active {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(30, 64, 175, 0.25);
+    }
+    .sub-view { display: none; }
+    .sub-view.active { display: block; animation: fadeIn 0.2s ease; }
+
+    /* Cards & Grids */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 26px 28px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+    }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 10px 0; }
+
+    /* Badges & Pills */
+    .badge {
+      display: inline-block;
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 6px;
+      margin-right: 8px;
+    }
+    .b-blue { background: var(--primary-light); color: var(--primary); border: 1px solid var(--primary-border); }
+    .b-teal { background: var(--teal-light); color: var(--teal); border: 1px solid var(--teal-border); }
+    .b-amber { background: var(--amber-light); color: var(--amber); border: 1px solid #fed7aa; }
+    .b-green { background: var(--green-light); color: var(--green); border: 1px solid #bbf7d0; }
+    .b-red { background: var(--red-light); color: var(--red); border: 1px solid #fecdd3; }
+
+    .chips { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0; }
+    .chip {
+      border: 1.5px solid var(--line);
+      background: var(--card);
+      padding: 9px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      font: 700 15.5px 'Noto Sans TC', sans-serif;
+      color: var(--ink-sec);
+      transition: all 0.2s;
+    }
+    .chip:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
+    .chip.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(30, 64, 175, 0.2);
+    }
+
+    .btn {
+      border: 0;
+      background: var(--primary);
+      color: #ffffff;
+      font: 700 15px 'Noto Sans TC', sans-serif;
+      padding: 10px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
+    .btn-teal { background: var(--teal); }
+    .btn-teal:hover { background: #115e59; }
+    .btn-green { background: var(--green); }
+    .btn-green:hover { background: #166534; }
+    .btn-outline { background: var(--card); color: var(--primary); border: 1.5px solid var(--primary); }
+    .btn-outline:hover { background: var(--primary-light); }
+
+    /* Interactive Controls */
+    .slider-row { display: grid; grid-template-columns: 180px 1fr 130px; gap: 12px; align-items: center; margin-bottom: 10px; font-size: 15px; }
+    input[type="range"] { width: 100%; accent-color: var(--primary); cursor: pointer; }
+    select.sim-select {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1.5px solid var(--primary-border);
+      font: 700 15px 'Noto Sans TC', sans-serif;
+      background: var(--card);
+      color: var(--primary-dark);
+      cursor: pointer;
+    }
+
+    .flow-chain {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 12px 0;
+      padding: 16px;
+      background: var(--card);
+      border-radius: 14px;
+      border: 1px solid var(--line);
+    }
+    .flow-node {
+      flex: 1;
+      min-width: 165px;
+      padding: 13px 15px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 14.5px;
+      background: var(--primary-light);
+      color: var(--primary);
+      border: 1.5px solid var(--primary);
+      text-align: center;
+    }
+    .flow-arrow { font-size: 22px; font-weight: 900; color: var(--amber); }
+
+    .role-btn {
+      padding: 12px 10px;
+      border-radius: 12px;
+      border: 1.5px solid var(--line);
+      background: var(--card);
+      cursor: pointer;
+      font: 700 14.5px 'Noto Sans TC', sans-serif;
+      text-align: center;
+      transition: all 0.18s;
+      color: var(--ink-sec);
+    }
+    .role-btn:hover { border-color: var(--primary); background: var(--primary-light); color: var(--primary); }
+    .role-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); box-shadow: 0 4px 12px rgba(30, 64, 175, 0.2); }
+
+    /* Comparison Table */
+    table.comp-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 15.5px; }
+    table.comp-table th, table.comp-table td { padding: 12px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    table.comp-table th { background: var(--surface); font-weight: 800; color: var(--ink); }
+
+    /* Builder Specific */
+    .builder-stage {
+      border: 1.5px solid var(--line);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      background: var(--card);
+      box-shadow: var(--shadow);
+    }
+    .opt-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      width: 100%;
+      text-align: left;
+      padding: 15px 18px;
+      margin: 10px 0;
+      border-radius: 12px;
+      border: 1.5px solid var(--line);
+      background: var(--card);
+      font: 500 16.5px 'Noto Sans TC', sans-serif;
+      color: var(--ink);
+      cursor: pointer;
+      transition: all 0.2s;
+      line-height: 1.65;
+    }
+    .opt-card:hover { border-color: var(--primary); background: var(--surface); }
+    .opt-card.selected { border-color: var(--primary); background: var(--primary-light); font-weight: 600; }
+    .opt-card.correct, .opt-card.graded-best { border-color: var(--green); background: var(--green-light); color: #064e3b; }
+    .opt-card.graded-partial { border-color: var(--amber); background: var(--amber-light); color: #7c2d12; }
+    .opt-card.wrong, .opt-card.graded-wrong { border-color: var(--red); background: var(--red-light); color: #881337; }
+    .opt-letter {
+      display: inline-grid;
+      place-items: center;
+      min-width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: #e6ecf7;
+      color: var(--ink);
+      font-weight: 800;
+      font-size: 14.5px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .opt-card.selected .opt-letter { background: var(--primary); color: #ffffff; }
+
+    .hl-s1 { background: #dbeafe; color: #1e40af; padding: 3px 8px; border-radius: 6px; font-weight: 700; }
+    .hl-s2 { background: #fef3c7; color: #92400e; padding: 3px 8px; border-radius: 6px; font-weight: 700; }
+    .hl-s3 { background: #ccfbf1; color: #115e59; padding: 3px 8px; border-radius: 6px; font-weight: 700; }
+
+    .critique-item {
+      padding: 14px 18px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      border-left: 5px solid var(--line);
+      background: var(--card);
+    }
+    .critique-item.c-best { border-left-color: var(--green); background: var(--green-light); }
+    .critique-item.c-partial { border-left-color: var(--amber); background: var(--amber-light); }
+    .critique-item.c-wrong { border-left-color: var(--red); background: var(--red-light); }
+
+    details.guide-Collapsible {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px 22px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+    }
+    details.guide-Collapsible summary {
+      font-weight: 700;
+      font-size: 16.5px;
+      color: var(--primary);
+      cursor: pointer;
+    }
+
+    @media (max-width: 860px) {
+      .grid2, .grid3, .grid4, .slider-row { grid-template-columns: 1fr; }
+      header { padding: 12px 18px; }
+      .main-tabs { width: 100%; justify-content: center; margin-top: 8px; }
+      .sec-banner h1 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="管理導論_目錄.html" class="home-link">返回單元目錄</a>
+  <select onchange="if(this.value) location.href=this.value" style="padding:7px 12px;border-radius:10px;border:1px solid var(--primary-border);background:var(--primary-light);color:var(--primary);font:700 14.5px 'Noto Sans TC',sans-serif;cursor:pointer">
+    <option value="">快速切換課室／測驗...</option>
+    <option value="管理導論_目錄.html">單元總目錄</option>
+    <option value="管理功能.html">第 1 課：管理功能</option>
+    <option value="主要商業功能.html">第 2 課：主要商業功能</option>
+    <option value="中小型企業.html" selected>第 3 課：中小型企業</option>
+    <option value="管理導論_單元綜合測驗.html">單元綜合模擬試卷 (72分)</option>
+  </select>
+  <div class="brand">
+    <span>管理導論</span>
+    <span class="brand-tag">第 3 課：中小型企業</span>
+  </div>
+  <nav class="main-tabs" id="mainTabs">
+    <button class="on" data-tab="sec-sme-char">1. 中小企定義與四大特徵</button>
+    <button data-tab="sec-sme-econ">2. 中小企對香港經濟的貢獻</button>
+    <button data-tab="sec-entrep">3. 企業家與企業家精神的重要性</button>
+    <button data-tab="sec-comp">4. 中小企優缺點與競爭突圍顧問</button>
+    <button data-tab="sec-builder">5. 論點建構工作坊</button>
+  </nav>
+</header>
+
+<!-- ==================== 1. 中小企定義與四大特徵 ==================== -->
+<section class="view on" id="sec-sme-char">
+  <div class="sec-banner">
+    <div>
+      <span class="badge b-blue">單元一：何謂中小型企業 (SMEs) ＆ 香港中小型企業的四項特徵</span>
+      <h1>香港工業貿易署中小企定義（製造業 &lt;100人・非製造業 &lt;50人）與四大特徵</h1>
+      <p>中小型企業是指獨立擁有和運作，而在同行中並非佔主導市場地位的企業。在香港，中小型企業佔全港企業總數超過 98%，合共聘用約 45% 的總工作人口（不包括公務員），並具備四項核心特徵：(1) 通常由東主管理、(2) 資源和資金有限、(3) 專注於狹小市場、以及 (4) 靈活性較大。</p>
+    </div>
+    <div class="sub-nav">
+      <button class="active" onclick="switchSub('chr', 0, this)">中小企資格鑑定器與四大特徵</button>
+      <button onclick="switchSub('chr', 1, this)">中小企定義與特徵概念挑戰</button>
+    </div>
+  </div>
+
+  <!-- 子分頁 1A：中小企資格鑑定器 ＋ 四大特徵與擁有權排雷 -->
+  <div class="sub-view active" id="chr-sub-0">
+    <div class="grid2">
+      <!-- 互動實驗工具一：香港中小型企業資格即時鑑定器 -->
+      <div class="card" style="margin-bottom:0;border:2px solid var(--primary)">
+        <span class="badge b-blue">互動實驗工具一：香港工業貿易署「中小型企業資格即時鑑定器」</span>
+        <h3 style="font-size:20px;margin:6px 0 8px">選擇行業類別與企業擁有權類型，並拉動滑桿調整僱用員工總人數，即時鑑定是否屬於香港的中小型企業</h3>
+        <div style="background:var(--surface);padding:14px 16px;border-radius:12px;border:1px solid var(--line);font-size:14.5px">
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px">
+            <div style="flex:1;min-width:180px">
+              <b>1. 行業類別：</b><br>
+              <select class="sim-select" id="smeSector" style="width:100%;margin-top:4px" onchange="updateSmeChecker()">
+                <option value="mfg">製造業（如光學鏡片研磨廠、手工醬料廠）</option>
+                <option value="nonmfg">非製造業（如物理治療中心、餐廳、零售店）</option>
+              </select>
+            </div>
+            <div style="flex:1;min-width:180px">
+              <b>2. 企業擁有權類型：</b><br>
+              <select class="sim-select" id="smeOwner" style="width:100%;margin-top:4px" onchange="updateSmeChecker()">
+                <option value="sole">獨資企業</option>
+                <option value="part">合夥企業</option>
+                <option value="ltd">私人有限公司</option>
+              </select>
+            </div>
+          </div>
+          <div class="slider-row" style="margin-bottom:6px">
+            <b>3. 僱用員工總人數：</b>
+            <input type="range" id="smeStaffSlider" min="2" max="130" step="1" value="75" oninput="updateSmeChecker()">
+            <span id="lblSmeStaff" style="font-weight:900;color:var(--primary);font-size:16px">75 人</span>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
+            <button class="btn btn-outline" style="padding:4px 10px;font-size:12.5px" onclick="setSmePreset('mfg',90,'ltd')">測試 A：光學鏡片廠（75人增聘15人至90人）</button>
+            <button class="btn btn-outline" style="padding:4px 10px;font-size:12.5px" onclick="setSmePreset('nonmfg',52,'ltd')">測試 B：連鎖物理治療中心（精簡後剩52人）</button>
+            <button class="btn btn-outline" style="padding:4px 10px;font-size:12.5px" onclick="setSmePreset('nonmfg',3,'sole')">測試 C：左撇子專用文具店（僱用3名店員）</button>
+          </div>
+        </div>
+        <div id="smeCheckResult" style="margin-top:12px"></div>
+      </div>
+
+      <!-- 香港中小型企業的四項特徵與擁有權類型排雷 -->
+      <div class="card" style="margin-bottom:0">
+        <span class="badge b-teal">香港中小型企業的四項特徵 ＆ 擁有權排雷</span>
+        <h3 style="font-size:20px;margin:6px 0 8px">點擊切換檢視「香港中小企的四項標準特徵」與「高頻擁有權與統計陷阱排雷」</h3>
+        <div class="chips" id="charChips">
+          <button class="chip active" onclick="renderCharTab(0)">1. 香港中小企的 4 項標準特徵</button>
+          <button class="chip" onclick="renderCharTab(1)">2. 答題排雷：為何中小企 ≠ 獨資企業？</button>
+          <button class="chip" onclick="renderCharTab(2)">3. 香港中小企統計數據必背要點</button>
+        </div>
+        <div id="charDetailBox" style="margin-top:10px"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 子分頁 1B：中小企定義與特徵挑戰 -->
+  <div class="sub-view" id="chr-sub-1">
+    <div class="card" style="margin-bottom:0">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <span class="badge b-teal">中小型企業定義、統計實況與四大特徵挑戰</span>
+        <span id="chrQuizProg" style="font-size:14.5px;font-weight:600;color:var(--mute)"></span>
+      </div>
+      <div id="chrQuizQ" style="font-size:17.5px;font-weight:700;margin-bottom:14px"></div>
+      <div id="chrQuizBtns" style="display:flex;flex-direction:column;gap:8px"></div>
+      <div id="chrQuizFb" style="margin-top:14px;font-size:16px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 2. 中小企對香港經濟的貢獻 ==================== -->
+<section class="view" id="sec-sme-econ">
+  <div class="sec-banner">
+    <div>
+      <span class="badge b-blue">單元二：中小型企業對香港經濟的四項貢獻 (Contributions of SMEs to HK Economy)</span>
+      <h1>滿足狹小市場需要・提供就業機會・引入創新產品・充當三大角色支援大型企業</h1>
+      <p>中小型企業是香港經濟發展的重要推動力，對本地經濟有四項重大貢獻：(1) 提供專門化的貨品和服務以滿足狹小市場顧客需要（填補市場缺口）；(2) 提供就業機會；(3) 引入創新的貨品和服務；以及 (4) 透過充當供應商、承包商和分銷商支援大型企業。</p>
+    </div>
+    <div class="sub-nav">
+      <button class="active" onclick="switchSub('ecn', 0, this)">四大經濟貢獻與支援大企模擬器</button>
+      <button onclick="switchSub('ecn', 1, this)">中小企經濟貢獻概念挑戰</button>
+    </div>
+  </div>
+
+  <!-- 子分頁 2A：四大經濟貢獻 ＋ 支援大型企業三大角色模擬器 -->
+  <div class="sub-view active" id="ecn-sub-0">
+    <div class="grid2">
+      <div class="card" style="margin-bottom:0">
+        <span class="badge b-blue">中小型企業對香港經濟的四項貢獻</span>
+        <h3 style="font-size:20px;margin:6px 0 8px">點擊下方四項貢獻，查看其運作邏輯與香港原創商業例子</h3>
+        <div class="grid2" style="gap:8px;margin:10px 0" id="econContribBtns">
+          <button class="role-btn active" onclick="renderEconContrib(0)">1. 提供專門化的貨品和服務</button>
+          <button class="role-btn" onclick="renderEconContrib(1)">2. 提供就業機會</button>
+          <button class="role-btn" onclick="renderEconContrib(2)">3. 引入創新的貨品和服務</button>
+          <button class="role-btn" onclick="renderEconContrib(3)">4. 支援大型企業</button>
+        </div>
+        <div id="econContribBox" style="margin-top:10px"></div>
+      </div>
+
+      <div class="card" style="margin-bottom:0;border:2px solid var(--teal)">
+        <span class="badge b-teal">互動實驗工具二：中小企如何「支援大型企業」三大角色模擬器</span>
+        <h3 style="font-size:20px;margin:6px 0 8px">點擊切換中小型企業充當的「供應商」、「承包商」與「分銷商」角色，觀察如何減輕大型企業負擔</h3>
+        <div class="chips" id="supRoleChips">
+          <button class="chip active" onclick="renderSupRole(0)">角色 1：充當「供應商 (Suppliers)」</button>
+          <button class="chip" onclick="renderSupRole(1)">角色 2：充當「承包商 (Contractors)」</button>
+          <button class="chip" onclick="renderSupRole(2)">角色 3：充當「分銷商 (Distributors)」</button>
+        </div>
+        <div id="supRoleBox" style="margin-top:10px"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 子分頁 2B：中小企經濟貢獻挑戰 -->
+  <div class="sub-view" id="ecn-sub-1">
+    <div class="card" style="margin-bottom:0">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <span class="badge b-teal">中小型企業對香港經濟貢獻辨識挑戰</span>
+        <span id="ecnQuizProg" style="font-size:14.5px;font-weight:600;color:var(--mute)"></span>
+      </div>
+      <div id="ecnQuizQ" style="font-size:17.5px;font-weight:700;margin-bottom:14px"></div>
+      <div id="ecnQuizBtns" style="display:flex;flex-direction:column;gap:8px"></div>
+      <div id="ecnQuizFb" style="margin-top:14px;font-size:16px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 3. 企業家與企業家精神的重要性 ==================== -->
+<section class="view" id="sec-entrep">
+  <div class="sec-banner">
+    <div>
+      <span class="badge b-blue">單元三：甚麼是企業家 (Entrepreneurs) ＆ 企業家精神對商業發展的重要性</span>
+      <h1>為賺取利潤而承擔創業風險的人 ＆ 鼓勵創新・促進市場競爭・促進經濟增長</h1>
+      <p>企業家是為了賺取利潤而承擔創業風險的人（由於創業時缺乏資金，多數以中小型企業起家）。企業家精神對商業發展有三項重要貢獻：(1) 鼓勵創新（增加貨品和服務種類令消費者受惠）；(2) 促進市場競爭；及 (3) 促進經濟增長（提供就業、為其他企業創造需求、創造全新市場或行業）。</p>
+    </div>
+    <div class="sub-nav">
+      <button class="active" onclick="switchSub('ent', 0, this)">企業家精神連鎖效應模擬器</button>
+      <button onclick="switchSub('ent', 1, this)">企業家與企業家精神挑戰</button>
+    </div>
+  </div>
+
+  <!-- 子分頁 3A：企業家定義與企業家精神連鎖效應模擬器 -->
+  <div class="sub-view active" id="ent-sub-0">
+    <div class="grid2">
+      <div class="card" style="margin-bottom:0">
+        <span class="badge b-blue">企業家的定義與企業家精神的三大重要性</span>
+        <h3 style="font-size:20px;margin:6px 0 8px">點擊切換檢視「甚麼是企業家（含常考排雷）」與「企業家精神的三大貢獻」</h3>
+        <div class="chips" id="entTabChips">
+          <button class="chip active" onclick="renderEntTab(0)">1. 甚麼是企業家？為何多以中小企起家？</button>
+          <button class="chip" onclick="renderEntTab(1)">2. 貢獻 (1) 鼓勵創新 ＆ (2) 促進市場競爭</button>
+          <button class="chip" onclick="renderEntTab(2)">3. 貢獻 (3) 促進經濟增長的 3 種途徑</button>
+        </div>
+        <div id="entTabBox" style="margin-top:10px"></div>
+      </div>
+
+      <div class="card" style="margin-bottom:0;border:2px solid var(--primary)">
+        <span class="badge b-teal">互動實驗工具三：企業家精神「促進經濟增長與市場競爭」連鎖效應模擬器</span>
+        <h3 style="font-size:20px;margin:6px 0 8px">點選不同原創企業家的創業案例，觀察其如何刺激上下游企業需求、創造新行業及促進同行競爭</h3>
+        <div class="chips" id="rippleChips">
+          <button class="chip active" onclick="renderRippleSim(0)">案例 1：寵物友善共享召車平台 (PetRide)</button>
+          <button class="chip" onclick="renderRippleSim(1)">案例 2：消費級航拍無人機（創造新市場／新行業）</button>
+          <button class="chip" onclick="renderRippleSim(2)">案例 3：24小時AI智能自助健身艙</button>
+        </div>
+        <div id="rippleSimBox" style="margin-top:10px"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 子分頁 3B：企業家與企業家精神挑戰 -->
+  <div class="sub-view" id="ent-sub-1">
+    <div class="card" style="margin-bottom:0">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <span class="badge b-teal">企業家特徵與企業家精神重要性實戰挑戰</span>
+        <span id="entQuizProg" style="font-size:14.5px;font-weight:600;color:var(--mute)"></span>
+      </div>
+      <div id="entQuizQ" style="font-size:17.5px;font-weight:700;margin-bottom:14px"></div>
+      <div id="entQuizBtns" style="display:flex;flex-direction:column;gap:8px"></div>
+      <div id="entQuizFb" style="margin-top:14px;font-size:16px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 4. 中小企優缺點與競爭突圍顧問 ==================== -->
+<section class="view" id="sec-comp">
+  <div class="sec-banner">
+    <div>
+      <span class="badge b-blue">單元四：中小型企業相對於大型企業的優缺點 ＆ 競爭突圍策略顧問室</span>
+      <h1>中小企與大型企業的全面對比、經營困難診斷與「共享廚房／狹小市場」突圍之道</h1>
+      <p>根據中小型企業的特徵，中小企在面對大型企業競爭時既有獨特優點（決策迅速靈活、專注狹小市場提供客製化服務、營運成本較低），亦有明顯難處（缺乏資金和資源、難獲銀行貸款、難從供應商獲得貿易賒帳或批量折扣、東主或欠缺管理經驗）。</p>
+    </div>
+    <div class="sub-nav">
+      <button class="active" onclick="switchSub('cmp', 0, this)">中小企優缺點對照與個案診斷</button>
+      <button onclick="switchSub('cmp', 1, this)">綜合應用與競爭策略挑戰</button>
+    </div>
+  </div>
+
+  <!-- 子分頁 4A：中小企優缺點對照與三大原創個案診斷 -->
+  <div class="sub-view active" id="cmp-sub-0">
+    <div class="grid2">
+      <div class="card" style="margin-bottom:0">
+        <span class="badge b-blue">綜合比較：中小型企業相對於大型企業的優點與缺點（難處）</span>
+        <h3 style="font-size:20px;margin:6px 0 8px">點擊切換檢視「中小企相對於大型企業的優缺點」及「決策過程比較」</h3>
+        <div class="chips" id="advCompChips">
+          <button class="chip active" onclick="renderAdvComp(0)">1. 中小企相對於大型企業的「優點」</button>
+          <button class="chip" onclick="renderAdvComp(1)">2. 中小企與大型企業競爭面對的「難處／缺點」</button>
+        </div>
+        <div id="advCompBox" style="margin-top:10px"></div>
+      </div>
+
+      <div class="card" style="margin-bottom:0;border:2px solid var(--teal)">
+        <span class="badge b-teal">三大原創商業個案突圍策略診斷室</span>
+        <h3 style="font-size:20px;margin:6px 0 8px">點選三大原創中小企創業個案，掌握如何結合中小企特徵分析問題與突圍方法</h3>
+        <div class="chips" id="smeCaseChips">
+          <button class="chip active" onclick="renderSmeCase(0)">個案 A：共享商用廚房（雲端廚房）為何特別適合餐飲中小企？</button>
+          <button class="chip" onclick="renderSmeCase(1)">個案 B：「銀髮族痛症復康運動工作室」的經營問題與狹小市場優勢</button>
+          <button class="chip" onclick="renderSmeCase(2)">個案 C：社區有機無農藥食材小店如何與大型連鎖超市競爭？</button>
+        </div>
+        <div id="smeCaseBox" style="margin-top:10px"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 子分頁 4B：綜合應用挑戰 -->
+  <div class="sub-view" id="cmp-sub-1">
+    <div class="card" style="margin-bottom:0">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <span class="badge b-teal">中小企與大型企業比較及個案分析挑戰</span>
+        <span id="cmpQuizProg" style="font-size:14.5px;font-weight:600;color:var(--mute)"></span>
+      </div>
+      <div id="cmpQuizQ" style="font-size:17.5px;font-weight:700;margin-bottom:14px"></div>
+      <div id="cmpQuizBtns" style="display:flex;flex-direction:column;gap:8px"></div>
+      <div id="cmpQuizFb" style="margin-top:14px;font-size:16px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 5. 論點建構問答工作坊 (12題：100% 原創情境・一題一論點・按論述邏輯點評) ==================== -->
+<section class="view" id="sec-builder">
+  <div class="sec-banner">
+    <div>
+      <span class="badge b-amber">一段一論點 · 100% 原創商業情境與論述邏輯點評訓練</span>
+      <h1>「一段一個獨立論點」論點建構工作坊</h1>
+      <p>本工作坊採用 <b>12 個全新原創的香港商業情境</b>，每道題目均嚴格要求建構<b>單一獨立論點段落</b>（4 道短答題：2 步建構 · 2 分；8 道進階論述題：3 步深度建構 · 3 分）。每個步驟均設有「滿分論述示範（綠燈）」、「能力較弱學生常犯的解說不足示範（琥珀黃燈）」及「概念或邏輯錯誤選項（紅燈）」，並針對<b>論述邏輯、因果推演與情境扣連深度</b>進行點評。</p>
+    </div>
+    <div class="sub-nav">
+      <button class="active" onclick="switchBuilderCat('short', this)">短答單一論點訓練 (4題)</button>
+      <button onclick="switchBuilderCat('essay', this)">論述單一論點訓練 (8題)</button>
+    </div>
+  </div>
+
+  <details class="guide-Collapsible">
+    <summary>查看「一題一論點、一段一論點」建構結構與論述點評標準（點擊展開 / 收起）</summary>
+    <div class="grid2" style="margin-top:14px;font-size:16px">
+      <div style="background:var(--primary-light);padding:14px 18px;border-radius:10px">
+        <b style="color:var(--primary)">短答題／個案題模式（單一論點滿分 2 分 — 2 步建構）</b><br>
+        <span class="hl-s1">第 1 步 (1分)</span> 準確指出單一中小企定義準則、單一特徵或單一經濟貢獻標題，並界定其核心邏輯<br>
+        <span class="hl-s2">第 2 步 (1分)</span> 緊扣題目企業的具體業務情況作針對性因果解說，完成單一論點閉環
+      </div>
+      <div style="background:var(--teal-light);padding:14px 18px;border-radius:10px">
+        <b style="color:var(--teal)">進階論述題模式（單一論點滿分 3 分 — 3 步深度建構）</b><br>
+        <span class="hl-s1">第 1 步 (1分)</span> 指出單一中小企經濟貢獻、單一企業家精神重要性或單一優缺點，並闡明其運作機制<br>
+        <span class="hl-s2">第 2 步 (1分)</span> 針對題目企業的業務背景，設定一個具體可行的商業運作例子作說明<br>
+        <span class="hl-s3">第 3 步 (1分)</span> 深化推論該單一論點最終對滿足市場缺口、促進競爭、帶動相關行業增長或企業求存的具體影響
+      </div>
+    </div>
+  </details>
+
+  <div class="card" style="padding:18px 22px;margin-bottom:18px">
+    <div style="font-size:15px;color:var(--mute);font-weight:700;margin-bottom:8px" id="builderCatLabel">選擇短答題（每題建構單一 2 分論點）：</div>
+    <div class="chips" id="questionChips" style="margin:0"></div>
+  </div>
+
+  <div id="builderWorkspace"></div>
+</section>
+
+<script>
+  // Main Tab Switching
+  document.querySelectorAll('#mainTabs button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#mainTabs button').forEach(b => b.classList.remove('on'));
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('on'));
+      btn.classList.add('on');
+      document.getElementById(btn.dataset.tab).classList.add('on');
+    });
+  });
+
+  // Sub-view Switching
+  function switchSub(prefix, idx, btn) {
+    btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll(`[id^="${prefix}-sub-"]`).forEach((el, i) => {
+      el.classList.toggle('active', i === idx);
+    });
+  }
+
+  // ====== 1A. 香港中小型企業資格即時鑑定器（100% 原創預設） ======
+  function setSmePreset(sec, staff, own) {
+    document.getElementById('smeSector').value = sec;
+    document.getElementById('smeStaffSlider').value = staff;
+    document.getElementById('smeOwner').value = own;
+    updateSmeChecker();
+  }
+
+  function updateSmeChecker() {
+    const sec = document.getElementById('smeSector').value;
+    const staff = +document.getElementById('smeStaffSlider').value;
+    const own = document.getElementById('smeOwner').value;
+    document.getElementById('lblSmeStaff').textContent = `${staff} 人`;
+
+    const limit = sec === 'mfg' ? 100 : 50;
+    const secName = sec === 'mfg' ? "製造業（將原材料轉化為成品或半製成品）" : "非製造業（如服務業、批發零售、餐飲、醫療保健、運輸、建造業）";
+    const ownNames = { sole: "獨資企業", part: "合夥企業", ltd: "私人有限公司" };
+    const isSme = staff < limit;
+
+    document.getElementById('smeCheckResult').innerHTML = `
+      <div style="background:${isSme?'var(--green-light)':'var(--red-light)'};border-left:5px solid ${isSme?'var(--green)':'var(--red)'};padding:14px 18px;border-radius:10px;color:${isSme?'#064e3b':'#881337'};font-size:15px;line-height:1.7">
+        <div style="font-size:17px;font-weight:800;margin-bottom:4px">
+          ${isSme ? `✓ 鑑定結果：屬於香港的【中小型企業 (SME)】！` : `✗ 鑑定結果：【不屬於】中小型企業（屬於大型企業）！`}
+        </div>
+        • <b>判斷依據（香港工業貿易署定義）</b>：該企業從事<b>${secName}</b>，法定義界線為<b>僱用少於 ${limit} 人（&lt; ${limit} 人）</b>；目前僱用 <b>${staff} 人</b>，${isSme ? `少於 ${limit} 人上限，故符合中小企定義。` : `已達到或超過 ${limit} 人上限，故不屬於中小企！`}<br>
+        • <b>企業擁有權提示</b>：該企業為<b>${ownNames[own]}</b>——請緊記，中小型企業可以屬於獨資企業、合夥或有限公司，擁有權類型並不影響其是否屬於中小企！
+      </div>`;
+  }
+  updateSmeChecker();
+
+  const charTabData = [
+    `<table class="comp-table" style="font-size:15px">
+      <thead><tr><th style="width:25%">香港中小企的 4 項特徵</th><th>具體特徵描述與原創實例</th></tr></thead>
+      <tbody>
+        <tr><td><b>1. 通常由東主管理</b></td><td>雖然中小型企業的東主可能欠缺經驗和管理技巧，但他們大多會<b>自行管理業務</b>。有些東主也會讓<b>家庭成員參與管理業務</b>（如本地手工木結他工坊由東主與兄長共同打理）。</td></tr>
+        <tr><td><b>2. 資源和資金有限</b></td><td>用於維持運作和擴展業務的資源和資金有限。大多數中小企的資金主要來自<b>東主一人（個人積蓄）</b>；由於規模細小，<b>一般較難獲得銀行貸款</b>（亦較難從供應商獲得貿易賒帳或折扣）。</td></tr>
+        <tr><td><b>3. 專注於狹小市場</b></td><td>規模較細小故營運成本一般較低，只服務狹小市場仍能從中賺取利潤。因此大多<b>專注於大型企業不感興趣的狹小市場（多為本地市場）</b>，甚至為特定類型顧客提供<b>度身訂造（客製化）的貨品和服務</b>（如專為左撇子人士訂造文具及廚具），以取得競爭優勢。</td></tr>
+        <tr><td><b>4. 靈活性較大</b></td><td>大型企業參與決策的人眾多，決策過程較緩慢；中小企東主通常自行作出決策（決策過程涉及較少員工），可快速作出決定，在運作上靈活性較大，能<b>迅速回應市場的轉變</b>。</td></tr>
+      </tbody>
+    </table>`,
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--red);font-size:15.5px;line-height:1.8">
+      <b style="color:var(--red);font-size:17px">答題排雷：回答「中小型企業的特徵」時絕不可寫的錯誤答案！</b><br>
+      很多人誤以為「中小型企業 ＝ 獨資企業」，但事實上<b>中小型企業也可以是合夥企業或有限公司</b>！在回答中小企特徵的題目時，必須確保答案適用於所有企業擁有權類型。<b>以下答案在考試中均屬錯誤（不獲給分）：</b><br>
+      • ❌ <b>錯誤 1：「它們由一人擁有。」</b>（不正確：只適用於獨資企業；合夥及有限公司形式的中小企可有多於一名東主／股東！）<br>
+      • ❌ <b>錯誤 2：「它們享有較低的利得稅稅率。」</b>（不正確：香港法團與非屬法團業務的稅率取決於企業擁有權類型而非規模大小；一間有限公司形式的中小企與大型跨國公司適用相同的法團稅制！）<br>
+      • ❌ <b>錯誤 3：「它們不能在股票交易所上市。」</b>（不正確：只適用於獨資、合夥和私人有限公司！）
+    </div>`,
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--primary);font-size:15.5px;line-height:1.8">
+      <b style="color:var(--primary);font-size:17px">香港中小型企業的統計實況與必背是非題考點：</b><br>
+      • <b>(1) 企業數目佔比（&gt; 98%）</b>：香港有超過 34 萬家中小企，佔全港企業總數<b>超過 98%</b>（即在香港，中小型企業的數目遠比大型企業多）。<br>
+      • <b>(2) 就業人數佔比（約 45% — 最高頻陷阱！）</b>：中小企合共聘用約 <b>45%</b> 的總工作人口（不包括公務員）。<span style="color:var(--red)"><b>注意：雖然香港大部分企業都屬於中小型企業，但它們提供的就業機會並非最多（私營企業中，大型企業合共僱用約 55% 工作人口，比中小企的 45% 更多）！</b></span><br>
+      • <b>(3) 產業分佈（約 97.7% 為非製造業）</b>：中小企可從事第一、二或三級產業，但在香港，<b>大部分（約 97.7%）中小企都從事非製造業（第三級產業）</b>。
+    </div>`
+  ];
+  function renderCharTab(idx) {
+    document.querySelectorAll('#charChips .chip').forEach((c, i) => c.classList.toggle('active', i === idx));
+    document.getElementById('charDetailBox').innerHTML = charTabData[idx];
+  }
+  renderCharTab(0);
+
+  // 對稱深度設計的 6 道中小企定義與特徵挑戰題（100% 原創情境）
+  const chrQuizItems = [
+    {
+      q: "1. 根據香港工業貿易署的定義，下列哪家企業在香港屬於「中小型企業」？",
+      opts: [
+        "A. 一家在香港經營、僱用了 58 名全職物理治療師及助護的連鎖復康中心（社區及個人服務業）",
+        "B. 一家在香港設廠、僱用了 88 名全職技工的精工光學鏡片研磨廠（製造業）",
+        "C. 一家在香港經營、僱用了 52 名全職報關員及貨車司機的跨境物流貨運公司（運輸及倉庫業）"
+      ],
+      ans: 1,
+      exp: "正確。根據工業貿易署定義：(i) 從事製造業而僱用少於 100 人的企業屬中小企（B 的光學鏡片廠屬製造業，僱用 88 人少於 100 人，故屬於中小企）；(ii) 從事非製造業而僱用少於 50 人的企業才屬中小企（A 的復康中心僱用 58 人及 C 的物流公司僱用 52 人均已超過 50 人，故不屬於中小企）。"
+    },
+    {
+      q: "2. 辨別以下關於香港中小型企業的陳述，哪一項是「正確」的？",
+      opts: [
+        "A. 在香港的私營企業當中，中小型企業合共僱用的總人數比大型企業更多，佔總工作人口超過九成",
+        "B. 在香港，中小型企業的數目比大型企業多（佔全港企業總數超過 98%），而且大部分中小型企業都從事非製造業（第三級產業）",
+        "C. 香港的所有中小型企業都必定是由一名東主單獨擁有的獨資企業，不可以採用合夥或有限公司的形式經營"
+      ],
+      ans: 1,
+      exp: "正確。香港中小企佔全港企業總數超過 98%，當中約 97.7% 從事非製造業（第三級產業）。注意 A 錯誤：中小企只僱用約 45% 總工作人口（不包括公務員），提供的就業機會並非最多；C 錯誤：中小企可以是獨資、合夥或有限公司。"
+    },
+    {
+      q: "3. 為甚麼中小型企業在日常運作上通常比大型企業「靈活性較大」，能夠更迅速回應市場的轉變？",
+      opts: [
+        "A. 因為中小型企業擁有比大型跨國企業更龐大的備用資金，且聘請了大批專業管理顧問團協助決策",
+        "B. 因為大型企業參與決策過程的人眾多故決策緩慢；而中小型企業的決策過程涉及較少員工，東主通常自行作出決策，因此可以快速地作出決定並迅速回應市場轉變",
+        "C. 因為中小型企業受到政府法例豁免，修改任何商業合約或退還貨品都無須徵得客戶或供應商同意"
+      ],
+      ans: 1,
+      exp: "正確。中小企靈活性較大的核心原因在於決策過程涉及較少人（東主通常自行作出決策），無須像大型企業般經過眾多層級與人員漫長商議，故能快速作出決定回應市場轉變。"
+    },
+    {
+      q: "4. 為甚麼很多中小型企業（如左撇子專用文具店或手工木結他工坊）都會選擇「專注於狹小的市場（Niche Market）」來提供服務？",
+      opts: [
+        "A. (1) 大型企業對規模細小的狹小市場不感興趣（可避開與大型企業正面交鋒）；(2) 中小企營運成本一般較低，只服務狹小市場仍能賺取利潤，且可透過為特定顧客提供度身訂造的產品取得競爭優勢",
+        "B. 因為專注於狹小市場能讓中小型企業進行最大規模的標準化大量生產，從而獲得比跨國企業更大的規模經濟效益",
+        "C. 因為香港工業貿易署法例禁止任何僱用少於 50 人的中小型企業向一般大眾市場出售商品"
+      ],
+      ans: 0,
+      exp: "正確。中小企規模小、營運成本較低，專注於大型企業不感興趣的狹小市場仍能獲利，並可透過為特定顧客提供度身訂造（客製化）產品在市場上取得競爭優勢（注意 B 錯誤：狹小市場需求量有限，無法進行大規模生產）。"
+    },
+    {
+      q: "5. 下列哪一組全部屬於香港「中小型企業」的正確特徵（即同時適用於獨資、合夥及有限公司形式的中小企）？",
+      opts: [
+        "A. (1) 只由一名東主全資擁有；(2) 享比跨國公司更低的利得稅稅率；(3) 負上無限債務責任",
+        "B. (1) 通常由東主自行管理（或有家庭成員參與管理）；(2) 資源和資金有限（較難獲得銀行貸款）；(3) 專注於狹小市場；(4) 靈活性較大",
+        "C. (1) 在同行中佔主導市場地位；(2) 管理層級極多，採用高架式結構；(3) 主要依賴發行上市公司債券籌集資金"
+      ],
+      ans: 1,
+      exp: "正確。中小企的四大標準特徵為：(1) 通常由東主管理；(2) 資源和資金有限；(3) 專注於狹小市場；(4) 靈活性較大（注意 A 的特徵只適用於獨資或無限公司，不適用於私人有限公司形式的中小企）。"
+    },
+    {
+      q: "6. 辨別以下陳述是否正確：「所有中小型企業所賺取的利潤金額，都必定比跨國公司或大型企業少。」",
+      opts: [
+        "A. 正確 — 企業賺取的利潤金額完全與其僱用的員工總人數成正比，員工少於 50 人的企業絕不可能賺取高利潤",
+        "B. 不正確 — 企業的盈利能力取決於其業務性質、成本控制與市場競爭力；一家經營成功的高科技或專業服務中小型企業，其賺取的利潤可能比錄得嚴重虧損的大型跨國公司更高",
+        "C. 不正確 — 所有中小型企業在法律上都屬於非牟利慈善機構，因此完全不會賺取任何利潤"
+      ],
+      ans: 1,
+      exp: "正確（陳述不正確）。中小型企業的定義只取決於僱用員工人數及非佔主導地位，並不代表其利潤必定比跨國公司少（跨國公司亦可能因管理不善或市道下滑而蒙受虧損）。"
+    }
+  ];
+  let curCHRQ = 0;
+  function renderChrQuiz() {
+    const it = chrQuizItems[curCHRQ];
+    document.getElementById('chrQuizProg').textContent = `題目 ${curCHRQ + 1} / ${chrQuizItems.length}`;
+    document.getElementById('chrQuizQ').innerHTML = it.q;
+    document.getElementById('chrQuizBtns').innerHTML = it.opts.map((o, i) => `<button class="opt-card" style="margin:0;padding:12px 16px" onclick="checkChrQuiz(${i})">${o}</button>`).join('');
+    document.getElementById('chrQuizFb').innerHTML = '';
+  }
+  function checkChrQuiz(idx) {
+    const it = chrQuizItems[curCHRQ];
+    const fb = document.getElementById('chrQuizFb');
+    if (idx === it.ans) {
+      fb.innerHTML = `<span style="color:var(--green);font-weight:700">${it.exp}</span> <button class="btn btn-outline" style="margin-left:8px;padding:6px 14px;font-size:14.5px" onclick="curCHRQ=(curCHRQ+1)%chrQuizItems.length;renderChrQuiz()">下一題</button>`;
+    } else {
+      fb.innerHTML = `<span style="color:var(--red);font-weight:700">答案不正確。${it.exp.replace('正確。','')}</span>`;
+    }
+  }
+  renderChrQuiz();
+
+  // ====== 2. 中小企對香港經濟的貢獻（100% 原創商業例子） ======
+  const econContribs = [
+    {
+      title: "貢獻 1：提供專門化的貨品和服務，以滿足顧客需要",
+      desc: "為應付市場競爭，中小型企業大多專注於大型企業不感興趣的狹小市場，因此它們可提供<b>專門化的貨品和服務，以滿足這些狹小市場的顧客需要，這有助填補市場缺口</b>。",
+      ex: "<b>原創商業例子</b>：本地初創中小企「敏肌寶寶」看準患有嚴重濕疹及食物過敏嬰幼兒的需要，專門研發無麩質低敏有機米糊及純天然草本護膚膏；或本地手工木結他工坊為左撇子樂手度身訂造左手專用結他，填補大型連鎖店未能照顧的市場缺口。"
+    },
+    {
+      title: "貢獻 2：提供就業機會",
+      desc: "中小型企業聘用了香港約 <b>45% 的總工作人口（不包括公務員）</b>，為香港人（包括<b>缺乏技能和工作經驗的勞工及年青人</b>）創造大量就業機會。",
+      ex: "<b>原創商業例子</b>：全港逾 34 萬家中小企（如社區烘焙工坊、獨立單車維修店、數碼印刷社、改衣小店）廣泛聘用不同學歷與技能背景的本地基層勞工及畢業生，有助維持香港低失業率及社會穩定。"
+    },
+    {
+      title: "貢獻 3：引入創新的貨品和服務",
+      desc: "中小型企業是<b>新貨品和服務的重要來源</b>。不少中小型企業為了與大型企業競爭，避免被市場淘汰，會推出具創意的新產品來吸引顧客，這有助<b>推動創新和促進市場競爭</b>。",
+      ex: "<b>原創商業例子</b>：本地環保設計小店研發出將回收咖啡渣轉化而成的「除臭吸音牆板」，或本地音響初創工房推出「骨傳導防水游泳耳機」吸引運動愛好者，推動市場創新。"
+    },
+    {
+      title: "貢獻 4：支援大型企業",
+      desc: "大型企業不可能自行生產營運所需的所有物資，通常須依靠中小型企業提供貨品和服務。中小企透過充當大型企業的<b>供應商、承包商和分銷商</b>支援大型企業，讓大型企業可以<b>減輕工作負擔，專注於核心業務</b>。",
+      ex: "<b>原創商業例子</b>：請點擊右側「支援大型企業三大角色模擬器」查看供應商、承包商與分銷商的原創運作實例！"
+    }
+  ];
+  function renderEconContrib(idx) {
+    document.querySelectorAll('#econContribBtns .role-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+    const c = econContribs[idx];
+    document.getElementById('econContribBox').innerHTML = `
+      <div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--primary);font-size:15.5px;line-height:1.8">
+        <b style="color:var(--primary);font-size:17px">${c.title}</b>
+        <p style="margin:8px 0">${c.desc}</p>
+        <div style="background:var(--card);padding:12px 16px;border-radius:8px;border-left:4px solid var(--teal);font-size:14.5px">${c.ex}</div>
+      </div>`;
+  }
+  renderEconContrib(0);
+
+  const supRoles = [
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--teal);font-size:15px;line-height:1.75">
+      <b style="color:var(--teal);font-size:16.5px">角色 1：充當大型企業的「供應商 (Suppliers)」—— 供應原料和物資</b>
+      <div class="flow-chain">
+        <div class="flow-node">中小型企業（供應商）<br><span style="color:var(--ink);font-weight:600">如綠源竹纖維包裝廠、精密螺絲廠、有機香草園</span></div>
+        <span class="flow-arrow">➔ 供應原料和物資 ➔</span>
+        <div class="flow-node" style="background:var(--green-light);color:var(--green);border-color:var(--green)">大型企業<br><span style="color:var(--ink);font-weight:600">如跨國美妝集團、大型航空公司、連鎖酒店</span></div>
+      </div>
+      • <b>原創例子</b>：本地中小企「綠源環保包裝廠」專門生產可降解竹纖維容器及紙盒，長期供應予大型跨國美妝集團及大型航空公司作飛機餐具；這讓大型企業無須自行設廠生產包裝物料，能專注於自身的核心業務。
+    </div>`,
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--teal);font-size:15px;line-height:1.75">
+      <b style="color:var(--teal);font-size:16.5px">角色 2：充當大型企業的「承包商 (Contractors)」—— 提供專業支援服務</b>
+      <div class="flow-chain">
+        <div class="flow-node">中小型企業（承包商）<br><span style="color:var(--ink);font-weight:600">如閃潔高空幕牆清潔社、商用冷氣工程行、網絡保安顧問</span></div>
+        <span class="flow-arrow">➔ 外判支援服務 ➔</span>
+        <div class="flow-node" style="background:var(--green-light);color:var(--green);border-color:var(--green)">大型企業<br><span style="color:var(--ink);font-weight:600">如大型地產商場、跨國投資銀行、大型醫院</span></div>
+      </div>
+      • <b>原創例子</b>：大型地產商場及跨國銀行將非核心的高空玻璃幕牆清洗、中央冷氣系統維修保養或伺服器防黑客測試工作，外判予本地中小型工程及資訊科技承包商負責；這能大幅減輕大型企業的日常行政與營運負擔。
+    </div>`,
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--teal);font-size:15px;line-height:1.75">
+      <b style="color:var(--teal);font-size:16.5px">角色 3：充當大型企業的「分銷商 (Distributors：批發商、零售商)」—— 提供產品分銷及售後服務</b>
+      <div class="flow-chain">
+        <div class="flow-node" style="background:var(--green-light);color:var(--green);border-color:var(--green)">大型生產商<br><span style="color:var(--ink);font-weight:600">如跨國光學鏡片製造商、國際電動工具品牌</span></div>
+        <span class="flow-arrow">➔ 交由各區中小企分銷 ➔</span>
+        <div class="flow-node">中小型企業（批發商／零售商）<br><span style="color:var(--ink);font-weight:600">如各區獨立視光眼鏡店、社區五金工具行</span></div>
+      </div>
+      • <b>原創例子</b>：跨國光學鏡片製造商或國際電動工具品牌無須親自在本港每個社區開設直營門市，而是透過遍佈全港各區的中小型獨立視光眼鏡店及五金行，協助將鏡片及工具分銷至廣大市民手上，並代為提供驗光配鏡及基本售後保養服務。
+    </div>`
+  ];
+  function renderSupRole(idx) {
+    document.querySelectorAll('#supRoleChips .chip').forEach((c, i) => c.classList.toggle('active', i === idx));
+    document.getElementById('supRoleBox').innerHTML = supRoles[idx];
+  }
+  renderSupRole(0);
+
+  // 對稱深度設計的 6 道中小企經濟貢獻挑戰題（100% 原創情境）
+  const ecnQuizItems = [
+    {
+      q: "1. 下列哪幾項是中小型企業對香港經濟的貢獻？<br>(1) 為香港人（包括缺乏技能和經驗的勞工）提供就業機會 ｜ (2) 為大型企業的擴充計劃提供龐大貸款資金 ｜ (3) 向大型企業提供原料和物資（充當供應商） ｜ (4) 幫助大型企業分銷產品（充當分銷商） ｜ (5) 提供專門化貨品和服務以滿足狹小市場的顧客需要 ｜ (6) 作為香港政府利得稅稅收的最主要來源 ｜ (7) 為市場引入創新產品",
+      opts: [
+        "A. 只有 (1)、(3)、(4)、(5) 和 (7)（中小型企業自身資金有限，不會為大型企業提供擴充資金(2)；且政府利得稅稅收主要來自盈利龐大的大型企業而非中小企(6)）",
+        "B. 只有 (2)、(4)、(5) 和 (6)（中小型企業的主要貢獻是借錢給跨國銀行及繳交全港九成的利得稅）",
+        "C. (1) 至 (7) 全部都是中小型企業對香港經濟的貢獻"
+      ],
+      ans: 0,
+      exp: "正確。中小企的四大貢獻為：提供專門化產品滿足狹小市場需要 (5)、提供就業機會 (1)、引入創新產品 (7)，以及充當供應商 (3)、承包商和分銷商 (4) 支援大型企業。注意 (2) 為大企提供資金及 (6) 作為政府稅收主要來源均屬常見錯誤干擾項！"
+    },
+    {
+      q: "2. 某中小型烘焙工坊在觀塘設有工場及門市，聘用了四名本地店員。該工坊從法國入口頂級無鹽牛油製作手工牛角包，一方面在門市售予本地喜愛法式酥餅的零售顧客，另一方面每日批發供應予多家大型連鎖咖啡店及五星級酒店作早餐麵包。這家烘焙工坊對香港經濟作出了哪些貢獻？",
+      opts: [
+        "A. (1) 聘用四名店員為香港人提供就業機會；(2) 提供專門化手工法式酥餅滿足狹小市場顧客的需要；(3) 將牛角包供應給大型連鎖咖啡店及酒店，充當大型企業的供應商以支援其運作",
+        "B. 透過大規模自動化生產壟斷全港所有麵包市場，並成為香港政府財政儲備的最大稅收來源",
+        "C. 為大型五星級酒店的海外收購計劃提供無息貸款，並替酒店管理其人力資源部門"
+      ],
+      ans: 0,
+      exp: "正確。緊扣題目線索：「聘用四名店員」➔ 提供就業機會；「製作手工法式牛角包售予本地喜愛酥餅顧客」➔ 提供專門化產品滿足狹小市場需要；「批發供應予大型連鎖咖啡店及酒店」➔ 充當大型企業的供應商支援其運作。"
+    },
+    {
+      q: "3. 「智安網絡保安顧問行」是一家中小型企業，專門為香港的大型連鎖商場及跨國銀行進行防黑客系統測試；另一家「閃潔高空清潔社」則專門替大型甲級寫字樓清洗玻璃幕牆。這兩家中小型企業主要透過充當甚麼角色來支援大型企業？這對大型企業有何好處？",
+      opts: [
+        "A. 充當大型企業的『分銷商』；好處是讓大型企業無須再研發任何核心金融或地產產品",
+        "B. 充當大型企業的『承包商 (Contractors)』，為大型企業提供網絡保安測試及外牆清潔等外判支援服務；好處是讓大型企業可以減輕工作負擔，將資源專注於自身的核心業務",
+        "C. 充當大型企業的『控股股東』；好處是可以直接接管大型企業董事局的最高決策權"
+      ],
+      ans: 1,
+      exp: "正確。為大型企業提供清潔、速遞、維修或IT網絡保安等支援服務的中小企，屬於充當大型企業的「承包商」，能協助大型企業減輕工作負擔，專注於核心業務。"
+    },
+    {
+      q: "4. 本地初創中小型企業「敏肌寶寶」見不少嬰幼兒患有嚴重濕疹及麩質過敏，但市面上一般嬰兒食品及護膚品均含有致敏成分，遂自行研發無麩質低敏有機米糊及純天然金銀花護膚膏，專門售予本地過敏兒家庭及兒科診所。這主要展示了中小型企業對香港經濟的哪兩項貢獻？",
+      opts: [
+        "A. (1) 提供專門化的貨品和服務以滿足狹小市場（過敏嬰幼兒）的顧客需要，填補市場缺口；(2) 為市場引入創新的貨品，推動創新並增加消費者的選擇",
+        "B. (1) 為跨國奶粉製造商提供上市集資服務；(2) 淘汰全港所有大型母嬰用品連鎖店",
+        "C. (1) 透過借取巨額銀行貸款來支持本地銀行業發展；(2) 壟斷全港所有嬰兒用品的進口批發權"
+      ],
+      ans: 0,
+      exp: "正確。針對嚴重過敏嬰幼兒這個大型企業較少涉足的狹小市場，研發低敏有機米糊與天然草本護膚膏，同時體現了「提供專門化貨品滿足狹小市場需要（填補市場缺口）」及「引入創新貨品」兩項貢獻。"
+    },
+    {
+      q: "5. 為何中小型企業在「為香港人提供就業機會」方面具有獨特的重要性？",
+      opts: [
+        "A. 因為中小型企業只會聘用擁有博士學位及二十年跨國管理經驗的頂尖專業人士",
+        "B. 因為中小型企業合共聘用了香港約 45% 的總工作人口（不包括公務員），而且入職門檻較具彈性，能為包括缺乏專門技能和工作經驗的基層勞工及年青人創造大量就業機會",
+        "C. 因為香港政府規定所有大學畢業生都必須先在中小型企業義務工作五年才可支取薪金"
+      ],
+      ans: 1,
+      exp: "正確。中小企聘用約 45% 總工作人口，並為缺乏技能和工作經驗的勞工及年青人提供大量寶貴的就業機會。"
+    },
+    {
+      q: "6. 不少中小型企業為了與資金雄厚的大型企業競爭、避免被市場淘汰，會經常推出具創意的新產品（如回收咖啡渣吸音牆板或骨傳導防水游泳耳機）來吸引顧客。這對香港整體市場有何正面影響？",
+      opts: [
+        "A. 有助成為市場上新貨品和服務的重要來源，推動行業創新並促進市場競爭，令消費者享有更多元化的選擇",
+        "B. 會令市場上的產品種類大幅減少，並消除市場上的所有競爭",
+        "C. 會令所有大型企業立即放棄品質保證並停止推出任何新產品"
+      ],
+      ans: 0,
+      exp: "正確。中小企為求生存與大企競爭而積極推出具創意的新產品，使中小企成為新貨品和服務的重要來源，有效推動創新和促進市場競爭。"
+    }
+  ];
+  let curECNQ = 0;
+  function renderEcnQuiz() {
+    const it = ecnQuizItems[curECNQ];
+    document.getElementById('ecnQuizProg').textContent = `題目 ${curECNQ + 1} / ${ecnQuizItems.length}`;
+    document.getElementById('ecnQuizQ').innerHTML = it.q;
+    document.getElementById('ecnQuizBtns').innerHTML = it.opts.map((o, i) => `<button class="opt-card" style="margin:0;padding:12px 16px" onclick="checkEcnQuiz(${i})">${o}</button>`).join('');
+    document.getElementById('ecnQuizFb').innerHTML = '';
+  }
+  function checkEcnQuiz(idx) {
+    const it = ecnQuizItems[curECNQ];
+    const fb = document.getElementById('ecnQuizFb');
+    if (idx === it.ans) {
+      fb.innerHTML = `<span style="color:var(--green);font-weight:700">${it.exp}</span> <button class="btn btn-outline" style="margin-left:8px;padding:6px 14px;font-size:14.5px" onclick="curECNQ=(curECNQ+1)%ecnQuizItems.length;renderEcnQuiz()">下一題</button>`;
+    } else {
+      fb.innerHTML = `<span style="color:var(--red);font-weight:700">答案不正確。${it.exp.replace('正確。','')}</span>`;
+    }
+  }
+  renderEcnQuiz();
+
+  // ====== 3. 企業家與企業家精神的重要性（100% 原創案例） ======
+  const entTabData = [
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--primary);font-size:15.5px;line-height:1.8">
+      <b style="color:var(--primary);font-size:17px">1. 甚麼是企業家 (Entrepreneurs)？</b><br>
+      • <b>定義</b>：企業家是<b>為了賺取利潤而承擔創業風險的人</b>。任何性別、年齡和種族的人都可以是企業家。<br>
+      • <b>為何大部分企業家都以中小型企業起家？</b>因為大部分企業家在創業初期都<b>缺乏資金（資金來源有限）</b>，所以多數以規模較小、創業成本較低的中小型企業起家，當中部分人最終能建立成功的企業。<br>
+      <div style="margin-top:10px;padding:10px 14px;background:var(--red-light);color:#881337;border-radius:8px;border-left:4px solid var(--red);font-weight:700">
+        三大常考概念排雷：<br>
+        1. 企業家<b>不一定是「成功」或「著名」企業的創辦人</b>（即使創業最終失敗，只要為賺取利潤而承擔創業風險，仍是企業家）！<br>
+        2. <b>並非所有企業家都以中小型企業起家</b>（部分資金充裕的企業家可直接創立大型企業，只是「大多數」以中小企起家）！<br>
+        3. 儘管企業家精神是推動創新的一大動力，但<b>不是所有企業家都以新產品進入市場</b>！
+      </div>
+    </div>`,
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--primary);font-size:15.5px;line-height:1.8">
+      <b style="color:var(--primary);font-size:17px">2. 企業家精神對商業發展的重要性 (1) 及 (2)：</b><br>
+      • <b>貢獻 (1) 鼓勵創新</b>：在提倡企業家精神的經濟體系中，任何人都可以創業，這有效促使人們<b>把創新的想法轉化成企業</b>，從而為市場帶來更多創新的貨品或服務（如智能翻譯耳機、無創血糖監測指環），這有助<b>增加市場上的貨品和服務種類，令消費者受惠</b>。<br>
+      • <b>貢獻 (2) 促進市場競爭</b>：企業家創立新的企業，並為市場引入全新和／或高質素的產品。<b>其他現有企業為了與這些新企業競爭，或會提高營運效率，又或推出新產品及提供更高質素的貨品和服務</b>（例如24小時AI自助健身艙的成功，促使傳統大型健身中心取消硬性推銷並提供按次收費模式），從而促進市場競爭及提升整體產品與服務質素。
+    </div>`,
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--primary);font-size:15.5px;line-height:1.8">
+      <b style="color:var(--primary);font-size:17px">3. 企業家精神對商業發展的重要性 (3)：促進經濟增長（三種具體途徑）</b><br>
+      企業家創立企業須把人才和資源集合和組織起來，透過以下三種途徑促進經濟增長：<br>
+      • <b>途徑 (i) 向社會提供就業機會</b>：企業家要生產產品或提供服務，便要聘請員工，為社會創造就業機會。<br>
+      • <b>途徑 (ii) 為其他企業的貨品和服務創造需求，刺激這些企業的發展</b>：在生產和營運過程中，企業家的企業須購買其他企業的原料、零件、運輸或支援服務，從而帶動相關上下游企業的業務增長。<br>
+      • <b>途徑 (iii) 創造出全新的市場，甚至新的行業</b>：有些推出突破性創新貨品或服務的企業家，能成功開創出前所未有的新市場或新行業（如消費級航拍無人機的推出，創造了商業航拍影視、無人機培訓與保險、以及專用防撞配件三個新市場）。
+    </div>`
+  ];
+  function renderEntTab(idx) {
+    document.querySelectorAll('#entTabChips .chip').forEach((c, i) => c.classList.toggle('active', i === idx));
+    document.getElementById('entTabBox').innerHTML = entTabData[idx];
+  }
+  renderEntTab(0);
+
+  const rippleSims = [
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--teal);font-size:15px;line-height:1.75">
+      <b style="color:var(--teal);font-size:16.5px">案例 1：企業家創立「寵物友善共享出行召車平台 (PetRide)」如何促進經濟增長？</b>
+      <div class="flow-chain">
+        <div class="flow-node">1. 吸引寵物友善司機加盟<br><span style="color:var(--ink);font-weight:600">為車主及職業司機創造接載毛孩出行的就業與收入機會</span></div>
+        <span class="flow-arrow">➔</span>
+        <div class="flow-node" style="background:var(--teal-light);color:var(--teal);border-color:var(--teal)">2. 帶動車廂消毒與配件商<br><span style="color:var(--ink);font-weight:600">司機須購買防抓車墊、寵物安全扣及專業除臭消毒服務</span></div>
+        <span class="flow-arrow">➔</span>
+        <div class="flow-node" style="background:var(--green-light);color:var(--green);border-color:var(--green)">3. 刺激寵物餐廳及商場消費<br><span style="color:var(--ink);font-weight:600">方便寵主跨區帶寵物外出，帶動寵物友善餐廳與醫院生意</span></div>
+      </div>
+      • <b>核心邏輯</b>：企業家創立新服務平台，在營運過程中為汽車防護配件、專業清潔消毒、電子支付及寵物休閒服務<b>創造龐大需求，刺激了相關上下游企業的蓬勃發展</b>，從而促進整體經濟增長。
+    </div>`,
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--teal);font-size:15px;line-height:1.75">
+      <b style="color:var(--teal);font-size:16.5px">案例 2：企業家推出「消費級航拍無人機 (Drones)」如何創造全新市場或新行業？</b>
+      <div class="flow-chain">
+        <div class="flow-node">1. 商業航拍與工程測繪業<br><span style="color:var(--ink);font-weight:600">創造高空婚禮攝影、樓宇外牆檢測及地形測繪服務新行業</span></div>
+        <span class="flow-arrow">＋</span>
+        <div class="flow-node" style="background:var(--teal-light);color:var(--teal);border-color:var(--teal)">2. 無人機駕駛學院與保險<br><span style="color:var(--ink);font-weight:600">創造遙控駕駛員牌照培訓課程及無人機第三者責任保險市場</span></div>
+        <span class="flow-arrow">＋</span>
+        <div class="flow-node" style="background:var(--green-light);color:var(--green);border-color:var(--green)">3. 專用硬件與配件市場<br><span style="color:var(--ink);font-weight:600">創造光學濾鏡、高容量智能電池、防撞保護罩及收納箱市場</span></div>
+      </div>
+      • <b>核心邏輯</b>：推出突破性創新產品的企業家，能<b>成功創造出全新的市場甚至新的行業</b>，為經濟注入全新的增長動力。
+    </div>`,
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--teal);font-size:15px;line-height:1.75">
+      <b style="color:var(--teal);font-size:16.5px">案例 3：企業家創立「24小時AI智能自助健身艙」的三大貢獻體現：</b><br>
+      • <b>(1) 鼓勵創新</b>：把「按分鐘收費、免簽長約及配備AI鏡面姿勢矯正系統」的創新想法轉化為新型健身服務，增加市場上的健身服務種類，令消費者受惠。<br>
+      • <b>(2) 促進市場競爭</b>：自助健身艙大受歡迎，對傳統大型連鎖健身中心構成競爭壓力，促使傳統健身中心改善銷售手法、提高營運效率並推出更靈活的月費計劃及更高質素的器械。<br>
+      • <b>(3) 促進經濟增長（創造就業 ＋ 創造對其他企業的需求）</b>：健身艙聘請駐場私人教練及清潔員（提供就業機會），並向智能健身器材製造商、門禁系統開發商及商場業主採購設備與租用場地（為其他企業創造需求）。
+    </div>`
+  ];
+  function renderRippleSim(idx) {
+    document.querySelectorAll('#rippleChips .chip').forEach((c, i) => c.classList.toggle('active', i === idx));
+    document.getElementById('rippleSimBox').innerHTML = rippleSims[idx];
+  }
+  renderRippleSim(0);
+
+  // 對稱深度設計的 6 道企業家與企業家精神挑戰題（100% 原創情境）
+  const entQuizItems = [
+    {
+      q: "1. 辨別以下三項有關「企業家 (Entrepreneurs)」的陳述，哪一項組合是完全正確的？<br>(1) 企業家必定是成功及著名大型企業的創辦人 ｜ (2) 大部分企業家都以中小型企業起家 ｜ (3) 企業家是為了賺取利潤而承擔創業風險的人",
+      opts: [
+        "A. 只有 (1) 和 (2)（如果創業最終失敗或虧損，該創辦人便不算是企業家）",
+        "B. 只有 (2) 和 (3)（企業家是為賺取利潤而承擔創業風險的人，即使企業規模細小或最終未能成功，他們仍然是企業家；且因創業初期缺乏資金，多數以中小企起家）",
+        "C. (1)、(2) 和 (3) 全部正確"
+      ],
+      ans: 1,
+      exp: "正確。企業家的定義是「為了賺取利潤而承擔創業風險的人」；並非所有企業家都能建立成功或著名的企業，因此 (1) 錯誤、(2) 和 (3) 正確。"
+    },
+    {
+      q: "2. 為甚麼大部分企業家在創業初期都選擇「以中小型企業起家」，而非直接創立大型企業？",
+      opts: [
+        "A. 因為企業家天生不喜歡賺取高額利潤，而且不想承擔任何商業風險",
+        "B. 因為大部分企業家在創業初期的資金來源有限（缺乏龐大資金），而中小型企業所需的創業和營運成本較低",
+        "C. 因為香港法例規定任何首次創業的人士在首五年內只准僱用少於十名員工"
+      ],
+      ans: 1,
+      exp: "正確。大部分企業家創業時都缺乏資金（資金來源有限），難以負擔大型企業的高昂創業成本，所以多數以中小型企業起家。"
+    },
+    {
+      q: "3. 下列哪幾項屬於「企業家精神 (Entrepreneurship)」對香港商業及經濟發展的貢獻？<br>(1) 徹底消除市場上的商業風險 ｜ (2) 促進市場競爭，促使其他企業提升產品質素與營運效率 ｜ (3) 縮減全港市民的收入差距 ｜ (4) 刺激經濟增長（提供就業及為其他企業創造需求） ｜ (5) 為市場引入創新的貨品和服務",
+      opts: [
+        "A. 只有 (2)、(4) 和 (5)（企業家精神涉及承擔創業風險而非消除風險(1)；且商業創業旨在賺取利潤，並非政府縮減收入差距的財富再分配政策(3)）",
+        "B. 只有 (1)、(2) 和 (3)（企業家精神的主要作用是消除所有創業風險及平均分配社會財富）",
+        "C. (1)、(2)、(3)、(4) 和 (5) 全部都是企業家精神對商業發展的貢獻"
+      ],
+      ans: 0,
+      exp: "正確。企業家精神對商業發展的三大貢獻是：(1) 鼓勵創新（引入創新貨品和服務）；(2) 促進市場競爭；及 (3) 促進經濟增長（刺激經濟增長）。減少風險、縮減收入差距、推翻傳統商業慣例或淘汰所有大型企業均不屬於其標準貢獻。"
+    },
+    {
+      q: "4. 下列哪項有關「中小型企業」和「企業家」的比較陳述是正確的？",
+      opts: [
+        "A. 企業家的資金來源必定比中小型企業多，而且企業家經營的業務必定比中小型企業更有利可圖",
+        "B. 中小型企業和企業家均有助為市場引入更多創新產品，並同樣能為社會創造就業機會及促進市場競爭",
+        "C. 只有年輕的大學畢業生才可以成為企業家，年長或少數族裔人士不能成為企業家"
+      ],
+      ans: 1,
+      exp: "正確。中小型企業和企業家兩者均有助為市場引入更多創新產品、促進市場競爭及提供就業機會（注意 A 錯誤：大部分企業家本身就是經營中小企，資金同樣有限；C 錯誤：任何性別、年齡和種族的人都可以是企業家）。"
+    },
+    {
+      q: "5. 本地企業家浩然創立「智泊科技」，成功研發出「停車場自動尋車流動充電機械人」。隨着電動車普及，多間大型商場向智泊訂購充電機械人，浩然決定擴充工場、增聘工程師及裝配技工，並向本地電池供應商大量訂購高容量磷酸鐵鋰電芯；同時其他工程公司見狀亦準備研發類似的充電機械人。這如何體現企業家精神對經濟發展的貢獻？",
+      opts: [
+        "A. 體現了企業家精神能消滅所有同行競爭對手，令智泊科技獨霸整個電動車充電市場",
+        "B. (1) 鼓勵創新（把自動尋車流動充電機械人的創新想法轉化為產品，增加市場服務種類令電動車主受惠）；(2) 促進市場競爭（吸引其他工程公司推出類似產品，促進競爭）；(3) 促進經濟增長（增聘技工提供就業，並向電池供應商訂購電芯，為其他企業創造需求）",
+        "C. 體現了企業家精神能讓智泊科技免除所有研發成本，並直接獲得政府撥款收購跨國車廠"
+      ],
+      ans: 1,
+      exp: "正確。這個原創個案完整展示了企業家精神的三大貢獻：開發新產品「流動充電機械人」（鼓勵創新）、引來其他工程公司研發類似產品（促進市場競爭），以及增聘技工與向電池供應商訂購電芯（提供就業及為其他企業創造需求，促進經濟增長）。"
+    },
+    {
+      q: "6. 辨別以下陳述是否正確：「儘管企業家精神是推動創新的一大動力，但不是所有企業家都以新產品進入市場。」",
+      opts: [
+        "A. 正確 — 企業家是指為了賺取利潤而承擔創業風險的人；即使創業者在現有行業開設一家提供傳統產品的商店（如傳統五金行或街坊麵包店），只要他承擔創業風險以賺取利潤，他仍然是企業家",
+        "B. 不正確 — 法律規定只有發明全球首創高科技專利產品的科學家，才可以稱為企業家",
+        "C. 不正確 — 任何企業家都絕對不會推出新產品，只會複製大型企業現有的產品"
+      ],
+      ans: 0,
+      exp: "正確。儘管企業家精神有效鼓勵創新，但企業家的核心定義是「為賺取利潤而承擔創業風險」，因此並非所有企業家都必須以全新發明的產品進入市場。"
+    }
+  ];
+  let curENTQ = 0;
+  function renderEntQuiz() {
+    const it = entQuizItems[curENTQ];
+    document.getElementById('entQuizProg').textContent = `題目 ${curENTQ + 1} / ${entQuizItems.length}`;
+    document.getElementById('entQuizQ').innerHTML = it.q;
+    document.getElementById('entQuizBtns').innerHTML = it.opts.map((o, i) => `<button class="opt-card" style="margin:0;padding:12px 16px" onclick="checkEntQuiz(${i})">${o}</button>`).join('');
+    document.getElementById('entQuizFb').innerHTML = '';
+  }
+  function checkEntQuiz(idx) {
+    const it = entQuizItems[curENTQ];
+    const fb = document.getElementById('entQuizFb');
+    if (idx === it.ans) {
+      fb.innerHTML = `<span style="color:var(--green);font-weight:700">${it.exp}</span> <button class="btn btn-outline" style="margin-left:8px;padding:6px 14px;font-size:14.5px" onclick="curENTQ=(curENTQ+1)%entQuizItems.length;renderEntQuiz()">下一題</button>`;
+    } else {
+      fb.innerHTML = `<span style="color:var(--red);font-weight:700">答案不正確。${it.exp.replace('正確。','')}</span>`;
+    }
+  }
+  renderEntQuiz();
+
+  // ====== 4. 中小企優缺點與競爭突圍顧問（100% 原創個案） ======
+  const advCompData = [
+    `<table class="comp-table" style="font-size:15px">
+      <thead><tr><th style="width:28%">中小企相對於大型企業的優點</th><th>結合中小企特徵的論述解釋</th></tr></thead>
+      <tbody>
+        <tr><td><b>1. 決策迅速，運作靈活性較大</b></td><td>大型企業參與決策的人眾多，層級審批繁複，決策過程一般較緩慢；相反，<b>中小型企業的東主通常自行作出決策（決策過程涉及較少員工），可以快速地作出決定，迅速回應市場的轉變</b>（如見對手減價可即時調整價格或轉換新款貨品）。</td></tr>
+        <tr><td><b>2. 能深入服務狹小市場，提供度身訂造產品</b></td><td>大型企業追求大規模生產以降低單位成本，對需求量小的狹小市場不感興趣；<b>中小型企業專注於狹小市場，更容易與顧客建立密切關係，為特定顧客提供度身訂造（客製化）的貨品和服務</b>，從而取得競爭優勢。</td></tr>
+        <tr><td><b>3. 營運成本一般較低</b></td><td>與大型企業相比，中小型企業的規模一般較為細小、組織結構簡單（多為扁平式結構），行政管理費用與固定開支較少，<b>即使只服務狹小市場，仍能從中賺取利潤</b>。</td></tr>
+      </tbody>
+    </table>`,
+    `<table class="comp-table" style="font-size:15px">
+      <thead><tr><th style="width:28%">中小企與大企競爭面對的難處／缺點</th><th>結合中小企特徵的論述解釋</th></tr></thead>
+      <tbody>
+        <tr><td><b>1. 缺乏資金和資源，難獲銀行貸款</b></td><td>中小企的資金主要來自東主一人（個人積蓄），用於維持運作和擴展業務的資源有限；由於規模細小及缺乏抵押品，<b>一般較難獲得銀行貸款</b>來進行大型推廣或擴充。</td></tr>
+        <tr><td><b>2. 較難從供應商獲得貿易賒帳或批量折扣（缺乏規模經濟）</b></td><td>由於中小企規模細小、每次採購量少，議價能力較低，<b>難以像大型連鎖企業般從供應商獲得寬裕的貿易賒帳期或大額批量購貨折扣</b>，導致單位採購成本較高。</td></tr>
+        <tr><td><b>3. 東主可能欠缺管理經驗和專業技巧</b></td><td>中小企通常由東主自行管理（或由家庭成員參與管理），無力高薪聘請各範疇的專業管理團隊；<b>若東主本身欠缺管理經驗和技巧，一人包辦所有決策時容易視野狹窄或作出不當決策</b>。</td></tr>
+      </tbody>
+    </table>`
+  ];
+  function renderAdvComp(idx) {
+    document.querySelectorAll('#advCompChips .chip').forEach((c, i) => c.classList.toggle('active', i === idx));
+    document.getElementById('advCompBox').innerHTML = advCompData[idx];
+  }
+  renderAdvComp(0);
+
+  const smeCases = [
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--teal);font-size:15px;line-height:1.75">
+      <b style="color:var(--teal);font-size:16.5px">個案 A：為何「共享商用廚房（雲端廚房 Cloud Kitchen）」的經營模式特別適合餐飲業中小型企業？</b><br>
+      • <b>背景</b>：共享商用廚房將持牌廚房空間分拆為多個小型獨立煮食間，以短期彈性合約租予外賣餐飲創業者；場地已配備基本爐具雪櫃，營運方更會協助租戶對接外賣平台及提供餐單定價建議。<br>
+      • <b>結合中小企特徵的兩個原因</b>：<br>
+      &nbsp;&nbsp;(1) <b>配合「資源和資金有限」的特徵</b>：中小企資金有限且難獲銀行貸款，難以負擔傳統地鋪餐廳的高昂長約租金、出牌裝修及全套商用爐具費用；共享廚房面積小、租期短且提供現成爐具，能大幅降低中小企的創業和營運成本！<br>
+      &nbsp;&nbsp;(2) <b>配合「通常由東主管理（或欠缺經驗和技巧）」及「靈活性較大」的特徵</b>：中小企東主多自行管理但可能欠缺餐廳營運與線上推廣經驗，共享廚房提供的定價與外賣平台對接建議能彌補東主經驗不足；而且短期租約讓東主可靈活測試不同健康餐或宵夜菜式的市場反應，迅速回應市場轉變！
+    </div>`,
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--teal);font-size:15px;line-height:1.75">
+      <b style="color:var(--teal);font-size:16.5px">個案 B：子軒的「銀髮族痛症復康運動工作室」（以個人積蓄創辦、自行管理並聘 3 名教練）＆ 宏健大型連鎖健身集團（原有 85 名員工，縮減分店後剩 68 人）：</b><br>
+      • <b>(ai) 為何「銀髮族復康運動工作室」屬於中小企？</b>因為健身工作室屬於<b>非製造業</b>，只僱用了 <b>3 名員工（少於非製造業 50 人的上限）</b>，且獨立擁有運作、非佔主導地位。<br>
+      • <b>(aii) 宏健連鎖健身集團（現有 68 名員工）算中小企嗎？</b><b>不算！</b>因為健身集團屬於<b>非製造業</b>，中小企上限為少於 50 人；即使縮減後剩 <b>68 名員工，仍然超過 50 人</b>，故不屬於中小型企業！<br>
+      • <b>(b) 除租金上升及難獲運動器械供應商賒帳折扣外，根據中小企特徵，子軒的工作室還可能面對哪兩個問題？</b>① <b>資源和資金有限（難獲銀行貸款）</b>：僅靠子軒個人積蓄且規模小，若需資金添置昂貴復康儀器或周轉時較難獲得銀行貸款；② <b>通常由東主自行管理（或欠管理經驗）</b>：子軒一人自行管理所有教務、會計及推廣，工作量沉重且或欠缺全面財務與行政管理技巧。<br>
+      • <b>(c) 為何子軒選擇專注於「關節痛症長者」這個狹小市場是明智之舉？</b>① <b>避開大型健身集團的激烈競爭</b>（市面上大型健身中心主攻年輕健美市場，對需要單對單安全看護的痛症長者狹小市場不感興趣）；② <b>可提供專門化及度身訂造的復康訓練以取得競爭優勢</b>（針對每位長者的膝關節或腰背情況度身設計低衝擊運動方案，吸引忠實長者客群，且小工作室營運成本低足以獲利）。
+    </div>`,
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--teal);font-size:15px;line-height:1.75">
+      <b style="color:var(--teal);font-size:16.5px">個案 C：香港「社區有機無農藥食材雜貨店」（除東主外僱用 3 名店員，從日本及台灣小農莊引入罕見有機蔬果與大型超市競爭）：</b><br>
+      • <b>(a) 大型超市與該有機食材雜貨店在「決策過程」上的主要不同之處</b>：在大型超市裏，管理層級多、<b>參與決策過程的人眾多，所以決策過程一般較為緩慢</b>；而在該有機食材雜貨店（中小企），<b>東主通常自行作出決策（涉及較少員工），因此可以快速地作出決定</b>，靈活迅速地回應市場當造食材的轉變。<br>
+      • <b>(b) 除引入新產品外，該雜貨店還可如何與大型超市競爭？</b><br>
+      &nbsp;&nbsp;① <b>專注於狹小市場，提供專門化貨品</b>（如專攻大型超市不感興趣的罕見無麩質、生酮飲食或特定無農藥小農產品市場，填補市場缺口）；<br>
+      &nbsp;&nbsp;② <b>提供親切的個人化／客製化服務以建立密切顧客關係</b>（如按街坊熟客的家庭人數代客預留當造有機蔬果、提供食譜建議及彈性送貨上門服務）。
+    </div>`
+  ];
+  function renderSmeCase(idx) {
+    document.querySelectorAll('#smeCaseChips .chip').forEach((c, i) => c.classList.toggle('active', i === idx));
+    document.getElementById('smeCaseBox').innerHTML = smeCases[idx];
+  }
+  renderSmeCase(0);
+
+  // 對稱深度設計的 6 道綜合與競爭策略挑戰題（100% 原創情境）
+  const cmpQuizItems = [
+    {
+      q: "1. 一般而言，下列哪幾項是中小型企業與大型企業競爭時所面對的難處？<br>(1) 較難從供應商獲得貿易賒帳或批量購貨折扣 ｜ (2) 缺乏資金和資源（較難獲得銀行貸款） ｜ (3) 決策過程涉及太多層級，未能迅速回應市場轉變",
+      opts: [
+        "A. 只有 (1) 和 (2)（中小型企業由東主自行決策，運作靈活性較大，能比大型企業更迅速回應市場轉變，因此(3)並非中小企的難處）",
+        "B. 只有 (2) 和 (3)（中小型企業每次入貨量極大，必定能從供應商獲得比大型超市更優惠的批量折扣）",
+        "C. (1)、(2) 和 (3) 全部都是中小型企業與大型企業競爭時所面對的難處"
+      ],
+      ans: 0,
+      exp: "正確。中小企規模小、入貨量少且資金有限，故面對 (1) 較難從供應商獲得貿易賒帳或折扣，以及 (2) 缺乏資金和資源的難處；而「能迅速回應市場轉變」則是中小企相對於大型企業的優勢，故 (3) 錯誤。"
+    },
+    {
+      q: "2. 「精工光學」是一家專門研磨及生產漸進式眼鏡鏡片的香港中小型企業，目前僱用了 75 名全職技工。由於新研發的防藍光鏡片訂單大增，創辦人決定「多僱用 15 名技工」以擴充產能。在增聘這 15 名技工後，精工光學在香港還算是中小型企業嗎？",
+      opts: [
+        "A. 不算 — 因為增聘 15 人後員工總數達 90 人，已經超過了非製造業僱用少於 50 人的上限",
+        "B. 仍然算是中小型企業 — 因為精工光學從事生產眼鏡鏡片，屬於『製造業』；在香港，製造業中小企的定義是僱用少於 100 人的企業，增聘 15 人後總人數為 90 人（75＋15＝90人），仍然少於 100 人",
+        "C. 不算 — 因為只要企業研發出新產品並擴充生產線，便會自動變成跨國大型企業"
+      ],
+      ans: 1,
+      exp: "正確。審題關鍵在於辨別行業類別：精工光學專門生產眼鏡鏡片，屬於「製造業」（上限為少於 100 人）；原有 75 名員工加 15 名新技工合共 90 人，仍少於 100 人，因此在香港仍算是中小型企業。"
+    },
+    {
+      q: "3. 宏健集團在香港經營連鎖物理治療及健身中心，去年共有 85 名全職員工；今年由於商場租金上漲，管理層關閉了一間分店並裁走 17 名員工（現時僱用 68 名員工）。宏健集團現時在香港算是中小型企業嗎？",
+      opts: [
+        "A. 算是中小型企業 — 因為裁員後員工總數為 68 人，少於 100 人的法定上限",
+        "B. 不算是中小型企業 — 因為物理治療及健身中心屬於『非製造業（服務業）』，在香港非製造業中小型企業的定義是僱用少於 50 人的企業；裁走 17 人後仍有 68 名員工，超過 50 人上限",
+        "C. 算是中小型企業 — 因為只要企業面對租金上漲並進行裁員，不論員工多少都屬於中小型企業"
+      ],
+      ans: 1,
+      exp: "正確。與上一題形成鮮明對比：物理治療及健身中心屬於「非製造業」，在香港非製造業中小企的定義是僱用「少於 50 人」；裁走 17 人後仍有 68 名員工（≥ 50 人），因此不算是中小型企業！"
+    },
+    {
+      q: "4. 近年不少年輕餐飲創業者透過租用「共享商用廚房（雲端廚房）」（面積細小、租約僅數月、場地已備妥商用爐具，且營運方會協助對接外賣平台及給予餐單定價建議）來創業。根據中小型企業的特徵，為何共享商用廚房特別適合餐飲中小型企業？",
+      opts: [
+        "A. 因為中小型企業資金極為充裕，喜歡同時簽訂十年期的超大型地鋪酒樓租約",
+        "B. 因為中小企『資源和資金有限』，面積小、短期租約及現成爐具能減低創業與營運成本；且中小企『通常由東主管理（或欠缺經驗技巧）』及『靈活性大』，營運方的定價建議能提供支援並讓東主靈活測試不同菜式的市場反應",
+        "C. 因為租用共享商用廚房可以讓中小型企業免除向廚師支付法定最低工資的責任"
+      ],
+      ans: 1,
+      exp: "正確。共享商用廚房的低成本、短期靈活及提供營運策劃建議，正好切合中小企「資源和資金有限」、「東主自行管理但或欠經驗技巧」及「運作靈活性較大」的特徵。"
+    },
+    {
+      q: "5. 「智匯創意」是一家本地中小型數碼廣告設計公司。創作總監與下屬設計師會於每季開始時「共同商討及訂立該季度的廣告專案目標與工作計劃」，並在季度內「定期會面檢視設計進度、討論遇到的困難並予以支援」。結合第 1 課及第 3 課知識，智匯創意採用了哪項有效管理原則？有何優點？",
+      opts: [
+        "A. 採用了『分工原則』；優點是設計師無須與創作總監溝通即可自動完成所有廣告設計",
+        "B. 採用了『目標管理 (MBO)』原則；優點包括下屬參與訂立目標故對目標理解更深、更投入工作（提升士氣），且定期檢視進度並予以支援能增進上下級溝通關係及有效監控工作進度",
+        "C. 採用了『統一命令原則』；優點是偏重短期目標而忽略公司的長期發展目標"
+      ],
+      ans: 1,
+      exp: "正確。創作總監與下屬設計師每季共同商討決定目標與計劃、定期檢視進度及討論困難予以支援，正是第 1 課所學的「目標管理 (Management by Objectives, MBO)」原則。"
+    },
+    {
+      q: "6. 香港一家「社區有機食材雜貨店」除東主外只僱用了三名店員。面對大型連鎖超市的激烈競爭，除了從日本小農莊引入罕見的新款有機蔬果外，該雜貨店還可以採用哪兩種方法與大型超市競爭？",
+      opts: [
+        "A. (1) 專注於大型超市不感興趣的狹小市場（如專賣特定無麩質或生酮有機食材）；(2) 發揮小店靈活及貼近街坊的優勢，為顧客提供個人化／度身訂造的服務（如代熟客預留當造食材、提供彈性送貨服務）",
+        "B. (1) 與大型超市進行全面價格戰，將所有罐頭及日用品以低於成本價五折出售三年；(2) 斥資數十億元在全港十九區收購所有大型商場物業",
+        "C. (1) 將管理層級增加至十層高架式結構；(2) 拒絕向任何本地街坊出售貨品"
+      ],
+      ans: 0,
+      exp: "正確。中小企缺乏資金與規模經濟，不宜與大型超市打消耗資金的全面價格戰（B 錯誤），而應善用中小企優勢：(1) 專注於狹小市場提供專門化貨品；(2) 提供個人化／度身訂造服務及快速回應顧客需要。"
+    }
+  ];
+  let curCMPQ = 0;
+  function renderCmpQuiz() {
+    const it = cmpQuizItems[curCMPQ];
+    document.getElementById('cmpQuizProg').textContent = `題目 ${curCMPQ + 1} / ${cmpQuizItems.length}`;
+    document.getElementById('cmpQuizQ').innerHTML = it.q;
+    document.getElementById('cmpQuizBtns').innerHTML = it.opts.map((o, i) => `<button class="opt-card" style="margin:0;padding:12px 16px" onclick="checkCmpQuiz(${i})">${o}</button>`).join('');
+    document.getElementById('cmpQuizFb').innerHTML = '';
+  }
+  function checkCmpQuiz(idx) {
+    const it = cmpQuizItems[curCMPQ];
+    const fb = document.getElementById('cmpQuizFb');
+    if (idx === it.ans) {
+      fb.innerHTML = `<span style="color:var(--green);font-weight:700">${it.exp}</span> <button class="btn btn-outline" style="margin-left:8px;padding:6px 14px;font-size:14.5px" onclick="curCMPQ=(curCMPQ+1)%cmpQuizItems.length;renderCmpQuiz()">下一題</button>`;
+    } else {
+      fb.innerHTML = `<span style="color:var(--red);font-weight:700">答案不正確。${it.exp.replace('正確。','')}</span>`;
+    }
+  }
+  renderCmpQuiz();
+
+  // ====== 5. 論點建構問答工作坊 (12題：100% 原創商業情境・一題一論點・按論述邏輯點評) ======
+  const workshopQuestions = [
+    {
+      id: "s1", cat: "short", typeBadge: "短答題（單一論點 · 2 分 · 2 步建構）",
+      title: "短答 1：左岸古典黑膠唱片行（以「專注於狹小市場」描述中小型企業的特徵）", topic: "香港中小型企業的特徵：單一論點剖析「專注於狹小市場」", maxMarks: 2,
+      scenario: "陳先生在深水埗開設一家名為「左岸黑膠」的唱片行，專門搜羅歐洲絕版古典黑膠唱片及提供唱盤唱針精準調校服務，除陳先生外只聘用了兩名店員，在香港屬於中小型企業。",
+      question: "試除員工人數外，單獨以「專注於狹小市場」這項特徵為核心，建構一個獨立論點段落，描述陳先生這家黑膠唱片行作為中小型企業的特徵。（2 分）",
+      steps: [
+        { label: "第 1 步：指出中小型企業「專注於狹小市場」的單一特徵並闡明其獲利邏輯（1分）", colorClass: "hl-s1", opts: [
+          { text: "陳先生的黑膠唱片行作為中小型企業，特徵是必定由陳先生一人獨資擁有，因此可享有比大型連鎖影音店更低的利得稅稅率。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】將「獨資企業」的特徵誤當作所有「中小型企業」的共同特徵。中小型企業亦可以是合夥或有限公司，不一定由一人擁有，亦不一定享有較低稅率。" },
+          { text: "陳先生的唱片行作為中小型企業，特徵之一是「專注於狹小市場」：由於中小型企業規模細小，營運成本一般較低，因此大多專注於大型企業不感興趣的狹小市場，仍能從中賺取利潤。", score: 1, status: "best", comment: "【滿分論述示範】準確提出「專注於狹小市場」這項單一特徵，並清晰闡明「規模小、營運成本較低 ➔ 專注於大企不感興趣的狹小市場仍能獲利」的內在經濟邏輯。" },
+          { text: "陳先生的黑膠唱片行是一間規模好細的中小型企業，所以它有資源有限、由東主管理、專注狹小市場和靈活性大四個特徵。", score: 0, status: "partial", comment: "【常見失分示範：羅列多項標題而無解釋單一論點】違反「一段一論點」要求，把四項特徵的名稱堆砌在一起，卻沒有針對「專注於狹小市場」解釋為何中小企會選擇服務狹小市場。" }
+        ]},
+        { label: "第 2 步：扣連「深水埗古典黑膠唱片及唱針調校」的情境說明如何取得競爭優勢（1分）", colorClass: "hl-s2", opts: [
+          { text: "該唱片行避開與大型連鎖影音店或串流音樂平台爭奪一般流行音樂市場，專門針對熱愛古典黑膠唱片的音響發燒友這群特定顧客，提供代客搜尋絕版黑膠及度身調校唱針的專門服務，從而在這個狹小市場中建立獨特的競爭優勢。", score: 1, status: "best", comment: "【滿分論述示範】緊扣黑膠唱片行的業務背景，具體說明如何避開主流影音店、針對古典黑膠發燒友提供專門化產品與調校服務以取得競爭優勢，首尾呼應。" },
+          { text: "因為陳先生的唱片行開在深水埗舊樓，鋪頭面積比較細，所以只能夠做很少客人的生意。", score: 0, status: "partial", comment: "【常見失分示範：誤把「鋪位面積細」當作「狹小市場」】商業上的「狹小市場 (Niche Market)」是指針對特定少數顧客群的專門需求（如古典黑膠發燒友）以取得競爭優勢，而非單指店鋪面積細小。" },
+          { text: "這能讓陳先生的唱片行透過大規模生產數百萬張流行歌手光碟，獲得最大的規模經濟效益。", score: 0, status: "wrong", comment: "【邏輯推論錯誤】狹小市場的顧客群規模有限，走的是小眾專門化路線，無法進行數百萬張的大規模生產。" }
+        ]}
+      ]
+    },
+    {
+      id: "s2", cat: "short", typeBadge: "短答題（單一論點 · 2 分 · 2 步建構）",
+      title: "短答 2：町家日本直送果物店（描述大型連鎖超市與中小型果物店在「決策過程」上的分別）", topic: "香港中小型企業的特徵：單一論點比較「決策過程與靈活性」", maxMarks: 2,
+      scenario: "「町家果物」是香港一家小型水果專門店，除東主外僱用了三名店員。為了與大型連鎖超市競爭，每當東主發現日本各縣有罕見的當造新品種水果推出時，便會即日拍板空運到港試賣。",
+      question: "試單獨以「決策過程與運作靈活性」為核心，建構一個獨立論點段落，描述大型連鎖超市與上述小型果物店在決策過程上的主要不同之處。（2 分）",
+      steps: [
+        { label: "第 1 步：雙向對比大型連鎖超市與中小型果物店在「參與決策人數與決策速度」上的差異（1分）", colorClass: "hl-s1", opts: [
+          { text: "兩者在決策過程上的主要分別在於參與決策的人數與速度：在大型連鎖超市裏，管理層級多、參與決策過程的人眾多，因此決策過程一般較為緩慢；相反，在町家果物店這類中小型企業，決策過程涉及較少員工，東主通常自行作出決策，因此可以快速地作出決定。", score: 1, status: "best", comment: "【滿分論述示範】進行嚴謹的雙向對比，清楚點出「參與決策人數多寡（眾多層級人員 vs 東主一人自行決策）➔ 決策過程快慢」的核心差異。" },
+          { text: "在大型連鎖超市裏，所有決策都由一名理貨員即日決定；而在小型果物店裏，則必須召開跨部門委員會投票才能決定入貨。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】把大型企業與中小型企業的決策複雜度完全顛倒了。" },
+          { text: "大型連鎖超市和這間小型日本果物店在平時作決策的時候，大家採用的方法有很大的不同。", score: 0, status: "partial", comment: "【常見失分示範：同義反覆／無實質比較內容】只重複了題目「有很大不同」的字面意思，沒有指出兩者在「參與決策人數（眾多管理人員 vs 東主自行決策）」及「決策速度（緩慢 vs 快速）」上的具體分別。" }
+        ]},
+        { label: "第 2 步：扣連「果物店即日拍板空運日本當造新水果」的情境，說明決策迅速帶來的靈活優勢（1分）", colorClass: "hl-s2", opts: [
+          { text: "這種由東主自行快速決定的機制，賦予小型果物店更大的運作靈活性；當東主察覺日本有罕見當造水果上市或市面需求轉變時，無須像大型超市般經歷漫長的跨部門採購審批，能即日決定空運入貨或調整售價，迅速回應市場的轉變。", score: 1, status: "best", comment: "【滿分論述示範】緊扣果物店空運日本當造新水果的情境，清楚推演出「無須跨部門漫長審批 ➔ 運作靈活性較大 ➔ 迅速回應市場轉變」的競爭優勢。" },
+          { text: "所以果物店的老細想買甚麼日本生果返來賣都可以自己話事，非常方便。", score: 0, status: "partial", comment: "【常見失分示範：用詞口語／未點出「迅速回應市場轉變」的管理價值】應將「自己話事好方便」提升為專業管理論述：「使小型果物店在運作上具備較大靈活性，能比大型超市更迅速地回應當造水果市場的轉變」。" },
+          { text: "這能令小型果物店自動獲得比大型連鎖超市更龐大的資金儲備及銀行信貸額度。", score: 0, status: "wrong", comment: "【邏輯推論錯誤】決策快速靈活是營運管理上的優勢，並不會改變中小企資金有限的事實。" }
+        ]}
+      ]
+    },
+    {
+      id: "s3", cat: "short", typeBadge: "短答題（單一論點 · 2 分 · 2 步建構）",
+      title: "短答 3：迅捷商業冷氣工程社（單獨以「充當承包商」描述中小企如何支援大型企業）", topic: "中小型企業對香港經濟的貢獻：單一論點剖析「支援大型企業」", maxMarks: 2,
+      scenario: "在香港，大型企業不可能自行處理營運所需的所有專門工程與服務，通常須依靠如「迅捷商業冷氣工程社」這類中小型企業的支援。",
+      question: "試單獨以中小型企業「充當大型企業的承包商 (Contractors)」這一種支援方式為核心，建構一個獨立論點段落，舉例描述中小型企業如何支援大型企業。（2 分）",
+      steps: [
+        { label: "第 1 步：指出中小型企業「充當承包商」的支援角色並界定其服務性質（1分）", colorClass: "hl-s1", opts: [
+          { text: "中小型企業可透過「充當大型企業的承包商」來支援它們：即承接大型企業外判出來的各項專門支援服務（如設備維修保養、清潔、物流派送或工程服務），協助大型企業維持日常設施與業務運作。", score: 1, status: "best", comment: "【滿分論述示範】準確鎖定「充當承包商」單一角色，並清晰界定其「承接大型企業外判的專門支援服務」的核心性質。" },
+          { text: "中小型企業可透過向大型企業提供數十億元的低息長期貸款，支援大型企業進行跨國收購。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】中小型企業自身的資源和資金有限，根本無力為大型企業的擴充計劃提供貸款資金。" },
+          { text: "中小型企業可以充當供應商、承包商和分銷商三種不同的角色去幫手支援香港的大型企業。", score: 0, status: "partial", comment: "【常見失分示範：列出三個角色名稱卻無界定單一角色】題目要求單獨以「充當承包商」為核心作描述，必須明確說明承包商是如何「為大型企業提供維修、清潔或工程等外判支援服務」。" }
+        ]},
+        { label: "第 2 步：設定「冷氣工程社承接大型商場維修」例子，並推演至大型企業「減輕工作負擔、專注核心業務」的效果（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如大型連鎖商場或跨國銀行無須自行長期養着一支龐大的冷氣技工團隊，而是將全棟大廈的中央冷氣系統清洗與維修保養工作，外判予「迅捷商業冷氣工程社」這類中小型承包商負責；這能有效為大型企業減輕非核心事務的管理與工作負擔，讓大型企業能集中資源專注於自身的核心業務。", score: 1, status: "best", comment: "【滿分論述示範】緊扣冷氣工程外判例子，並完整推演出「替大型企業減輕工作負擔 ➔ 讓大型企業專注於核心業務」的關鍵經濟價值。" },
+          { text: "例如這間細的冷氣工程社會幫大商場洗冷氣和整冷氣，令大商場覺得好方便。", score: 0, status: "partial", comment: "【常見失分示範：漏寫對大型企業的核心戰略好處】僅寫「令大商場覺得好方便」過於表面；必須點出這如何讓大型企業「減輕工作負擔，從而將資源專注於自身的核心業務」。" },
+          { text: "這樣中小型冷氣工程社便可以直接收購該大型商場，取代其市場主導地位。", score: 0, status: "wrong", comment: "【邏輯推論錯誤】提供外判支援服務是合作互補關係，並不會令中小企自動收購大型企業。" }
+        ]}
+      ]
+    },
+    {
+      id: "s4", cat: "short", typeBadge: "短答題（單一論點 · 2 分 · 2 步建構）",
+      title: "短答 4：素味人生植物肉工坊（以「為其他企業創造需求」解釋企業家精神如何促進經濟增長）", topic: "企業家精神的重要性：單一論點剖析「促進經濟增長」", maxMarks: 2,
+      scenario: "企業家是為了賺取利潤而承擔創業風險的人。本地企業家創立了「素味人生植物肉工坊」，在港研發及生產純素植物肉點心。",
+      question: "試單獨以「為其他企業的貨品和服務創造需求」這種方式為核心，建構一個獨立論點段落，舉例解釋企業家精神如何幫助促進經濟增長。（2 分）",
+      steps: [
+        { label: "第 1 步：闡明企業家創立及營運企業時如何「為其他企業創造需求」以帶動經濟增長（1分）", colorClass: "hl-s1", opts: [
+          { text: "企業家精神能透過「為其他企業的貨品和服務創造需求」來促進經濟增長：當企業家創立新企業並展開生產或營運時，必須向其他企業購買原材料、包裝物料、設備或各類商業支援服務，因而為這些上下游企業創造業務需求，刺激它們的發展。", score: 1, status: "best", comment: "【滿分論述示範】準確鎖定單一經濟增長途徑，清晰建立「創立企業投入生產營運 ➔ 購買其他企業的貨品和服務 ➔ 為相關企業創造需求並刺激其發展」的因果邏輯鏈。" },
+          { text: "企業家精神促進經濟增長的方式，是透過向政府申請豁免所有商業合約的法律責任來消除創業風險。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】企業家必須承擔創業風險，且不享有豁免商業合約法律責任的特權。" },
+          { text: "當香港有多些企業家出來開植物肉工坊做生意的時候，香港的經濟自然就會增長得更加快。", score: 0, status: "partial", comment: "【常見失分示範：同義反覆／缺乏中間傳導機制】沒有解釋企業家創業「如何」轉化為經濟增長（漏了說明「在生產過程中須購買其他企業的貨品和服務，從而為這些企業創造需求並刺激其發展」的傳導機制）。" }
+        ]},
+        { label: "第 2 步：扣連「素味人生植物肉工坊」設定採購原料與物流服務以帶動相關行業發展的例子（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如當企業家創立「素味人生植物肉工坊」生產純素點心時，在生產過程中必須向大豆及菇菌食材供應商採購原料、向印刷廠訂購冷凍真空包裝盒，並聘用本地冷鏈物流車隊將點心配送至各區超市，直接為這些食材、包裝及物流企業創造龐大需求，刺激相關行業一同擴張業務。", score: 1, status: "best", comment: "【滿分論述示範】緊扣植物肉點心工坊的生產鏈，具體舉出帶動大豆食材商、包裝印刷廠及冷鏈物流車隊發展的例子，生動展示產業鏈的乘數帶動效應。" },
+          { text: "例如植物肉工坊的老細開了公司之後，會去幫襯其他公司買東西，令其他公司都有生意做。", score: 0, status: "partial", comment: "【常見失分示範：例子過於空泛】「幫襯其他公司買東西」缺乏具體商業情境；應結合植物肉工坊業務，具體說明向哪些相關企業（如大豆原料商、包裝印刷廠、冷鏈運輸公司）購買貨品和服務。" },
+          { text: "例如企業家將所有創業資金鎖在私人夾萬內不作任何採購或投資，以確保資金絕對安全。", score: 0, status: "wrong", comment: "【邏輯推論錯誤】若將資金鎖起不作任何採購或生產投資，便無法創造任何市場需求或促進經濟增長。" }
+        ]}
+      ]
+    },
+    {
+      id: "e1", cat: "essay", typeBadge: "進階論述題（單一論點 · 3 分 · 3 步深度建構）",
+      title: "論述 1：護苗過敏兒飲食專門店（單獨以「提供專門化產品滿足狹小市場需要」闡釋對經濟的貢獻）", topic: "中小企對香港經濟的貢獻：單一論點深度建構（「滿足狹小市場需要」）", maxMarks: 3,
+      scenario: "香港有一家名為「護苗坊」的中小型企業，專門為患有嚴重濕疹、麩質及牛奶蛋白過敏的兒童，研發及售賣無致敏原的有機糕點與營養代餐。",
+      question: "試單獨以「提供專門化的貨品和服務，以滿足狹小市場的顧客需要」這項貢獻為核心，以「護苗坊」為例，建構一個 3 分深度論述段落，解釋中小型企業如何為香港經濟作出貢獻。（3 分）",
+      steps: [
+        { label: "第 1 步：指出「提供專門化產品滿足狹小市場需要」的單一貢獻標題並闡明其運作機制（1分）", colorClass: "hl-s1", opts: [
+          { text: "中小型企業對香港經濟的重要貢獻之一是「提供專門化的貨品和服務，以滿足狹小市場的顧客需要」：由於大型企業追求標準化的大規模生產以減低單位成本，對顧客人數較少的狹小市場往往不感興趣；中小型企業則專注於這些狹小市場，為特定顧客群提供專門化甚至度身訂造的產品。", score: 1, status: "best", comment: "【滿分論述示範】準確提出單一貢獻標題，並透過對比大型企業（追求標準化量產、忽略小眾市場）與中小型企業（專注狹小市場提供專門化產品），清晰建立論點機制。" },
+          { text: "中小型企業對香港經濟的貢獻是憑藉龐大的生產線壟斷全港所有一般大眾化兒童零食的市場。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】中小型企業在同行中並非佔主導市場地位，且資源有限，無法壟斷大眾化的一般零食市場。" },
+          { text: "護苗坊作為中小型企業，對香港經濟有提供專門化產品、提供就業、引入創新和支援大企四項貢獻。", score: 0, status: "partial", comment: "【常見失分示範：羅列四項貢獻標題而未深入闡釋單一論點】違反「一段一論點」原則，把四個標題全部抄出，卻沒有解釋為何中小企能滿足大型企業忽略的狹小市場需要。" }
+        ]},
+        { label: "第 2 步：針對「護苗坊為嚴重食物過敏兒童提供無致敏原糕點」設定具體例子（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如大型連鎖餅店及食品商主要生產含小麥麵粉、雞蛋及牛奶的大眾化糕點，不會專門為少數嚴重食物過敏兒童開設獨立無致敏原生產線；而「護苗坊」則專門採用純米穀粉及植物提取物，為對麩質、蛋奶嚴重過敏的兒童度身烘焙安全無致敏原的生日蛋糕及營養代餐。", score: 1, status: "best", comment: "【滿分論述示範】緊扣「護苗坊」的業務背景，具體對比大型餅店（標準化含蛋奶麵粉產品）與護苗坊（獨立無致敏原度身烘焙糕點），例子鮮明且極具說服力。" },
+          { text: "例如護苗坊每日都會整一些大型餅店無得賣的特別糕點出來賣給有需要的香港市民。", score: 0, status: "partial", comment: "【常見失分示範：例子過於空泛】「整一些特別糕點」缺乏具體情境細節；應結合題目背景說明是針對「嚴重食物過敏兒童」這個狹小市場，提供「無麩質、無蛋奶致敏原的專門化糕點與代餐」。" },
+          { text: "例如護苗坊向商業銀行借取五千萬元貸款，用來購買外匯期貨賺取投資回報。", score: 0, status: "wrong", comment: "【概念應用錯誤】購買外匯期貨屬於財務投機活動，與提供專門化產品滿足顧客需要毫無關聯。" }
+        ]},
+        { label: "第 3 步：深化論述至填補香港食品市場缺口、照顧特殊社群需要並提升消費者福祉的經濟影響（1分）", colorClass: "hl-s3", opts: [
+          { text: "這項專門化產品與服務能有效「填補香港食品市場的缺口」，確保本地有特殊健康飲食需要的狹小市場顧客（過敏兒家庭）的需求得到妥善照顧，使香港市場上的貨品選擇更趨多元和完善。", score: 1, status: "best", comment: "【滿分論述示範】將具體例子的效果提升至宏觀經濟層面，準確點出「填補市場缺口、照顧特殊顧客群需要並豐富市場選擇」的最終貢獻。" },
+          { text: "這樣護苗坊便滿足了顧客的需要，對香港經濟作出了很大的貢獻。", score: 0, status: "partial", comment: "【常見失分示範：首尾重複／未點出「填補市場缺口」的核心價值】結尾應明確指出這如何「填補大型企業未能覆蓋的市場缺口，豐富市場上的貨品選擇以惠及特殊需要消費者」。" },
+          { text: "這能令護苗坊成為香港政府利得稅稅收的最主要來源。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】中小型企業規模細小，並非香港政府利得稅稅收的主要來源。" }
+        ]}
+      ]
+    },
+    {
+      id: "e2", cat: "essay", typeBadge: "進階論述題（單一論點 · 3 分 · 3 步深度建構）",
+      title: "論述 2：巧手社區車衣及改衣工坊（單獨以「提供就業機會」闡釋對香港經濟的貢獻）", topic: "中小企對香港經濟的貢獻：單一論點深度建構（「提供就業機會」）", maxMarks: 3,
+      scenario: "香港各區有不少如「巧手改衣工坊」這類中小型企業，專門提供衣物修補、改短褲長及更換拉鏈服務，店內聘用了數名本地基層車衣女工及年輕學徒。",
+      question: "試單獨以「為香港人提供就業機會」這項貢獻為核心，以「巧手改衣工坊」為例，建構一個 3 分深度論述段落，解釋中小型企業如何為香港經濟作出貢獻。（3 分）",
+      steps: [
+        { label: "第 1 步：指出「提供就業機會」的單一貢獻標題並闡明其在吸納勞動力上的特點（1分）", colorClass: "hl-s1", opts: [
+          { text: "中小型企業對香港經濟的另一重要貢獻是「提供就業機會」：全港中小型企業合共聘用了約 45% 的總工作人口（不包括公務員），為本地勞動力市場（特別是缺乏高深專業資歷、高學歷或豐富工作經驗的基層勞工與年青人）創造了大量就業機會。", score: 1, status: "best", comment: "【滿分論述示範】準確提出「提供就業機會」單一論點，並點出兩大關鍵細節：聘用約 45% 總工作人口，以及能吸納缺乏高學歷、技能和工作經驗的勞工。" },
+          { text: "中小型企業對香港經濟的貢獻是聘用了全港百分之九十八的工作人口，是提供最多就業機會的機構。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】混淆了「企業數目佔比（>98%）」與「就業人數佔比（約45%）」。中小企雖然數目佔超過 98%，但提供的就業機會並非最多。" },
+          { text: "巧手改衣工坊作為中小型企業，會請一些香港人返工，為香港人提供就業機會。", score: 0, status: "partial", comment: "【常見失分示範：論述過於單薄】僅重抄「提供就業機會」字眼，未有補充中小企「合共聘用約 45% 總工作人口，且能為缺乏高學歷和工作經驗的基層勞工提供就業機會」的深度內涵。" }
+        ]},
+        { label: "第 2 步：針對「巧手改衣工坊」設定聘用基層婦女與年輕學徒的具體例子（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如「巧手改衣工坊」無須應徵者具備大學學位或流利外語，願意聘用學歷較低但懂基本縫紉的社區基層婦女，以及剛離校、缺乏工作經驗的年輕學徒在店內負責修補衣物、釘鈕及接待街坊，讓他們在社區獲得穩定的工作崗位。", score: 1, status: "best", comment: "【滿分論述示範】緊扣社區改衣工坊的職位特性，具體展示其如何吸納缺乏高學歷的基層婦女與無經驗的年輕學徒就業。" },
+          { text: "例如這間改衣工坊請了幾個女工和學徒返來幫手改衫，每個月出糧給他們。", score: 0, status: "partial", comment: "【常見失分示範：例子缺乏針對性】未能扣連「為缺乏高學歷或工作經驗的基層勞工與年青人提供入職門檻較低的社區工作機會」這一重要特點。" },
+          { text: "例如該改衣工坊將所有改衣工作寄往海外跨國製衣廠處理，在香港不聘用任何員工。", score: 0, status: "wrong", comment: "【邏輯推論錯誤】若不聘用任何本地員工，便與本段「為香港人提供就業機會」的論點完全矛盾。" }
+        ]},
+        { label: "第 3 步：深化論述至協助基層市民自力更生維持生計、減低失業率並促進社會經濟穩定的影響（1分）", colorClass: "hl-s3", opts: [
+          { text: "透過吸納大批基層勞工與年輕學徒，這類遍佈各區的中小型工坊能幫助市民憑一技之長賺取收入以養活家庭、累積工作經驗，從而有效紓緩香港的基層失業問題、帶動本地日常消費並維持社會與經濟穩定。", score: 1, status: "best", comment: "【滿分論述示範】清楚推演出「吸納基層勞工賺取收入維持生計 ➔ 紓緩失業問題、帶動本地消費並維持經濟穩定」的宏觀經濟價值。" },
+          { text: "這樣香港人便會有工開，巧手改衣工坊就為香港經濟提供了就業機會。", score: 0, status: "partial", comment: "【常見失分示範：同義反覆】結尾原地踏步，未有推論提供就業機會對「改善基層市民生計、減低失業率及促進整體經濟穩定發展」的影響。" },
+          { text: "這能令香港的法定最低工資法例自動取消。", score: 0, status: "wrong", comment: "【邏輯推論錯誤】提供就業機會與取消法定最低工資法例毫無關聯。" }
+        ]}
+      ]
+    },
+    {
+      id: "e3", cat: "essay", typeBadge: "進階論述題（單一論點 · 3 分 · 3 步深度建構）",
+      title: "論述 3：聲浪骨傳導運動耳機初創公司（單獨以「鼓勵創新」闡釋企業家精神的重要性）", topic: "企業家精神的重要性：單一論點深度建構（「鼓勵創新」）", maxMarks: 3,
+      scenario: "本地年輕工程師創立了「聲浪科技」，研發出毋須塞入耳道、可於游泳及跑步時清晰聽歌並同時聽見環境聲音的「骨傳導防水運動耳機」，在運動用品市場大受歡迎。",
+      question: "試單獨以「鼓勵創新」這項重要性為核心，以「聲浪科技」為例，建構一個 3 分深度論述段落，解釋企業家精神對商業發展的重要性。（3 分）",
+      steps: [
+        { label: "第 1 步：指出企業家精神「鼓勵創新」的單一重要性標題並闡明其轉化機制（1分）", colorClass: "hl-s1", opts: [
+          { text: "企業家精神對商業發展的重要性之一是「鼓勵創新」：在提倡企業家精神的經濟體系中，任何人都可以承擔風險創業，這有效促使企業家把創新的想法付諸實行並轉化成商業企業，為市場帶來更多創新的貨品或服務。", score: 1, status: "best", comment: "【滿分論述示範】準確提出「鼓勵創新」單一論點，並清楚說明「把創新想法轉化成企業 ➔ 為市場帶來更多創新貨品或服務」的運作機制。" },
+          { text: "企業家精神對商業發展的重要性是能夠保證新成立的聲浪科技永遠不會面對任何研發失敗或虧損風險。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】企業家是為了賺取利潤而「承擔創業風險」的人，企業家精神並不能消除研發與經營風險。" },
+          { text: "企業家精神對商業發展十分重要，因為它可以鼓勵創新、促進市場競爭同埋促進經濟增長。", score: 0, status: "partial", comment: "【常見失分示範：羅列三項重要性標題而未解釋「鼓勵創新」】違反「一段一論點」原則，把三個標題混在一起，卻沒有解釋企業家精神如何促使人們將創新想法轉化為新產品。" }
+        ]},
+        { label: "第 2 步：扣連「聲浪科技研發骨傳導防水游泳耳機」的情境作具體說明（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如「聲浪科技」的創辦人發揮企業家精神，看準傳統入耳式耳機在游泳時易入水、且夜跑時阻隔環境車聲容易發生危險的痛點，大膽將顱骨震動傳聲的創新概念轉化為「骨傳導全防水運動耳機」商品推出市場。", score: 1, status: "best", comment: "【滿分論述示範】緊扣個案「骨傳導防水運動耳機」的技術特點，具體描繪創辦人如何針對傳統產品痛點，將創新聲學概念轉化為實用新商品。" },
+          { text: "例如聲浪科技的老細整了一款新的骨傳導防水運動耳機出來賣給喜歡做運動的人用。", score: 0, status: "partial", comment: "【常見失分示範：照抄題目字句／缺乏論述加工】僅照抄題目字眼，未有結合企業家精神點出創辦人「突破傳統入耳式耳機局限、把創新聲學概念轉化為實際商品推出市場」的過程。" },
+          { text: "例如創辦人向供應商支付耳機包裝盒貨款，並為辦公室購買火險以轉移火災風險。", score: 0, status: "wrong", comment: "【概念應用錯誤】支付貨款與購買火險屬於日常財務結算與風險轉移，並非展示「鼓勵產品創新」的例子。" }
+        ]},
+        { label: "第 3 步：深化論述至增加市場上的貨品種類、解決用家痛點並令消費者受惠的影響（1分）", colorClass: "hl-s3", opts: [
+          { text: "透過將創新科技想法轉化為嶄新的骨傳導耳機推出市場，企業家精神有效豐富及增加了本地電子音響市場上的產品種類，滿足游泳及夜跑人士兼顧音樂享受與戶外安全的需要，最終令廣大消費者受惠。", score: 1, status: "best", comment: "【滿分論述示範】清楚推演出「將創新想法轉化為新產品 ➔ 增加市場上的貨品和服務種類 ➔ 令消費者受惠」的完整價值。" },
+          { text: "這樣聲浪科技的創辦人便成功鼓勵了創新，對商業發展很有重要性。", score: 0, status: "partial", comment: "【常見失分示範：同義反覆／漏寫對市場與消費者的好處】必須明確點出鼓勵創新最終如何「增加市場上的貨品和服務種類，從而令消費者受惠」。" },
+          { text: "這能令全港所有傳統音響及耳機零售店在第二天立即結業倒閉。", score: 0, status: "wrong", comment: "【邏輯推論錯誤】推出新產品會增加市場選擇與競爭，但不會令所有傳統店鋪立即倒閉。" }
+        ]}
+      ]
+    },
+    {
+      id: "e4", cat: "essay", typeBadge: "進階論述題（單一論點 · 3 分 · 3 步深度建構）",
+      title: "論述 4：極速24小時智能自助乾洗店（單獨以「促進市場競爭」闡釋企業家精神的重要性）", topic: "企業家精神的重要性：單一論點深度建構（「促進市場競爭」）", maxMarks: 3,
+      scenario: "年輕企業家在住宅區創立了「極速潔衣」，引入「24小時智能儲物櫃自助存取及手機App實時追蹤乾洗進度」的高效服務，吸引大批夜歸上班族光顧。",
+      question: "試單獨以「促進市場競爭」這項重要性為核心，以「極速潔衣」為例，建構一個 3 分深度論述段落，解釋企業家精神對商業發展的重要性。（3 分）",
+      steps: [
+        { label: "第 1 步：指出企業家精神「促進市場競爭」的單一重要性標題並闡明其競爭激發機制（1分）", colorClass: "hl-s1", opts: [
+          { text: "企業家精神對商業發展的另一重要性是「促進市場競爭」：當企業家創立新企業並為市場引入全新或高質素的服務模式時，會對市場上現有的企業構成競爭壓力，促使其他企業必須作出積極回應以保住市場佔有率。", score: 1, status: "best", comment: "【滿分論述示範】準確提出「促進市場競爭」單一論點，並清晰闡明「新企業引入新／高質素服務 ➔ 對現有企業構成競爭壓力並促使其積極回應」的市場機制。" },
+          { text: "企業家精神對商業發展的重要性是消除同區所有乾洗店之間的競爭，讓所有洗衣店聯合提高收費。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】新企業加入市場會打破原有平衡並「加劇／促進」市場競爭，而非消除競爭或聯合加價。" },
+          { text: "這間新開張的智能自助乾洗店加入了市場之後，令區內多了一間乾洗店同大家爭生意。", score: 0, status: "partial", comment: "【常見失分示範：僅提店鋪數目增加而未點出品質與效率激發機制】必須說明企業家精神如何透過「為市場引入全新和高質素的服務，刺激其他現有企業提高效率與服務質素」來促進良性競爭。" }
+        ]},
+        { label: "第 2 步：扣連「極速潔衣24小時智能存取服務」設定刺激同區傳統洗衣店回應的具體例子（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如「極速潔衣」憑藉 24 小時智能櫃隨時存取衣物的便利服務，搶走了不少無法在傳統營業時間取衣的上班族客源；同區原有的傳統洗衣店為了與其競爭、避免被淘汰，亦紛紛被迫提高洗衣效率（如縮短交衣日數）、延長晚間營業時間或推出免費上門收送衣物服務應戰。", score: 1, status: "best", comment: "【滿分論述示範】緊扣個案「24小時智能存取服務吸引夜歸上班族」的事實，具體展示這如何刺激同區傳統洗衣店提高效率及推出上門收送等更優質服務應戰。" },
+          { text: "例如同區的其他傳統洗衣店見到這間新乾洗店生意咁好，大家就會好努力去同它競爭。", score: 0, status: "partial", comment: "【常見失分示範：解說空洞／未說明對手如何競爭】「好努力去同它競爭」過於空泛；必須具體指出其他傳統洗衣店為了與其競爭會採取甚麼行動——即「提高營運效率，又或推出新服務及提供更高質素的服務」。" },
+          { text: "例如創辦人決定關閉乾洗店，改為在店內經營中醫跌打診所。", score: 0, status: "wrong", comment: "【概念應用錯誤】完全脫離題目個案設定。" }
+        ]},
+        { label: "第 3 步：深化論述至推動整個洗衣服務行業提升營運效率與服務質素、促進商業進步的影響（1分）", colorClass: "hl-s3", opts: [
+          { text: "這種良性市場競爭能打破傳統洗衣行業墨守成規的局面，推動整個行業持續提高營運效率、引入科技及改善顧客服務質素，從而促進香港整體商業服務的進步與發展。", score: 1, status: "best", comment: "【滿分論述示範】清楚推演出良性競爭如何「推動整個行業提高營運效率及提升服務質素，促進整體商業進步」。" },
+          { text: "這樣企業家精神便促進了市場競爭，對香港的商業發展很有好處。", score: 0, status: "partial", comment: "【常見失分示範：同義反覆】未有深化說明促進市場競爭最終如何「促使全行業提高營運效率及提供更高質素的貨品和服務」。" },
+          { text: "這會令全港所有乾洗溶劑供應商永久停止向香港供應洗衣清潔劑。", score: 0, status: "wrong", comment: "【邏輯推論錯誤】競爭促使更多洗衣店改善服務，並不會令上游供應商停止供應清潔劑。" }
+        ]}
+      ]
+    },
+    {
+      id: "e5", cat: "essay", typeBadge: "進階論述題（單一論點 · 3 分 · 3 步深度建構）",
+      title: "論述 5：銀髮復康運動工作室（以「難以從供應商獲得貿易賒帳和折扣」描述中小企的缺點）", topic: "中小企相對於大型企業的缺點：單一論點深度建構（「採購與議價能力低」）", maxMarks: 3,
+      scenario: "子軒以個人積蓄開設了一家名為「樂齡復康」的銀髮族痛症復康運動工作室，並聘請了三名教練。子軒表示：「工作室的營運成本不斷上升；由於我的工作室規模細小，又是新開業，實在難以從運動復康器械及耗材供應商獲得貿易賒帳和折扣。」",
+      question: "試根據中小型企業的特徵，單獨以「規模細小導致採購議價能力低（難獲貿易賒帳和批量折扣）」這項缺點為核心，結合該工作室的情境建構一個 3 分深度論述段落。（3 分）",
+      steps: [
+        { label: "第 1 步：指出中小型企業「規模細小與資源有限，難獲貿易賒帳和折扣」的缺點並闡明其原因（1分）", colorClass: "hl-s1", opts: [
+          { text: "中小型企業相對於大型企業的一項主要缺點是「採購議價能力較低，較難從供應商獲得貿易賒帳或批量購貨折扣」：由於中小型企業規模細小、資源有限，每次向供應商訂購設備與耗材的數量遠少於大型連鎖企業，而且新開業小店的信貸風險較高，因此缺乏議價能力。", score: 1, status: "best", comment: "【滿分論述示範】準確提出單一缺點論點，並清楚解釋「規模細小、每次訂購量少且信貸風險較高 ➔ 議價能力低，難獲貿易賒帳或批量折扣」的經濟成因。" },
+          { text: "中小型企業相對於大型企業的缺點是每次採購量過於龐大，導致工作室無法存放所有批量折扣器械。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】中小型企業專注於狹小市場且規模細小，每次採購量少，無法像大型企業般作大批量採購。" },
+          { text: "中小型企業同大型企業相比有很多缺點，例如不夠錢、請不到好教練同埋買器械的時候比較蝕底。", score: 0, status: "partial", comment: "【常見失分示範：用詞口語且混入多個不同缺點】「買器械比較蝕底」過於口語化；應聚焦於單一論點，明確寫出「因規模細小及採購量少，較難從供應商獲得貿易賒帳（延期付款）或批量購貨折扣」。" }
+        ]},
+        { label: "第 2 步：扣連「樂齡復康工作室與大型連鎖健身集團」設定採購器械與耗材的具體對比例子（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如大型連鎖健身集團為全港二十間分店一次過向供應商訂購數百部復康單車及上萬條阻力帶，可輕易爭取高達七折的批量折扣及 90 天的貿易賒帳期；相反，子軒的「樂齡復康」只是一家單店經營的小型工作室，每次僅購入兩三部器械及少量冰敷貼耗材，供應商往往要求他即時以現金全額付款且不提供任何批發折扣。", score: 1, status: "best", comment: "【滿分論述示範】透過大型連鎖健身集團（大批量入貨享七折及90天賒帳）與樂齡復康工作室（少量入貨須即時付現且無折扣）的鮮明對比，具體演繹中小企的採購劣勢。" },
+          { text: "例如子軒的復康運動工作室去買運動器械的時候，供應商因為覺得他的店鋪太細，所以不肯減價和賒數給他。", score: 0, status: "partial", comment: "【常見失分示範：未對比大型企業的規模經濟優勢】僅重抄題目句子，未有結合「因單店每次採購復康器械與護理耗材的數量太少，無法像大型連鎖健身集團般憑大批量採購爭取批量折扣與信貸期」作深入解說。" },
+          { text: "例如子軒需要經過十個管理層級的開會審批，才能決定明天的長者復康課堂時間表。", score: 0, status: "wrong", comment: "【概念應用錯誤】需要多個層級審批導致決策緩慢是「大型企業」的缺點；子軒自行管理小工作室，決策非常迅速。" }
+        ]},
+        { label: "第 3 步：深化論述至推高單位營運成本、加重現金流周轉壓力並削弱價格競爭力的影響（1分）", colorClass: "hl-s3", opts: [
+          { text: "無法獲得批量購貨折扣會令工作室每堂復康課的平均設備及耗材成本高於大型連鎖中心（缺乏規模經濟），而無法獲得貿易賒帳則迫使子軒必須動用有限的個人積蓄即時支付貨款，這既加重了工作室的日常現金周轉壓力，亦令其在課堂定價與控制營運成本上處於不利地位。", score: 1, status: "best", comment: "【滿分論述示範】將「無折扣」與「無賒帳」分別推演至「推高單位成本（缺乏規模經濟）」及「加重現金流周轉壓力」兩大財務與競爭後果，論證極為透徹。" },
+          { text: "這樣樂齡復康工作室的營運成本就會不斷上升，令子軒經營這間工作室的時候覺得很困難。", score: 0, status: "partial", comment: "【常見失分示範：同義反覆】未有分層剖析「無折扣導致平均採購成本較高（無規模經濟）」以及「無貿易賒帳導致須即時付現、加劇流動資金壓力」的具體影響。" },
+          { text: "這會令香港所有長者立即停止進行任何復康運動。", score: 0, status: "wrong", comment: "【邏輯推論錯誤】個別工作室的採購成本問題不會令全港長者停止做復康運動。" }
+        ]}
+      ]
+    },
+    {
+      id: "e6", cat: "essay", typeBadge: "進階論述題（單一論點 · 3 分 · 3 步深度建構）",
+      title: "論述 6：銀髮復康運動工作室（以「東主自行管理但或欠管理經驗」描述中小企可能面對的問題）", topic: "中小企的特徵與問題：單一論點深度建構（「通常由東主管理」）", maxMarks: 3,
+      scenario: "承上題，子軒原本是一名註冊物理治療師，他辭職後以個人積蓄開設了「樂齡復康」銀髮族痛症復康運動工作室，由子軒一人自行管理工作室的所有事務，並聘請了三名運動教練。",
+      question: "試除了營運成本上升及難獲賒帳折扣外，單獨以中小型企業「通常由東主管理」這項特徵為核心，建構一個 3 分深度論述段落，描述「樂齡復康」可能面對的管理問題。（3 分）",
+      steps: [
+        { label: "第 1 步：指出中小型企業「通常由東主管理」的特徵並點出其潛在管理弱點（1分）", colorClass: "hl-s1", opts: [
+          { text: "根據中小型企業「通常由東主管理」的特徵，雖然中小企東主大多會親力親為自行管理業務，但由於缺乏資金聘請各範疇的專業管理人員，東主本身可能欠缺全面的商業管理經驗和專業技巧，且一人兼顧所有管理工作會令工作負擔過重。", score: 1, status: "best", comment: "【滿分論述示範】準確扣連「通常由東主管理」這項特徵，並清晰點出其衍生問題——「無力聘請專業管理團隊，東主可能欠缺全面商業管理經驗和技巧，且一人包辦決策負擔過重」。" },
+          { text: "根據中小型企業的特徵，樂齡復康工作室擁有數十名來自跨國企業的專業財務總監和市場營銷總監負責管理。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】中小型企業資源有限，通常由東主一人（或家庭成員）自行管理，無力聘請龐大的專業總監團隊。" },
+          { text: "因為樂齡復康是一間中小型企業，通常都是由老闆子軒自己一個人去管理晒成間工作室的所有野。", score: 0, status: "partial", comment: "【常見失分示範：僅描述現象而未指出問題本質】只寫「老闆自己管理晒所有野」，漏了點出其問題所在——即「東主可能欠缺全面的專業商業管理知識和技巧（如財務預算、成本控制、市場推廣）」。" }
+        ]},
+        { label: "第 2 步：扣連「子軒一人自行管理復康運動工作室」設定具體的管理困難例子（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如子軒雖然具備專業的物理治療與復康運動知識，但他作為首次創業的東主，須一人同時包辦工作室的財務會計預算、場地租金與器械成本控制、教練排班考績以及市場營銷推廣等所有商業決策，他很可能因欠缺財務管理與成本控制技巧而未能有效壓低不斷上升的營運成本。", score: 1, status: "best", comment: "【滿分論述示範】緊扣子軒的物理治療師背景，具體說明他雖熟悉復康專業，但一人包辦財務預算、成本控制與市場推廣時容易因欠缺商業管理技巧而力不從心。" },
+          { text: "例如子軒每日在工作室入面又要睇住三名教練、又要教長者做運動，自己一個人覺得好忙好辛苦。", score: 0, status: "partial", comment: "【常見失分示範：停留在體力忙碌而未觸及專業管理決策缺陷】應重點說明東主因「欠缺財務預算、成本控制或市場營銷等專業商業管理經驗和技巧，在一人獨自作出各項商業決策時容易考慮不周」。" },
+          { text: "例如子軒在工作室內設立了十個垂直管理層級，導致他與三名教練溝通時出現嚴重延誤。", score: 0, status: "wrong", comment: "【邏輯推論錯誤】工作室內只有子軒和三名教練，屬於極扁平結構，不可能有十個管理層級。" }
+        ]},
+        { label: "第 3 步：深化論述至容易作出不當決策、降低營運與成本控制效率並威脅工作室生存的影響（1分）", colorClass: "hl-s3", opts: [
+          { text: "由於缺乏專業管理人員提供幕僚支援，子軒在面對營運成本急升等複雜商業問題時，容易因個人商業管理知識不足或工作過勞而作出不當的定價或財務決策，影響工作室的營運效率與盈利能力，甚至危及工作室的長遠生存。", score: 1, status: "best", comment: "【滿分論述示範】清楚推演出「缺乏專業管理支援＋東主商業管理知識局限 ➔ 易作不當決策 ➔ 影響營運效率與盈利能力」的完整負面影響。" },
+          { text: "這樣子軒在管理樂齡復康工作室的時候就會遇到很多問題，令工作室好難做落去。", score: 0, status: "partial", comment: "【常見失分示範：結論籠統空泛】應明確點出這會導致「東主視野受限、容易作出不當的管理或財務決策，從而削弱工作室的營運效率與盈利能力」。" },
+          { text: "這會令香港政府立即吊銷全港所有物理治療師的專業註冊資格。", score: 0, status: "wrong", comment: "【邏輯推論錯誤】個別工作室的商業管理問題不會導致政府吊銷全港物理治療師的專業資格。" }
+        ]}
+      ]
+    },
+    {
+      id: "e7", cat: "essay", typeBadge: "進階論述題（單一論點 · 3 分 · 3 步深度建構）",
+      title: "論述 7：山系露營戶外裝備專門店（以「除員工人數外的特徵：靈活性較大」描述中小企優勢）", topic: "香港中小型企業的特徵：單一論點深度建構（「靈活性較大」）", maxMarks: 3,
+      scenario: "瑋庭創立了一家售賣輕量化露營及山系戶外裝備的專門店（屬中小型企業）。為吸引顧客及提升競爭力，該專門店緊貼日本及歐美露營潮流，不斷引入新興獨立品牌裝備，有些更是本地大型連鎖運動店沒有售賣的，業務蒸蒸日上。",
+      question: "試除員工人數外，單獨以中小型企業「靈活性較大」這項特徵為核心，結合瑋庭的戶外裝備專門店情境，建構一個 3 分深度論述段落。（3 分）",
+      steps: [
+        { label: "第 1 步：指出中小型企業「靈活性較大」的單一特徵並闡明其決策機制（1分）", colorClass: "hl-s1", opts: [
+          { text: "除員工人數較少外，中小型企業的一項重要特徵是「靈活性較大」：由於中小型企業規模較小、管理層級少，東主通常自行作出決策（決策過程涉及較少人員），無須像大型企業般經過繁複的多層審批，因此能快速作出決定並迅速回應市場的轉變。", score: 1, status: "best", comment: "【滿分論述示範】準確提出「靈活性較大」單一特徵（避開員工人數），並清楚闡明「東主自行決策、涉及較少人員 ➔ 快速作出決定 ➔ 迅速回應市場轉變」的機制。" },
+          { text: "除員工人數外，中小型企業的特徵是擁有無限的資金儲備，可以隨時向銀行借取數十億元的低息貸款。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】與事實相反；中小型企業的資源和資金有限，且一般較難獲得銀行貸款。" },
+          { text: "除了員工人數之外，瑋庭的戶外裝備專門店還有由東主管理、資金有限、專注狹小市場和靈活性大等特徵。", score: 0, status: "partial", comment: "【常見失分示範：僅列出四個特徵名稱而無深入解釋】必須鎖定「靈活性較大」單一論點，解釋為何中小企在決策與運作上比大型企業更靈活。" }
+        ]},
+        { label: "第 2 步：扣連「瑋庭戶外裝備店不斷引入大型連鎖運動店沒有的新產品」作具體說明（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如當日本或歐美戶外圈剛興起某款超輕量鈦金屬露營爐具或手工天幕時，大型連鎖運動用品店因採購部門層層審批程序漫長而未能即時引入；但瑋庭作為中小企東主可自行快速拍板決定，在數天內即直接向海外獨立工坊小批量訂貨上架，不斷為香港露營客引入大型連鎖店尚未售賣的最新潮流裝備。", score: 1, status: "best", comment: "【滿分論述示範】緊扣個案「不斷引入新產品，有些更是本地大型連鎖店沒有售賣的」線索，具體對比大型運動店審批漫長與瑋庭快速拍板入貨的靈活表現。" },
+          { text: "例如瑋庭自己一個人在戶外裝備專門店入面話晒事，想入甚麼新露營用品返來賣都可以好快決定。", score: 0, status: "partial", comment: "【常見失分示範：解說較為口語單薄】應補充與大型連鎖運動店的對比：「無須像大型連鎖店般經過漫長的跨部門審批，能緊貼露營潮流即時採購最新裝備上架，迅速回應顧客偏好的轉變」。" },
+          { text: "例如瑋庭將專門店的收銀及清潔工作外判給大型跨國運動用品連鎖店負責。", score: 0, status: "wrong", comment: "【概念應用錯誤】通常是中小型企業充當承包商支援大型企業，而非小店把清潔外判給大型連鎖運動店。" }
+        ]},
+        { label: "第 3 步：深化論述至憑藉速度與新鮮感搶佔先機、提升對大型連鎖店的競爭力並促進業務增長的影響（1分）", colorClass: "hl-s3", opts: [
+          { text: "這種高度的運作靈活性，讓瑋庭的戶外裝備專門店能時刻緊貼國際山系潮流、比大型連鎖運動店更迅速地滿足露營愛好者對新款獨特裝備的渴求，從而在激烈的零售市場中建立差異化競爭優勢，吸引大批顧客光顧並使業務蒸蒸日上。", score: 1, status: "best", comment: "【滿分論述示範】清楚推演出「快速回應潮流滿足顧客渴求 ➔ 建立相對於大型連鎖店的競爭優勢 ➔ 吸引顧客令業務蒸蒸日上」的完整結果。" },
+          { text: "這樣瑋庭的戶外裝備專門店就非常有靈活性，生意亦都越做越好了。", score: 0, status: "partial", comment: "【常見失分示範：同義反覆】未有深化說明運作靈活性如何協助小店「比大型連鎖店更早一步滿足顧客對新潮流產品的需求，從而提升市場競爭力」。" },
+          { text: "這能令瑋庭的專門店自動豁免遵守香港的商品說明條例及消費品安全法例。", score: 0, status: "wrong", comment: "【邏輯推論錯誤】所有零售商不論規模大小，均須嚴格遵守香港的商品說明及安全法例。" }
+        ]}
+      ]
+    },
+    {
+      id: "e8", cat: "essay", typeBadge: "進階論述題（單一論點 · 3 分 · 3 步深度建構）",
+      title: "論述 8：智泊電動車流動充電研發公司（以「創造全新市場與刺激相關企業發展」闡釋企業家精神如何促進經濟增長）", topic: "企業家精神的重要性：單一論點深度建構（「促進經濟增長」）", maxMarks: 3,
+      scenario: "本地企業家浩然創立「智泊科技」，經過多年研發，成功開發出一款名為「電小二」的全新產品（商場停車場自動導航尋車流動充電機械人，車主泊車後用手機App召喚，機械人便會自動駛至車旁為電動車充電）。隨着電動車普及，多間大型商場落單訂購，浩然決定擴大組裝工場、僱用更多技工，並向本地供應商大量訂購高容量磷酸鐵鋰電芯及激光雷達感應器。",
+      question: "試單獨以「促進經濟增長」這項貢獻為核心，以浩然及智泊科技的個案為例，建構一個 3 分深度論述段落，解釋企業家精神對香港經濟發展的貢獻。（3 分）",
+      steps: [
+        { label: "第 1 步：指出企業家精神「促進經濟增長」的單一貢獻標題並闡明其帶動機制（1分）", colorClass: "hl-s1", opts: [
+          { text: "企業家精神對經濟發展的重要貢獻之一是「促進經濟增長」：企業家為實現創業與新產品構想，須把人才和資源集合組織起來，一方面向社會提供就業機會，另一方面在生產過程中須購買其他企業的貨品和服務，從而為這些企業創造需求並刺激它們的發展（甚至開創出全新的產品市場）。", score: 1, status: "best", comment: "【滿分論述示範】準確提出「促進經濟增長」單一論點，並完整闡明其核心經濟傳導機制（集合資源提供就業機會＋購買其他企業貨品服務以創造需求刺激發展＋開創新市場）。" },
+          { text: "企業家精神對經濟發展的貢獻是透過削減工人的薪金福利來降低本地消費水平，從而壓抑通脹。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】企業家擴充業務會增聘人手並促進經濟增長，而非削減薪金壓抑消費。" },
+          { text: "浩然作為一名出色的企業家，他的企業家精神可以幫助香港促進經濟增長，令香港經濟變得更好。", score: 0, status: "partial", comment: "【常見失分示範：有標題無傳導機制】僅重複了「促進經濟增長」的標題，沒有解釋企業家的創業與生產活動是如何透過「創造就業」及「為其他企業的貨品和服務創造需求」來帶動經濟增長。" }
+        ]},
+        { label: "第 2 步：扣連「智泊科技開發流動充電機械人、增聘技工及訂購電芯感應器」設定具體例子（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如在個案中，浩然成功研發並推出「電小二」流動充電機械人，開創了免固定充電樁的流動充電新市場；隨着大型商場訂單持續增長，智泊科技決定擴大工場並「僱用更多生產技工」（創造就業機會），同時向周邊零件供應商「大量訂購高容量磷酸鐵鋰電芯及激光雷達感應器」，直接為這些電池及電子零件供應商的貨品和服務創造了龐大需求。", score: 1, status: "best", comment: "【滿分論述示範】緊扣個案中的三項具體事實——開發「流動充電機械人」開創新市場、擴大工場「僱用更多技工」、以及「向供應商大量訂購電芯及激光雷達感應器」，將理論機制與個案事實完美結合。" },
+          { text: "例如浩然的公司整了流動充電機械人出來賣給大商場，賣得好好，賺了很多錢，所以對香港經濟有貢獻。", score: 0, status: "partial", comment: "【常見失分示範：未引用個案中的就業與供應鏈需求細節】只提自己公司賺錢，漏了引用個案中促進整體經濟增長的兩大關鍵事實：(1)「擴大工場並僱用更多技工（提供就業）」；及 (2)「向供應商大量訂購電芯及感應器（為其他企業創造需求）」。" },
+          { text: "例如浩然決定停止向任何供應商採購零件，並關閉工場改為將資金存入銀行收息。", score: 0, status: "wrong", comment: "【概念應用錯誤】與個案中擴大工場及增購零件的事實完全相反。" }
+        ]},
+        { label: "第 3 步：深化論述至刺激上下游電子與電池供應商一同擴張、帶動就業與總產出上升的宏觀經濟影響（1分）", colorClass: "hl-s3", opts: [
+          { text: "這不但直接為本地技術勞工創造了更多綠能科技就業職位，更透過供應鏈的連鎖反應，有力地刺激了電池電芯、光學感應器等電子零件供應商及相關維修物流企業的業務發展與擴張，從而推動香港整體的商業活動與本地生產總值持續增長。", score: 1, status: "best", comment: "【滿分論述示範】清楚推演出由一家企業的創新擴張，透過就業創造與供應鏈需求乘數效應，帶動相關企業一同擴張並促進整體經濟增長的宏觀結果。" },
+          { text: "這樣浩然的企業家精神便成功促進了香港的經濟增長了。", score: 0, status: "partial", comment: "【常見失分示範：同義反覆】未有總結「刺激上下游電池與感應器供應商業務發展，從而帶動整體就業與經濟產出增長」的連鎖效應。" },
+          { text: "這能令全港所有傳統汽油私家車在一夜之間完全消失。", score: 0, status: "wrong", comment: "【邏輯推論錯誤】新充電設備的推出會便利電動車主並促進產業發展，但不會令所有傳統汽油車一夜消失。" }
+        ]}
+      ]
+    }
+  ];
+
+  let curBuilderCat = 'short';
+  let curQIdx = 0;
+  let userSelections = {};
+  let isSubmitted = false;
+
+  function switchBuilderCat(cat, btn) {
+    curBuilderCat = cat;
+    btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('builderCatLabel').textContent = cat === 'short' ? '選擇短答題（每題建構單一 2 分論點）：' : '選擇進階論述題（每題建構單一 3 分深度論點）：';
+    curQIdx = cat === 'short' ? 0 : 4;
+    userSelections = {};
+    isSubmitted = false;
+    renderQuestionChips();
+    renderWorkshop();
+  }
+
+  function renderQuestionChips() {
+    document.getElementById('questionChips').innerHTML = workshopQuestions
+      .map((q, i) => ({ q, i }))
+      .filter(x => x.q.cat === curBuilderCat)
+      .map(x => `<button class="chip ${x.i===curQIdx?'active':''}" onclick="selectWorkshopQ(${x.i})">${x.q.title}</button>`)
+      .join('');
+  }
+
+  function selectWorkshopQ(idx) {
+    curQIdx = idx;
+    userSelections = {};
+    isSubmitted = false;
+    renderQuestionChips();
+    renderWorkshop();
+  }
+
+  function pickStepOption(sIdx, oIdx) {
+    userSelections[sIdx] = oIdx;
+    isSubmitted = false;
+    renderWorkshop();
+  }
+
+  function submitConstructedAnswer() {
+    const q = workshopQuestions[curQIdx];
+    if (Object.keys(userSelections).length < q.steps.length) {
+      alert(`請先完成全部 ${q.steps.length} 個步驟的選擇，再點擊批改。`);
+      return;
+    }
+    isSubmitted = true;
+    renderWorkshop();
+  }
+
+  function fillBestChoices() {
+    const q = workshopQuestions[curQIdx];
+    q.steps.forEach((st, sIdx) => {
+      userSelections[sIdx] = st.opts.findIndex(o => o.status === 'best');
+    });
+    isSubmitted = true;
+    renderWorkshop();
+  }
+
+  function renderWorkshop() {
+    const q = workshopQuestions[curQIdx];
+    const letters = ['A', 'B', 'C'];
+
+    let totalScore = 0;
+    q.steps.forEach((st, sIdx) => {
+      if (userSelections[sIdx] !== undefined) {
+        totalScore += st.opts[userSelections[sIdx]].score;
+      }
+    });
+
+    const previewParts = q.steps.map((st, sIdx) => {
+      const selIdx = userSelections[sIdx];
+      if (selIdx === undefined) {
+        return `<span style="color:var(--mute);border-bottom:1px dashed var(--mute)">［未選擇第 ${sIdx + 1} 步］</span>`;
+      }
+      return `<span class="${st.colorClass}">${st.opts[selIdx].text}</span>`;
+    });
+
+    document.getElementById('builderWorkspace').innerHTML = `
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px">
+          <div>
+            <span class="badge b-blue">${q.typeBadge}</span>
+            <span class="badge b-teal">${q.topic}</span>
+          </div>
+          <b style="color:var(--primary);font-size:16px">本段單一論點滿分：${q.maxMarks} 分</b>
+        </div>
+        <div style="background:var(--surface);padding:16px 20px;border-radius:12px;border-left:4px solid var(--primary);font-size:16.5px;margin-bottom:14px"><b>背景情境：</b>${q.scenario}</div>
+        <div style="font-size:18px;font-weight:800;color:var(--ink)">${q.question}</div>
+      </div>
+
+      ${q.steps.map((st, sIdx) => {
+        const selIdx = userSelections[sIdx];
+        return `
+          <div class="builder-stage">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+              <h4 style="font-size:16.5px"><span class="${st.colorClass}">${st.label}</span></h4>
+              <span style="font-size:14px;font-weight:600;color:var(--mute)">${selIdx !== undefined ? '已選 ' + letters[selIdx] : '請點選一項'}</span>
+            </div>
+            ${st.opts.map((o, oIdx) => {
+              const isSel = selIdx === oIdx;
+              let gradeCls = '';
+              if (isSubmitted && isSel) {
+                gradeCls = o.status === 'best' ? 'graded-best' : o.status === 'partial' ? 'graded-partial' : 'graded-wrong';
+              }
+              return `
+                <button class="opt-card ${isSel ? 'selected' : ''} ${gradeCls}" onclick="pickStepOption(${sIdx}, ${oIdx})">
+                  <span class="opt-letter">${letters[oIdx]}</span>
+                  <span style="flex:1">${o.text}</span>
+                </button>
+              `;
+            }).join('')}
+          </div>
+        `;
+      }).join('')}
+
+      <div class="card" style="border:2px solid var(--primary);margin-bottom:0">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:14px">
+          <h3 style="color:var(--primary);font-size:19px">單一論點段落預覽</h3>
+          <div style="display:flex;gap:10px">
+            <button class="btn btn-green" onclick="submitConstructedAnswer()">批改論述邏輯</button>
+            <button class="btn btn-outline" onclick="fillBestChoices()">示範滿分論點建構</button>
+          </div>
+        </div>
+        <div style="font-size:17px;line-height:1.85;background:var(--surface);padding:18px 22px;border-radius:12px;border:1px solid var(--line)">
+          ${previewParts.join(' ')}
+        </div>
+
+        ${isSubmitted ? `
+          <div style="margin-top:20px;padding-top:18px;border-top:1px solid var(--line)">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+              <h4 style="font-size:17.5px">逐層論述邏輯點評</h4>
+              <span class="badge ${totalScore === q.maxMarks ? 'b-green' : totalScore >= 1 ? 'b-amber' : 'b-red'}" style="font-size:15px;padding:6px 14px">
+                本段得分：${totalScore} / ${q.maxMarks} 分
+              </span>
+            </div>
+            ${q.steps.map((st, sIdx) => {
+              const chosen = st.opts[userSelections[sIdx]];
+              const cCls = chosen.status === 'best' ? 'c-best' : chosen.status === 'partial' ? 'c-partial' : 'c-wrong';
+              return `
+                <div class="critique-item ${cCls}">
+                  <b>第 ${sIdx + 1} 步（選項 ${letters[userSelections[sIdx]]} · ${chosen.score} 分）：</b>${chosen.comment}
+                </div>
+              `;
+            }).join('')}
+          </div>
+        ` : ''}
+      </div>
+    `;
+  }
+
+  renderQuestionChips();
+  renderWorkshop();
+</script>
+</body>
+</html>

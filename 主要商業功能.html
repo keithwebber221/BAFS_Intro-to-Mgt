@@ -1,0 +1,1757 @@
+<!doctype html>
+<html lang="zh-HK">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>管理導論 — 主要商業功能</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* 管理導論單元專屬配色：經典海軍藍 (Executive Navy) × 琥珀銅 (Terracotta) × 青翠綠 (Teal) */
+      --bg: #f4f6fb;
+      --card: #ffffff;
+      --surface: #f8fafd;
+      --ink: #0f172a;
+      --ink-sec: #334155;
+      --mute: #64748b;
+      --line: #dbe3f0;
+      --primary: #1e40af;
+      --primary-dark: #1e3a8a;
+      --primary-light: #eff6ff;
+      --primary-border: #bfdbfe;
+      --teal: #0f766e;
+      --teal-light: #f0fdfa;
+      --teal-border: #99f6e4;
+      --amber: #c2410c;
+      --amber-light: #fff7ed;
+      --green: #15803d;
+      --green-light: #f0fdf4;
+      --red: #be123c;
+      --red-light: #fff1f2;
+      --radius: 16px;
+      --shadow: 0 4px 20px -2px rgba(30, 64, 175, 0.06), 0 2px 6px -1px rgba(30, 64, 175, 0.04);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.75;
+      padding-bottom: 60px;
+      font-size: 17.5px;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, h4 { margin: 0; font-weight: 800; color: var(--ink); letter-spacing: -0.01em; line-height: 1.35; }
+
+    /* Top Navigation Bar */
+    header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 32px;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      flex-wrap: wrap;
+    }
+    .home-link {
+      text-decoration: none;
+      color: var(--ink-sec);
+      font-weight: 600;
+      font-size: 15px;
+      padding: 8px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      transition: all 0.2s;
+    }
+    .home-link:hover { color: var(--primary); border-color: var(--primary-border); background: var(--primary-light); }
+    .brand { display: flex; align-items: center; gap: 12px; font-size: 19px; font-weight: 800; color: var(--primary-dark); }
+    .brand-tag {
+      background: var(--primary-light);
+      color: var(--primary);
+      border: 1px solid var(--primary-border);
+      font-size: 14px;
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-weight: 700;
+    }
+
+    .main-tabs {
+      margin-left: auto;
+      display: flex;
+      gap: 6px;
+      background: #e2e8f4;
+      padding: 5px;
+      border-radius: 12px;
+      flex-wrap: wrap;
+    }
+    .main-tabs button {
+      border: 0;
+      background: none;
+      padding: 9px 15px;
+      border-radius: 9px;
+      font: 700 15px 'Noto Sans TC', sans-serif;
+      color: var(--ink-sec);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .main-tabs button:hover { color: var(--ink); }
+    .main-tabs button.on {
+      background: var(--card);
+      color: var(--primary);
+      box-shadow: 0 2px 8px rgba(30, 64, 175, 0.12);
+    }
+
+    /* Main Container & Views */
+    .view { display: none; max-width: 1160px; margin: 0 auto; padding: 28px 24px; animation: fadeIn 0.25s ease; }
+    .view.on { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Section Header Banner */
+    .sec-banner {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-left: 6px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      box-shadow: var(--shadow);
+    }
+    .sec-banner h1 { font-size: 25px; margin: 6px 0 8px; }
+    .sec-banner p { margin: 0; color: var(--ink-sec); font-size: 16.5px; max-width: 680px; }
+
+    /* Sub-navigation Switcher */
+    .sub-nav {
+      display: inline-flex;
+      background: #e6ecf7;
+      padding: 5px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .sub-nav button {
+      border: 0;
+      background: none;
+      padding: 9px 16px;
+      border-radius: 8px;
+      font: 700 15px 'Noto Sans TC', sans-serif;
+      color: var(--mute);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .sub-nav button:hover { color: var(--ink); }
+    .sub-nav button.active {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(30, 64, 175, 0.25);
+    }
+    .sub-view { display: none; }
+    .sub-view.active { display: block; animation: fadeIn 0.2s ease; }
+
+    /* Cards & Grids */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 26px 28px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+    }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .grid6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin: 12px 0; }
+
+    /* Badges & Pills */
+    .badge {
+      display: inline-block;
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 6px;
+      margin-right: 8px;
+    }
+    .b-blue { background: var(--primary-light); color: var(--primary); border: 1px solid var(--primary-border); }
+    .b-teal { background: var(--teal-light); color: var(--teal); border: 1px solid var(--teal-border); }
+    .b-amber { background: var(--amber-light); color: var(--amber); border: 1px solid #fed7aa; }
+    .b-green { background: var(--green-light); color: var(--green); border: 1px solid #bbf7d0; }
+    .b-red { background: var(--red-light); color: var(--red); border: 1px solid #fecdd3; }
+
+    .chips { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0; }
+    .chip {
+      border: 1.5px solid var(--line);
+      background: var(--card);
+      padding: 9px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      font: 700 15.5px 'Noto Sans TC', sans-serif;
+      color: var(--ink-sec);
+      transition: all 0.2s;
+    }
+    .chip:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
+    .chip.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(30, 64, 175, 0.2);
+    }
+
+    .btn {
+      border: 0;
+      background: var(--primary);
+      color: #ffffff;
+      font: 700 15px 'Noto Sans TC', sans-serif;
+      padding: 10px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
+    .btn-teal { background: var(--teal); }
+    .btn-teal:hover { background: #115e59; }
+    .btn-green { background: var(--green); }
+    .btn-green:hover { background: #166534; }
+    .btn-outline { background: var(--card); color: var(--primary); border: 1.5px solid var(--primary); }
+    .btn-outline:hover { background: var(--primary-light); }
+
+    /* Interactive Flow & Dept Buttons */
+    .flow-chain {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 12px 0;
+      padding: 16px;
+      background: var(--card);
+      border-radius: 14px;
+      border: 1px solid var(--line);
+    }
+    .flow-node {
+      flex: 1;
+      min-width: 170px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 14.5px;
+      background: var(--primary-light);
+      color: var(--primary);
+      border: 1.5px solid var(--primary);
+      text-align: center;
+    }
+    .flow-arrow { font-size: 22px; font-weight: 900; color: var(--amber); }
+
+    .dept-btn {
+      padding: 12px 10px;
+      border-radius: 12px;
+      border: 1.5px solid var(--line);
+      background: var(--card);
+      cursor: pointer;
+      font: 700 14.5px 'Noto Sans TC', sans-serif;
+      text-align: center;
+      transition: all 0.18s;
+      color: var(--ink-sec);
+    }
+    .dept-btn:hover { border-color: var(--primary); background: var(--primary-light); color: var(--primary); }
+    .dept-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); box-shadow: 0 4px 12px rgba(30, 64, 175, 0.2); }
+
+    /* Comparison Table */
+    table.comp-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 15.5px; }
+    table.comp-table th, table.comp-table td { padding: 12px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    table.comp-table th { background: var(--surface); font-weight: 800; color: var(--ink); }
+
+    /* Builder Specific */
+    .builder-stage {
+      border: 1.5px solid var(--line);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      background: var(--card);
+      box-shadow: var(--shadow);
+    }
+    .opt-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      width: 100%;
+      text-align: left;
+      padding: 15px 18px;
+      margin: 10px 0;
+      border-radius: 12px;
+      border: 1.5px solid var(--line);
+      background: var(--card);
+      font: 500 16.5px 'Noto Sans TC', sans-serif;
+      color: var(--ink);
+      cursor: pointer;
+      transition: all 0.2s;
+      line-height: 1.65;
+    }
+    .opt-card:hover { border-color: var(--primary); background: var(--surface); }
+    .opt-card.selected { border-color: var(--primary); background: var(--primary-light); font-weight: 600; }
+    .opt-card.correct, .opt-card.graded-best { border-color: var(--green); background: var(--green-light); color: #064e3b; }
+    .opt-card.graded-partial { border-color: var(--amber); background: var(--amber-light); color: #7c2d12; }
+    .opt-card.wrong, .opt-card.graded-wrong { border-color: var(--red); background: var(--red-light); color: #881337; }
+    .opt-letter {
+      display: inline-grid;
+      place-items: center;
+      min-width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: #e6ecf7;
+      color: var(--ink);
+      font-weight: 800;
+      font-size: 14.5px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .opt-card.selected .opt-letter { background: var(--primary); color: #ffffff; }
+
+    .hl-s1 { background: #dbeafe; color: #1e40af; padding: 3px 8px; border-radius: 6px; font-weight: 700; }
+    .hl-s2 { background: #fef3c7; color: #92400e; padding: 3px 8px; border-radius: 6px; font-weight: 700; }
+    .hl-s3 { background: #ccfbf1; color: #115e59; padding: 3px 8px; border-radius: 6px; font-weight: 700; }
+
+    .critique-item {
+      padding: 14px 18px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      border-left: 5px solid var(--line);
+      background: var(--card);
+    }
+    .critique-item.c-best { border-left-color: var(--green); background: var(--green-light); }
+    .critique-item.c-partial { border-left-color: var(--amber); background: var(--amber-light); }
+    .critique-item.c-wrong { border-left-color: var(--red); background: var(--red-light); }
+
+    details.guide-Collapsible {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px 22px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+    }
+    details.guide-Collapsible summary {
+      font-weight: 700;
+      font-size: 16.5px;
+      color: var(--primary);
+      cursor: pointer;
+    }
+
+    @media (max-width: 860px) {
+      .grid6 { grid-template-columns: repeat(3, 1fr); }
+      .grid2, .grid3 { grid-template-columns: 1fr; }
+      header { padding: 12px 18px; }
+      .main-tabs { width: 100%; justify-content: center; margin-top: 8px; }
+      .sec-banner h1 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="管理導論_目錄.html" class="home-link">返回單元目錄</a>
+  <select onchange="if(this.value) location.href=this.value" style="padding:7px 12px;border-radius:10px;border:1px solid var(--primary-border);background:var(--primary-light);color:var(--primary);font:700 14.5px 'Noto Sans TC',sans-serif;cursor:pointer">
+    <option value="">快速切換課室／測驗...</option>
+    <option value="管理導論_目錄.html">單元總目錄</option>
+    <option value="管理功能.html">第 1 課：管理功能</option>
+    <option value="主要商業功能.html" selected>第 2 課：主要商業功能</option>
+    <option value="中小型企業.html">第 3 課：中小型企業</option>
+    <option value="管理導論_單元綜合測驗.html">單元綜合模擬試卷 (72分)</option>
+  </select>
+  <div class="brand">
+    <span>管理導論</span>
+    <span class="brand-tag">第 2 課：主要商業功能</span>
+  </div>
+  <nav class="main-tabs" id="mainTabs">
+    <button class="on" data-tab="sec-hr-fin">1. 人力資源與財務管理</button>
+    <button data-tab="sec-ops-mkt">2. 營運管理與市場營銷</button>
+    <button data-tab="sec-im-rm">3. 資訊管理與風險管理</button>
+    <button data-tab="sec-inter">4. 六大功能相互支援與合作沙盤</button>
+    <button data-tab="sec-builder">5. 論點建構工作坊</button>
+  </nav>
+</header>
+
+<!-- ==================== 1. 人力資源與財務管理 ==================== -->
+<section class="view on" id="sec-hr-fin">
+  <div class="sec-banner">
+    <div>
+      <span class="badge b-blue">單元一：認識六項主要商業功能 ＆ 人力資源管理 vs 財務管理</span>
+      <h1>六大部門職責分流排雷器 ＆ 人力資源（6角色4重要性）與財務管理（5角色3重要性）</h1>
+      <p>企業管理關乎如何分配和使用資源，涉及六項主要的商業功能：(i) 人力資源管理、(ii) 財務管理、(iii) 營運管理、(iv) 市場營銷管理、(v) 資訊管理、以及 (vi) 風險管理。企業要取得成功，必須妥善執行這六項功能的工作。</p>
+    </div>
+    <div class="sub-nav">
+      <button class="active" onclick="switchSub('hf', 0, this)">六大部門分流器與人資／財務詳解</button>
+      <button onclick="switchSub('hf', 1, this)">人資與財務概念挑戰</button>
+    </div>
+  </div>
+
+  <!-- 子分頁 1A：六大部門分流排雷器 ＋ 人資與財務詳解 -->
+  <div class="sub-view active" id="hf-sub-0">
+    <div class="card" style="border:2px solid var(--primary)">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px">
+        <span class="badge b-blue">互動實驗工具一：企業日常工作「六大部門分流與誤區排雷模擬器」</span>
+        <b id="dispProg" style="color:var(--primary);font-size:14.5px">分流任務 1 / 10</b>
+      </div>
+      <h3 style="font-size:20px;margin-bottom:10px">以下商業工作極容易派錯部門！請點擊選擇負責該項工作的正確商業功能部門：</h3>
+      <div id="dispTaskBox" style="font-size:17px;font-weight:800;background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--line);margin-bottom:12px"></div>
+      <div class="grid6">
+        <button class="btn" style="background:#15803d" onclick="checkDispatch('人力資源管理')">人力資源管理</button>
+        <button class="btn" style="background:#1e40af" onclick="checkDispatch('財務管理')">財務管理</button>
+        <button class="btn" style="background:#b45309" onclick="checkDispatch('營運管理')">營運管理</button>
+        <button class="btn" style="background:#be185d" onclick="checkDispatch('市場營銷管理')">市場營銷管理</button>
+        <button class="btn" style="background:#0f766e" onclick="checkDispatch('資訊管理')">資訊管理</button>
+        <button class="btn" style="background:#4338ca" onclick="checkDispatch('風險管理')">風險管理</button>
+      </div>
+      <div id="dispFeedback" style="margin-top:12px;min-height:48px"></div>
+    </div>
+
+    <div class="grid2">
+      <div class="card" style="margin-bottom:0">
+        <span class="badge b-green">人力資源管理 (Human Resources Management)</span>
+        <h3 style="font-size:20px;margin:6px 0 8px">點擊切換人力資源管理的「六大角色」與「四項重要性」</h3>
+        <div class="chips" id="hrTabChips">
+          <button class="chip active" onclick="renderHrTab(0)">1. 人力資源部的 6 項功能（角色）</button>
+          <button class="chip" onclick="renderHrTab(1)">2. 人力資源管理的 4 項重要性</button>
+        </div>
+        <div id="hrTabBox" style="margin-top:10px"></div>
+      </div>
+
+      <div class="card" style="margin-bottom:0">
+        <span class="badge b-blue">財務管理 (Financial Management)</span>
+        <h3 style="font-size:20px;margin:6px 0 8px">點擊切換財務管理的「五大角色」與「三項重要性」</h3>
+        <div class="chips" id="finTabChips">
+          <button class="chip active" onclick="renderFinTab(0)">1. 財務部的 5 項功能（角色）</button>
+          <button class="chip" onclick="renderFinTab(1)">2. 財務管理的 3 項重要性 ＆ 排雷</button>
+        </div>
+        <div id="finTabBox" style="margin-top:10px"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 子分頁 1B：人資與財務挑戰 -->
+  <div class="sub-view" id="hf-sub-1">
+    <div class="card" style="margin-bottom:0">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <span class="badge b-teal">人力資源管理與財務管理職責辨識挑戰</span>
+        <span id="hfQuizProg" style="font-size:14.5px;font-weight:600;color:var(--mute)"></span>
+      </div>
+      <div id="hfQuizQ" style="font-size:17.5px;font-weight:700;margin-bottom:14px"></div>
+      <div id="hfQuizBtns" style="display:flex;flex-direction:column;gap:8px"></div>
+      <div id="hfQuizFb" style="margin-top:14px;font-size:16px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 2. 營運管理與市場營銷 ==================== -->
+<section class="view" id="sec-ops-mkt">
+  <div class="sec-banner">
+    <div>
+      <span class="badge b-blue">單元二：營運管理（將投入轉化為產出）＆ 市場營銷管理（滿足顧客需要）</span>
+      <h1>營運系統轉化過程、設計生產程序五項工作 ＆ 市場營銷五大角色與 4P / CRM</h1>
+      <p>營運管理是指管理營運系統以及管理將投入轉化為產出（製成品或服務）的過程。市場營銷管理則是指確認顧客的需要並執行市場營銷策略，讓企業提供的貨品和／或服務比競爭對手更能滿足這些需要，從而賺取利潤的過程。</p>
+    </div>
+    <div class="sub-nav">
+      <button class="active" onclick="switchSub('om', 0, this)">營運轉化模擬與市場營銷詳解</button>
+      <button onclick="switchSub('om', 1, this)">營運與市場營銷概念挑戰</button>
+    </div>
+  </div>
+
+  <!-- 子分頁 2A：營運管理與市場營銷詳解 -->
+  <div class="sub-view active" id="om-sub-0">
+    <div class="grid2">
+      <div class="card" style="margin-bottom:0">
+        <span class="badge b-blue">營運管理 (Operations Management)</span>
+        <h3 style="font-size:20px;margin:6px 0 8px">點選檢視營運系統「投入➔轉化➔產出」過程、四大角色與三項重要性</h3>
+        <div class="chips" id="opsSimChips">
+          <button class="chip active" onclick="renderOpsSim(0)">1. 營運系統轉化模擬 (朱古力坊/單車廠/乾洗店)</button>
+          <button class="chip" onclick="renderOpsSim(1)">2. 角色 1：設計有效的生產程序 (5項工作)</button>
+          <button class="chip" onclick="renderOpsSim(2)">3. 角色 2–4：存貨・品質・物流 ＆ 重要性</button>
+        </div>
+        <div id="opsSimBox" style="margin-top:10px"></div>
+      </div>
+
+      <div class="card" style="margin-bottom:0">
+        <span class="badge b-teal">市場營銷管理 (Marketing Management)</span>
+        <h3 style="font-size:20px;margin:6px 0 8px">點擊探索市場營銷部的「五大角色」、「4P 策略」、「CRM 四法」與「四項重要性」</h3>
+        <div class="chips" id="mktSimChips">
+          <button class="chip active" onclick="renderMktSim(0)">1. 市場研究・STP 與 4P 市場營銷策略</button>
+          <button class="chip" onclick="renderMktSim(1)">2. 執行控制 ＆ 管理顧客關係 (CRM 四法)</button>
+          <button class="chip" onclick="renderMktSim(2)">3. 市場營銷管理的 4 項重要性 ＆ 排雷</button>
+        </div>
+        <div id="mktSimBox" style="margin-top:10px"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 子分頁 2B：營運與市場營銷挑戰 -->
+  <div class="sub-view" id="om-sub-1">
+    <div class="card" style="margin-bottom:0">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <span class="badge b-teal">營運管理（生產程序五工作）與市場營銷（4P 及職責）挑戰</span>
+        <span id="omQuizProg" style="font-size:14.5px;font-weight:600;color:var(--mute)"></span>
+      </div>
+      <div id="omQuizQ" style="font-size:17.5px;font-weight:700;margin-bottom:14px"></div>
+      <div id="omQuizBtns" style="display:flex;flex-direction:column;gap:8px"></div>
+      <div id="omQuizFb" style="margin-top:14px;font-size:16px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 3. 資訊管理與風險管理 ==================== -->
+<section class="view" id="sec-im-rm">
+  <div class="sec-banner">
+    <div>
+      <span class="badge b-blue">單元三：資訊管理（收集處理儲存傳遞資訊）＆ 風險管理（盡量減少損失）</span>
+      <h1>資訊系統跨部門支援控制台 ＆ 四種風險管理策略（迴避・承擔・減少・轉移）</h1>
+      <p>資訊管理是透過收集、處理、儲存和傳遞資訊（數據經處理和分析後成為資訊），以支援企業運作和決策的過程。風險管理則是指識別和評估企業的各種潛在風險，並制定措施務求盡量減少損失的過程。</p>
+    </div>
+    <div class="sub-nav">
+      <button class="active" onclick="switchSub('ir', 0, this)">資訊系統支援台與風險四策略</button>
+      <button onclick="switchSub('ir', 1, this)">資訊與風險管理概念挑戰</button>
+    </div>
+  </div>
+
+  <!-- 子分頁 3A：資訊管理與風險管理詳解 -->
+  <div class="sub-view active" id="ir-sub-0">
+    <div class="grid2">
+      <div class="card" style="margin-bottom:0;border:2px solid var(--teal)">
+        <span class="badge b-teal">資訊管理 (Information Management) ＆ 跨部門支援控制台</span>
+        <h3 style="font-size:20px;margin:6px 0 8px">點擊下方按鈕，檢視資訊管理部的三大角色，以及資訊系統如何支援其餘四大部門</h3>
+        <div class="chips" id="imSimChips">
+          <button class="chip active" onclick="renderImSim(0)">1. 資訊管理的 3 大角色與 3 項重要性</button>
+          <button class="chip" onclick="renderImSim(1)">支援：人力資源部</button>
+          <button class="chip" onclick="renderImSim(2)">支援：財務部</button>
+          <button class="chip" onclick="renderImSim(3)">支援：營運部</button>
+          <button class="chip" onclick="renderImSim(4)">支援：市場營銷部</button>
+        </div>
+        <div id="imSimBox" style="margin-top:10px"></div>
+      </div>
+
+      <div class="card" style="margin-bottom:0;border:2px solid var(--primary)">
+        <span class="badge b-blue">風險管理 (Risk Management) ＆ 四種風險管理策略</span>
+        <h3 style="font-size:20px;margin:6px 0 8px">點擊切換風險管理的角色、重要性與四種風險管理策略（迴避、承擔、減少、轉移）</h3>
+        <div class="chips" id="rmSimChips">
+          <button class="chip active" onclick="renderRmSim(0)">1. 風險管理的 2 大角色與 2 項重要性</button>
+          <button class="chip" onclick="renderRmSim(1)">2. 四種風險管理策略比較與原創實例</button>
+          <button class="chip" onclick="renderRmSim(2)">3. 原創案例：綠野露營體驗館暴雨、攀石牆扭傷與營釘失竊</button>
+        </div>
+        <div id="rmSimBox" style="margin-top:10px"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 子分頁 3B：資訊與風險挑戰 -->
+  <div class="sub-view" id="ir-sub-1">
+    <div class="card" style="margin-bottom:0">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <span class="badge b-teal">資訊管理職責與風險管理策略實戰挑戰</span>
+        <span id="irQuizProg" style="font-size:14.5px;font-weight:600;color:var(--mute)"></span>
+      </div>
+      <div id="irQuizQ" style="font-size:17.5px;font-weight:700;margin-bottom:14px"></div>
+      <div id="irQuizBtns" style="display:flex;flex-direction:column;gap:8px"></div>
+      <div id="irQuizFb" style="margin-top:14px;font-size:16px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 4. 六大功能相互支援與合作沙盤 ==================== -->
+<section class="view" id="sec-inter">
+  <div class="sec-banner">
+    <div>
+      <span class="badge b-blue">單元四：商業功能的相互關係（互相支援 ＆ 互相合作）</span>
+      <h1>六大商業功能「誰支援誰」互動矩陣 ＆ 重大商業計劃跨部門合作沙盤</h1>
+      <p>六項主要商業功能不能獨立運作，它們是互相關聯的，須在日常營運中：(1) 互相支援（互相依賴對方以獲得所需的資源、資訊和服務）；及 (2) 互相合作（共同合作以執行商業計劃如開設體驗店、推出網上配藥平台，或解決商業問題）。</p>
+    </div>
+    <div class="sub-nav">
+      <button class="active" onclick="switchSub('int', 0, this)">互相支援矩陣與跨部門合作沙盤</button>
+      <button onclick="switchSub('int', 1, this)">跨部門關係判斷挑戰</button>
+    </div>
+  </div>
+
+  <!-- 子分頁 4A：互相支援矩陣與合作沙盤 -->
+  <div class="sub-view active" id="int-sub-0">
+    <div class="grid2">
+      <div class="card" style="margin-bottom:0;border:2px solid var(--primary)">
+        <span class="badge b-blue">商業功能如何「互相支援」</span>
+        <h3 style="font-size:20px;margin:6px 0 8px">點選下方提供支援的部門，即時查看它如何向其他商業功能提供資源、資訊或服務支援</h3>
+        <div class="grid3" style="margin:10px 0" id="supFromBtns">
+          <button class="dept-btn active" onclick="renderSupportMatrix(0)">1. 人力資源部支援他部</button>
+          <button class="dept-btn" onclick="renderSupportMatrix(1)">2. 財務部支援他部</button>
+          <button class="dept-btn" onclick="renderSupportMatrix(2)">3. 營運部支援他部</button>
+          <button class="dept-btn" onclick="renderSupportMatrix(3)">4. 市場營銷部支援他部</button>
+          <button class="dept-btn" onclick="renderSupportMatrix(4)">5. 資訊管理部支援他部</button>
+          <button class="dept-btn" onclick="renderSupportMatrix(5)">6. 風險管理部支援他部</button>
+        </div>
+        <div id="supportMatrixOutput" style="margin-top:10px"></div>
+      </div>
+
+      <div class="card" style="margin-bottom:0;border:2px solid var(--teal)">
+        <span class="badge b-teal">商業功能如何「互相合作」</span>
+        <h3 style="font-size:20px;margin:6px 0 8px">選擇企業面對的重大原創商業專案或難題，檢視六大商業功能如何分工合作確保成功</h3>
+        <div class="chips" id="projSimChips">
+          <button class="chip active" onclick="renderProjSim(0)">專案 1：北歐智能家居品牌來港開體驗店</button>
+          <button class="chip" onclick="renderProjSim(1)">專案 2：連鎖藥妝店推出「網上視像配藥速遞平台」</button>
+          <button class="chip" onclick="renderProjSim(2)">專案 3：電競椅送貨太慢 ＆ 藍牙耳機廠旺季次貨率高</button>
+        </div>
+        <div id="projSimOutput" style="margin-top:10px"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 子分頁 4B：跨部門關係挑戰 -->
+  <div class="sub-view" id="int-sub-1">
+    <div class="card" style="margin-bottom:0">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <span class="badge b-teal">商業功能相互關係與職責正誤判斷挑戰</span>
+        <span id="interQuizProg" style="font-size:14.5px;font-weight:600;color:var(--mute)"></span>
+      </div>
+      <div id="interQuizQ" style="font-size:17.5px;font-weight:700;margin-bottom:14px"></div>
+      <div id="interQuizBtns" style="display:flex;flex-direction:column;gap:8px"></div>
+      <div id="interQuizFb" style="margin-top:14px;font-size:16px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 5. 論點建構問答工作坊 (12題：100% 原創情境・一題一論點・按論述邏輯點評) ==================== -->
+<section class="view" id="sec-builder">
+  <div class="sec-banner">
+    <div>
+      <span class="badge b-amber">一段一論點 · 100% 原創商業情境與論述邏輯點評訓練</span>
+      <h1>「一段一個獨立論點」論點建構工作坊</h1>
+      <p>本工作坊採用 <b>12 個全新原創的香港商業情境</b>，每道題目均嚴格要求建構<b>單一獨立論點段落</b>（4 道短答題：2 步建構 · 2 分；8 道進階論述題：3 步深度建構 · 3 分）。每個步驟均設有「滿分論述示範（綠燈）」、「能力較弱學生常犯的解說不足示範（琥珀黃燈）」及「概念或職責界線錯誤選項（紅燈）」，並針對<b>論述邏輯、因果推演與情境扣連深度</b>進行點評。</p>
+    </div>
+    <div class="sub-nav">
+      <button class="active" onclick="switchBuilderCat('short', this)">短答單一論點訓練 (4題)</button>
+      <button onclick="switchBuilderCat('essay', this)">論述單一論點訓練 (8題)</button>
+    </div>
+  </div>
+
+  <details class="guide-Collapsible">
+    <summary>查看「一題一論點、一段一論點」建構結構與論述點評標準（點擊展開 / 收起）</summary>
+    <div class="grid2" style="margin-top:14px;font-size:16px">
+      <div style="background:var(--primary-light);padding:14px 18px;border-radius:10px">
+        <b style="color:var(--primary)">短答題／個案題模式（單一論點滿分 2 分 — 2 步建構）</b><br>
+        <span class="hl-s1">第 1 步 (1分)</span> 準確指出單一商業功能或子功能名稱，並界定其核心職責邏輯<br>
+        <span class="hl-s2">第 2 步 (1分)</span> 緊扣題目企業的具體業務情況作針對性因果解說，完成單一論點閉環
+      </div>
+      <div style="background:var(--teal-light);padding:14px 18px;border-radius:10px">
+        <b style="color:var(--teal)">進階論述題模式（單一論點滿分 3 分 — 3 步深度建構）</b><br>
+        <span class="hl-s1">第 1 步 (1分)</span> 指出單一商業功能或子功能角色，並闡明其運作機制<br>
+        <span class="hl-s2">第 2 步 (1分)</span> 針對題目企業的業務背景，設定一個具體可行的商業運作例子作說明<br>
+        <span class="hl-s3">第 3 步 (1分)</span> 深化推論該單一論點最終對企業擴充運作、支援決策、提升服務質素或提高銷售額與盈利能力的具體影響
+      </div>
+    </div>
+  </details>
+
+  <div class="card" style="padding:18px 22px;margin-bottom:18px">
+    <div style="font-size:15px;color:var(--mute);font-weight:700;margin-bottom:8px" id="builderCatLabel">選擇短答題（每題建構單一 2 分論點）：</div>
+    <div class="chips" id="questionChips" style="margin:0"></div>
+  </div>
+
+  <div id="builderWorkspace"></div>
+</section>
+
+<script>
+  // Main Tab Switching
+  document.querySelectorAll('#mainTabs button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#mainTabs button').forEach(b => b.classList.remove('on'));
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('on'));
+      btn.classList.add('on');
+      document.getElementById(btn.dataset.tab).classList.add('on');
+    });
+  });
+
+  // Sub-view Switching
+  function switchSub(prefix, idx, btn) {
+    btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll(`[id^="${prefix}-sub-"]`).forEach((el, i) => {
+      el.classList.toggle('active', i === idx);
+    });
+  }
+
+  // ====== 1A. 六大商業功能職責分流與排雷模擬器（100% 原創任務） ======
+  const dispatchTasks = [
+    { task: "1. 為即將推出的新款 AR 智能導航眼鏡「釐定零售價格」，並舉辦產品體驗會向公眾推廣", ans: "市場營銷管理", trap: "高頻排雷：千萬不要以為「定價」有錢字就歸入財務部！財務部不會釐定產品的價格，<b>釐定產品價格（定價策略）和舉辦體驗會推廣（推廣策略）屬於市場營銷組合（4P），是「市場營銷部」的職責</b>！" },
+    { task: "2. 精品咖啡豆烘焙工場不幸發生電線短路火警受損，負責「比較火險條款並向保險公司就損失提出索償」", ans: "風險管理", trap: "高頻排雷：比較不同保險公司的保險計劃、購買保險轉移風險，以及在事故後<b>向保險公司就損失索償，均屬於「風險管理部」的職責</b>（而非財務部）！" },
+    { task: "3. 大型 24 小時連鎖健身中心為改善使用效率，正進行室內重新規劃以「改動重訓器械區間隔和更衣室擺位」", ans: "營運管理", trap: "概念解析：改動場內間隔和設備擺位屬於營運管理中「設計有效的生產程序」下的<b>「設計生產場地的佈局」</b>！" },
+    { task: "4. 為電動車電池製造廠的「生產部招聘和甄選新工程師」，並「決定裝配工人的薪酬及舉辦安全操作培訓工作坊」", ans: "人力資源管理", trap: "高頻排雷：不論是替哪個部門（生產部、診所前線或門市）招聘員工、決定員工薪酬或舉辦員工培訓工作坊，一律屬於<b>「人力資源管理部」</b>的職責（而非營運部或財務部）！" },
+    { task: "5. 處理私家牙科診所病人對輪候時間過長的投訴，並推出家庭護齒積分計劃以維持長遠關係", ans: "市場營銷管理", trap: "高頻排雷：<b>「處理顧客對產品品質或服務的投訴」</b>屬於市場營銷管理中的<b>「管理顧客關係 (CRM)」</b>（而「在廠房訂立品質控制規定及定期檢查設備」才屬於營運部的品質保證）！" },
+    { task: "6. 為跨區員工大會設立加密視像會議系統，並「維護企業的會計系統（以編製會計報告）」及「維護儲存員工考績結果與處理顧客調查數據的系統」", ans: "資訊管理", trap: "高頻排雷：只要工作是<b>「建立、開發或維護」</b>某套電腦系統（不論是會計系統、考績系統還是市場研究數據系統）或視像會議網絡，均屬於<b>「資訊管理部」</b>的職責！" },
+    { task: "7. 透過比較企業和競爭對手的「會計比率」來評估盈利能力與變現能力，並向銀行借取貸款購買原料及計算潛在新廠房項目的「淨現值 (NPV)」", ans: "財務管理", trap: "概念解析：分析會計比率（進行財務分析）、編製預算、作出投資決策（計算 NPV）、作出融資決策（獲取銀行貸款）及管理營運資金，均屬於<b>「財務管理部」</b>的職責！" },
+    { task: "8. 決定新中央食品工場的選址（選擇生產地點），持續追蹤冷庫內各類食材的數量，並安排冷凍車按時把食材運送到各分店", ans: "營運管理", trap: "概念解析：選擇生產／分店地點、建立生產線（設計生產流程）、安排崗位工作（設計工作）及持續追蹤存貨數量與安排運輸（存貨及物流配送管理），均屬於<b>「營運管理部」</b>的職責！" },
+    { task: "9. 本地物流集團計劃尋找更多海外投資機會，負責「評估收購東南亞一個冷鏈物流倉庫項目在財務上是否有利可圖（值得投資）」", ans: "財務管理", trap: "高頻排雷：注意字眼！「就海外消費者喜好進行調查」屬市場研究（市場營銷部）；但<b>「評估一項海外擴充或收購項目在財務上是否有利可圖／值得投資」</b>則屬於財務管理的<b>「作出投資決策」</b>！" },
+    { task: "10. 商務包機公司取消前往政局動盪地區的航線（風險迴避），而冷氣工程公司要求所有技工進行高空工作時必須扣上安全帶（風險減少）", ans: "風險管理", trap: "概念解析：識別和評估潛在風險，並制定風險管理策略（風險迴避、風險承擔、風險減少、風險轉移）以控制風險，屬於<b>「風險管理部」</b>的職責！" }
+  ];
+  let curDisp = 0;
+  function renderDispatch() {
+    document.getElementById('dispProg').textContent = `分流任務 ${curDisp + 1} / ${dispatchTasks.length}`;
+    document.getElementById('dispTaskBox').textContent = dispatchTasks[curDisp].task;
+    document.getElementById('dispFeedback').innerHTML = '';
+  }
+  function checkDispatch(choice) {
+    const it = dispatchTasks[curDisp];
+    const isOk = choice === it.ans;
+    document.getElementById('dispFeedback').innerHTML = `
+      <div style="background:${isOk?'var(--green-light)':'var(--red-light)'};border-left:4px solid ${isOk?'var(--green)':'var(--red)'};padding:12px 16px;border-radius:10px;color:${isOk?'#064e3b':'#881337'};font-size:15px">
+        <b>${isOk ? '✓ 分流正確！負責部門是【' + it.ans + '】。' : '✗ 分流錯誤！正確負責部門應該是【' + it.ans + '】。'}</b><br>${it.trap}
+      </div>
+      <div style="margin-top:8px;text-align:right"><button class="btn btn-outline" style="padding:6px 14px;font-size:14px" onclick="curDisp=(curDisp+1)%dispatchTasks.length;renderDispatch()">下一個任務 →</button></div>`;
+  }
+  renderDispatch();
+
+  // ====== 1B & 1C. 人力資源管理與財務管理（100% 原創例子） ======
+  const hrTabData = [
+    `<table class="comp-table" style="font-size:15px">
+      <thead><tr><th style="width:24%">人力資源部角色</th><th>具體工作描述與原創商業例子</th></tr></thead>
+      <tbody>
+        <tr><td><b>1. 人力規劃</b><br><small>(人力資源規劃)</small></td><td>• 預測要達成企業目標所需的<b>員工數量和類型</b>（如預測新開設的專科診所需要多少名註冊護士）。<br>• 決定企業須要填補哪些職位空缺，以及如何填補（若員工數量多於所需，則制定計劃縮減人數）。</td></tr>
+        <tr><td><b>2. 員工編制</b></td><td><b>招聘、甄選和僱用</b>合適的人選來填補企業的職位空缺（如刊登招聘廣告招募助護，並為求職者進行面試與技能測試以甄選合適人選）。</td></tr>
+        <tr><td><b>3. 員工考績</b><br><small>(工作評核)</small></td><td>設計一套設有<b>表現標準</b>的員工考績制度以評核員工表現；把員工表現與標準作比較，並為員工<b>提供回饋</b>，有助改善工作表現。</td></tr>
+        <tr><td><b>4. 報酬管理</b></td><td>制定一套<b>公平和具競爭力的報酬制度（薪酬制度及附帶福利，如底薪、表現花紅、有薪年假、醫療保險）</b>，以激勵員工努力工作，並吸引和留住人才。</td></tr>
+        <tr><td><b>5. 培訓和發展</b></td><td>為員工設計培訓和發展計劃（如為診所助護舉辦醫療儀器操作與醫患溝通工作坊），以<b>改善他們的技能和能力</b>。</td></tr>
+        <tr><td><b>6. 促進僱員關係</b></td><td>透過<b>內部溝通方式</b>（如定期舉辦員工大會向所有員工傳達企業目標和政策、組織迎新活動向新員工介紹公司），促進企業、員工和工會之間的和諧關係，令員工更投入。</td></tr>
+      </tbody>
+    </table>`,
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--green);font-size:15.5px;line-height:1.8">
+      <b style="color:var(--green);font-size:17px">人力資源管理對企業的四項重要性：</b><br>
+      • <b>(i) 為企業吸引、招聘和留住人才，幫助企業達成目標</b>（例如金融科技公司打算拓展東南亞電子支付市場時，招聘熟識當地金融法規的專才）。<br>
+      • <b>(ii) 幫助企業建立優質的工作團隊</b>（例如透過員工考績識別工程師的技能弱點，並透過合適的培訓來改善他們的表現）。<br>
+      • <b>(iii) 聘用合適的員工來填補職位空缺，並解僱過剩的員工，確保人力資源的供應能配合企業的需求</b>。<br>
+      • <b>(iv) 確保企業遵守所有勞工法例</b>（例如物業管理公司為新聘用的清潔員設計薪酬方案時，須確保符合最新的法定最低工資水平及強積金規定）。
+    </div>`
+  ];
+  function renderHrTab(idx) {
+    document.querySelectorAll('#hrTabChips .chip').forEach((c, i) => c.classList.toggle('active', i === idx));
+    document.getElementById('hrTabBox').innerHTML = hrTabData[idx];
+  }
+  renderHrTab(0);
+
+  const finTabData = [
+    `<table class="comp-table" style="font-size:15px">
+      <thead><tr><th style="width:26%">財務部角色</th><th>具體工作描述與原創商業例子</th></tr></thead>
+      <tbody>
+        <tr><td><b>1. 進行財務分析</b></td><td>利用<b>會計比率</b>（根據財務報表數字計算）來評估企業各方面的業績，包括<b>盈利能力、變現能力（短期償債能力）、償債能力和管理效能</b>，從而找出企業的強項與問題。</td></tr>
+        <tr><td><b>2. 財務規劃和編製預算</b></td><td>預測企業的財務需要，並<b>制定預算</b>（對未來收入和支出的預測，如為研發新款智能手錶編製銷售預算和費用預算），有助計劃如何運用財務資源。</td></tr>
+        <tr><td><b>3. 作出投資決策</b></td><td>選取良好的投資項目，從而<b>為東主賺取最大的財富</b>；可運用各種評估方法（如計算潛在自動化廠房投資項目的<b>淨現值 NPV</b>，並選擇淨現值最高的項目）評估某項目是否值得投資。</td></tr>
+        <tr><td><b>4. 作出融資決策</b></td><td>選擇融資方式，讓企業獲得投資以及支持營運和發展所需的資金。常見融資方式包括：<b>發行股票和債券、獲取銀行貸款，以及運用留存利潤</b>。</td></tr>
+        <tr><td><b>5. 作出營運資金決策</b></td><td>管理流動資產和流動負債（營運資金＝流動資產－流動負債）以維持變現能力：<br>(i) <b>現金管理</b>（鼓勵顧客以現金付款）；(ii) <b>應收帳款管理</b>（收緊收帳政策加快收回逾期應收帳款）；(iii) <b>應付帳款管理</b>（提早償還應付帳款以獲取現金折扣）；(iv) <b>存貨管理</b>（與營運部合作訂購充足存貨並把存貨成本降至最低）。</td></tr>
+      </tbody>
+    </table>`,
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--primary);font-size:15.5px;line-height:1.8">
+      <b style="color:var(--primary);font-size:17px">財務管理對企業的三項重要性：</b><br>
+      • <b>(i) 協助企業規劃財務資源，以及有效地分配和運用資金，確保企業能達成目標。</b><br>
+      • <b>(ii) 為企業籌集所需的資金，並有效地維持營運資金，確保企業可順利運作，不會結業。</b><br>
+      • <b>(iii) 協助企業達至穩定增長</b>（例如，明智的投資和融資決策能讓企業開展有利可圖的項目，從而提升盈利能力）。<br>
+      <div style="margin-top:10px;padding:10px 14px;background:var(--red-light);color:#881337;border-radius:8px;border-left:4px solid var(--red);font-weight:700">
+        必記職責邊界：財務部不會「為產品釐定價格」（這是市場營銷部的職責），也不會「決定員工的薪酬或花紅」（這是人力資源部的職責）！
+      </div>
+    </div>`
+  ];
+  function renderFinTab(idx) {
+    document.querySelectorAll('#finTabChips .chip').forEach((c, i) => c.classList.toggle('active', i === idx));
+    document.getElementById('finTabBox').innerHTML = finTabData[idx];
+  }
+  renderFinTab(0);
+
+  // 對稱深度設計的 6 道人資與財務挑戰題（100% 原創情境）
+  const hfQuizItems = [
+    {
+      q: "1. 以下哪幾項是一家大型連鎖醫務中心「人力資源經理」的職責？<br>(1) 在醫務中心合併分店後，解僱過剩的行政人員 ｜ (2) 透過員工考績評核診所助護的表現，並獎勵表現良好的助護 ｜ (3) 在社交媒體推出廣告來宣傳醫務中心的專科體檢服務 ｜ (4) 按市場薪酬調查標準調整醫護人員的薪酬 ｜ (5) 為新入職助護組織迎新活動，向他們介紹中心文化與工作環境",
+      opts: [
+        "A. 只有 (1)、(2)、(4) 和 (5)（推出廣告向公眾宣傳體檢服務屬於市場營銷經理的職責，而非人力資源經理的職責）",
+        "B. 只有 (2)、(3) 和 (4)（解僱過剩員工及組織迎新活動屬於營運經理及財務經理的職責）",
+        "C. (1)、(2)、(3)、(4) 和 (5) 全部都是醫務中心人力資源經理的職責"
+      ],
+      ans: 0,
+      exp: "正確。解僱過剩員工（人力規劃）、評核表現（員工考績）、調整員工薪酬（報酬管理）及組織迎新活動（促進僱員關係）均屬人力資源經理職責；但推出廣告向公眾宣傳服務 (3) 屬於市場營銷部職責。"
+    },
+    {
+      q: "2. 以下哪幾項是一家電動滑板車生產商「財務經理」的職責？<br>(1) 為研發新一代電動滑板車項目編製預算 ｜ (2) 向銀行借取貸款，以獲取購買鋰電池原料的資金 ｜ (3) 為即將上市的新款電動滑板車釐定零售價格 ｜ (4) 透過比較企業和競爭對手的會計比率，評估企業的變現能力 ｜ (5) 決定廠房裝配工人的每月基本薪酬 ｜ (6) 評估不同自動化生產線投資項目，選擇淨現值最高的項目",
+      opts: [
+        "A. 只有 (1)、(3) 和 (5)（釐定產品零售價格與決定工人薪酬只要涉及金錢便屬於財務經理的職責）",
+        "B. 只有 (1)、(2)、(4) 和 (6)（為新款產品釐定零售價格屬於市場營銷部職責；決定廠房工人薪酬則屬於人力資源部職責）",
+        "C. 只有 (2)、(4) 和 (5)（編製預算與評估投資項目屬於資訊管理經理的職責）"
+      ],
+      ans: 1,
+      exp: "正確。編製預算 (1)、借取銀行貸款 (2)、比較會計比率評估變現能力 (4) 及評估投資項目 (6) 均屬財務經理職責；但釐定產品價格 (3) 屬市場營銷部，決定員工薪酬 (5) 屬人力資源部。"
+    },
+    {
+      q: "3. 某跨國物流集團計劃在來年尋找更多投資機會，並決定對東南亞數個冷鏈貨倉發展項目進行財務研究，評估這些項目是否值得投資（如計算淨現值）。這項工作最可能涉及下列哪項主要商業功能？",
+      opts: [
+        "A. 市場營銷管理 — 因為所有與海外地區相關的研究工作都必定屬於消費者市場研究",
+        "B. 財務管理 — 因為評估潛在投資項目是否值得投資及能否為東主賺取最大財富，屬於財務管理中的『作出投資決策』功能",
+        "C. 資訊管理 — 因為評估冷鏈貨倉發展項目的投資回報完全由電腦技術員全權決定"
+      ],
+      ans: 1,
+      exp: "正確。尋找投資機會並評估項目是否值得投資（作出投資決策），屬於「財務管理」的主要功能。"
+    },
+    {
+      q: "4. 在下列哪種情況下，企業的「人力資源經理」必須採取行動？<br>(1) 貨櫃碼頭吊機操作員因不滿輪班安排而醞釀罷工 ｜ (2) 印刷廠添置了新型數碼鐳射印刷機，需要熟練的技工負責操作 ｜ (3) 公司須向銀行籌集資金，為擴充計劃招聘新員工",
+      opts: [
+        "A. 只有 (1) 和 (2)（處理罷工涉及促進僱員關係，聘請或培訓技工操作新機器涉及員工編制與培訓；而(3)籌集資金則由財務經理負責）",
+        "B. 只有 (2) 和 (3)（員工醞釀罷工完全與人力資源部無關，而向銀行籌集資金則由人力資源經理全權負責）",
+        "C. (1)、(2) 和 (3) 全部都由人力資源經理負責採取行動"
+      ],
+      ans: 0,
+      exp: "正確。(1) 員工醞釀罷工需人力資源部促進僱員關係；(2) 需要熟練技工操作新機器需人力資源部進行招聘或培訓；但 (3) 籌集資金屬於財務管理（作出融資決策）的工作。"
+    },
+    {
+      q: "5. 陳主任是會計師事務所的審計經理，他發現新入職的初級審計員缺乏使用最新電腦審計軟件所需的技能。這與下列哪項人力資源管理工作最為相關？",
+      opts: [
+        "A. 員工編制 — 應立即在報章刊登招聘廣告重新聘請外部求職者",
+        "B. 培訓和發展 — 為下屬設計合適的軟件操作培訓計劃，以改善他們執行工作所需的技能和能力",
+        "C. 財務規劃 — 為下屬編製來年的部門銷售預算與費用預算"
+      ],
+      ans: 1,
+      exp: "正確。當現職下屬缺乏執行工作所需的技能時，最相關的人力資源管理功能是「培訓和發展」（為員工設計培訓計劃以改善技能和能力）。"
+    },
+    {
+      q: "6. 關於「財務管理」中的「作出營運資金決策」，下列哪項描述最為準確？",
+      opts: [
+        "A. 營運資金管理是指管理企業的非流動資產（如廠房樓宇）及長期銀行按揭貸款，旨在擴大企業的註冊股本",
+        "B. 營運資金管理是指管理企業的流動資產和流動負債（包括現金、應收帳款、應付帳款和存貨），例如收緊收帳政策加快收回應收帳款，有助企業維持變現能力",
+        "C. 營運資金管理只包括為公司的新產品設計包裝外觀及決定電視廣告的播放時段"
+      ],
+      ans: 1,
+      exp: "正確。作出營運資金決策是指管理企業的流動資產和流動負債（現金、應收帳款、應付帳款和存貨），良好的營運資金管理有助企業維持變現能力（短期償債能力）。"
+    }
+  ];
+  let curHFQ = 0;
+  function renderHfQuiz() {
+    const it = hfQuizItems[curHFQ];
+    document.getElementById('hfQuizProg').textContent = `題目 ${curHFQ + 1} / ${hfQuizItems.length}`;
+    document.getElementById('hfQuizQ').innerHTML = it.q;
+    document.getElementById('hfQuizBtns').innerHTML = it.opts.map((o, i) => `<button class="opt-card" style="margin:0;padding:12px 16px" onclick="checkHfQuiz(${i})">${o}</button>`).join('');
+    document.getElementById('hfQuizFb').innerHTML = '';
+  }
+  function checkHfQuiz(idx) {
+    const it = hfQuizItems[curHFQ];
+    const fb = document.getElementById('hfQuizFb');
+    if (idx === it.ans) {
+      fb.innerHTML = `<span style="color:var(--green);font-weight:700">${it.exp}</span> <button class="btn btn-outline" style="margin-left:8px;padding:6px 14px;font-size:14.5px" onclick="curHFQ=(curHFQ+1)%hfQuizItems.length;renderHfQuiz()">下一題</button>`;
+    } else {
+      fb.innerHTML = `<span style="color:var(--red);font-weight:700">答案不正確。${it.exp.replace('正確。','')}</span>`;
+    }
+  }
+  renderHfQuiz();
+
+  // ====== 2. 營運管理與市場營銷管理（100% 原創例子） ======
+  const opsSimData = [
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--primary);font-size:15px;line-height:1.75">
+      <b style="color:var(--primary);font-size:17px">營運系統：把「投入 (Inputs)」轉化為「產出 (Outputs：製成品或服務)」的過程：</b>
+      <div class="chips" style="margin:8px 0">
+        <button class="chip active" onclick="showTransFlow(0,this)">1. 手工松露朱古力工坊</button>
+        <button class="chip" onclick="showTransFlow(1,this)">2. 摺疊式電動單車廠</button>
+        <button class="chip" onclick="showTransFlow(2,this)">3. 專業乾洗護理公司 (服務產出)</button>
+      </div>
+      <div id="transFlowInner">
+        <div class="flow-chain">
+          <div class="flow-node">投入 (Inputs)<br><span style="color:var(--ink);font-weight:600">可可豆、鮮忌廉、模具、甜品師</span></div>
+          <span class="flow-arrow">➔</span>
+          <div class="flow-node" style="background:var(--teal-light);color:var(--teal);border-color:var(--teal)">營運系統生產程序<br><span style="color:var(--ink);font-weight:600">在工坊調溫、倒模及冷藏定型</span></div>
+          <span class="flow-arrow">➔</span>
+          <div class="flow-node" style="background:var(--green-light);color:var(--green);border-color:var(--green)">產出 (Outputs)<br><span style="color:var(--ink);font-weight:600">手工松露朱古力禮盒 (有形製成品)</span></div>
+        </div>
+      </div>
+    </div>`,
+    `<table class="comp-table" style="font-size:15px">
+      <thead><tr><th style="width:28%">角色 1：設計有效的生產程序（5項工作）</th><th>具體工作描述與原創例子（生產貨品及服務均適用）</th></tr></thead>
+      <tbody>
+        <tr><td><b>(1) 計劃生產能力</b></td><td>決定企業的<b>生產能力（在某段期間運用現有資源生產貨品和服務的最高生產量）</b>，務求滿足顧客的需求（如室內滑雪場規劃每日每節最高接待滑雪人次）。</td></tr>
+        <tr><td><b>(2) 選擇生產地點</b></td><td>選擇一個<b>既能盡量減低生產成本，又可增加營運效率的地點</b>（對零售商或診所等服務業公司來說，生產地點是指用來提供服務的<b>店鋪選址</b>）。</td></tr>
+        <tr><td><b>(3) 設計生產流程</b></td><td>為<b>生產程序中的各個項目排序</b>（例如營運經理在太陽能電池廠建立組裝生產線，或理順電競椅縫紉與組裝的先後工序）。</td></tr>
+        <tr><td><b>(4) 設計工作</b></td><td><b>安排和分配工作給不同崗位</b>，以及設計各個工作崗位的工作場地和工作環境。</td></tr>
+        <tr><td><b>(5) 設計生產場地的佈局</b></td><td>設計生產場地的佈局以配合生產程序，例如<b>決定應採用甚麼設備和放置它們的位置</b>（如健身中心改動重訓器械區間隔和擺位）。適當的場地佈局能提升員工處理原料和使用設備的效率，提高生產力。</td></tr>
+      </tbody>
+    </table>`,
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--primary);font-size:15.5px;line-height:1.8">
+      <b style="color:var(--primary);font-size:17px">營運部的其餘三大角色與三項重要性：</b><br>
+      • <b>角色 2：存貨管理</b> — 持續追蹤存貨（包括原料、在製品和製成品），確保能隨時使用完好無缺的存貨（如連鎖藥妝店營運部持續追蹤每類保健品在每家分店的數量並及時補貨，以免缺貨）。<br>
+      • <b>角色 3：品質保證</b> — 確保貨品和服務都是優質的：<b>(i) 訂立品質控制規定，讓員工遵守；(ii) 定期檢查產品、生產工具和設備；以及 (iii) 向供應商購買優質原料</b>。<br>
+      • <b>角色 4：物流及配送管理</b> — 對生產有形貨品的企業而言，須妥善包裝貨品以便運輸，並在合理的時間內把貨品交付顧客（如有機蔬菜工場每天安排冷藏車把鮮菜運送到各區門市）。<br>
+      <div style="margin-top:8px;background:var(--card);padding:10px 14px;border-radius:8px;border-left:4px solid var(--green)">
+        <b>營運管理的 3 項重要性：</b>(i) 監督生產程序並保持存貨充足，<b>確保企業順利運作</b>；(ii) 確保採取有效的生產程序和善用資源，<b>提升企業的整體生產力</b>；(iii) 透過完善的品質保證系統，<b>確保企業的貨品和服務質素均符合標準</b>。
+      </div>
+    </div>`
+  ];
+  const transFlows = [
+    `<div class="flow-chain"><div class="flow-node">投入 (Inputs)<br><span style="color:var(--ink);font-weight:600">可可豆、鮮忌廉、模具、甜品師</span></div><span class="flow-arrow">➔</span><div class="flow-node" style="background:var(--teal-light);color:var(--teal);border-color:var(--teal)">營運系統生產程序<br><span style="color:var(--ink);font-weight:600">在工坊調溫、倒模及冷藏定型</span></div><span class="flow-arrow">➔</span><div class="flow-node" style="background:var(--green-light);color:var(--green);border-color:var(--green)">產出 (Outputs)<br><span style="color:var(--ink);font-weight:600">手工松露朱古力禮盒 (有形製成品)</span></div></div>`,
+    `<div class="flow-chain"><div class="flow-node">投入 (Inputs)<br><span style="color:var(--ink);font-weight:600">鋁合金車架、鋰電池、馬達零件</span></div><span class="flow-arrow">➔</span><div class="flow-node" style="background:var(--teal-light);color:var(--teal);border-color:var(--teal)">營運系統生產程序<br><span style="color:var(--ink);font-weight:600">在車間生產線焊接、組裝及調試</span></div><span class="flow-arrow">➔</span><div class="flow-node" style="background:var(--green-light);color:var(--green);border-color:var(--green)">產出 (Outputs)<br><span style="color:var(--ink);font-weight:600">摺疊式電動單車 (有形製成品)</span></div></div>`,
+    `<div class="flow-chain"><div class="flow-node">投入 (Inputs)<br><span style="color:var(--ink);font-weight:600">顧客髒西裝、環保乾洗溶劑、熨衣機</span></div><span class="flow-arrow">➔</span><div class="flow-node" style="background:var(--teal-light);color:var(--teal);border-color:var(--teal)">營運系統生產程序<br><span style="color:var(--ink);font-weight:600">去漬、專業乾洗及高溫蒸氣熨平</span></div><span class="flow-arrow">➔</span><div class="flow-node" style="background:var(--green-light);color:var(--green);border-color:var(--green)">產出 (Outputs)<br><span style="color:var(--ink);font-weight:600">服務：潔淨挺直的衣物交還顧客</span></div></div>`
+  ];
+  function showTransFlow(fIdx, btn) {
+    btn.parentElement.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('transFlowInner').innerHTML = transFlows[fIdx];
+  }
+  function renderOpsSim(idx) {
+    document.querySelectorAll('#opsSimChips .chip').forEach((c, i) => c.classList.toggle('active', i === idx));
+    document.getElementById('opsSimBox').innerHTML = opsSimData[idx];
+  }
+  renderOpsSim(0);
+
+  const mktSimData = [
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--teal);font-size:15.5px;line-height:1.8">
+      <b style="color:var(--teal);font-size:17px">市場營銷部角色 (1) 至 (3)：</b><br>
+      • <b>1. 進行市場研究</b>：透過問卷調查、深入面談和聚焦小組面談收集市場數據，找出顧客需要、預測需求、評估市場營銷表現，並識別市場機會與應對危機（如見新對手以較低價格搶客，一同調低價格或提供更佳服務）。<br>
+      • <b>2. 劃分市場、選定目標市場並決定市場定位</b>：按顧客不同的需要、特徵和消費模式把市場劃分為較細小組別，選擇要服務的目標市場（目標顧客），最後決定反映企業競爭優勢的市場定位。<br>
+      • <b>3. 制定市場營銷策略（4P 市場營銷組合）</b>：<br>
+      &nbsp;&nbsp;① <b>產品策略 (Product)</b>：決定為滿足目標顧客需要而提供的貨品或服務（如寵物食品店決定出售無添加鮮食包、智能家電店提供購買日起計三年內免費上門保養服務）；<br>
+      &nbsp;&nbsp;② <b>定價策略 (Price)</b>：決定目標顧客購買產品時須支付的金額（如釐定新款暖風機或體檢套票的價格）；<br>
+      &nbsp;&nbsp;③ <b>分銷策略 (Place)</b>：決定如何讓目標顧客取得產品（如透過實體專門店、百貨專櫃或開發手機應用程式讓顧客網購）；<br>
+      &nbsp;&nbsp;④ <b>推廣策略 (Promotion)</b>：決定透過甚麼活動把產品特點和優點告知目標顧客並游說購買（如舉辦歲晚感謝祭大減價促銷活動、社交媒體廣告）。
+    </div>`,
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--teal);font-size:15.5px;line-height:1.8">
+      <b style="color:var(--teal);font-size:17px">市場營銷部角色 (4) 至 (5)：</b><br>
+      • <b>4. 執行和控制市場營銷活動</b>：與企業內部和外部人員（如分銷商）合作把市場營銷計劃付諸實行，並量度和評估活動的結果，確保市場營銷活動按計劃完成。<br>
+      • <b>5. 管理顧客關係</b>：維持與顧客的長遠關係，有助吸引新顧客和留住現有顧客，並提升<b>顧客忠誠度（顧客願意長久支持某產品或品牌，並重複購買的程度）</b>。四種具體方式包括：<br>
+      &nbsp;&nbsp;(i) <b>採用顧客關係管理系統，為顧客度身訂造產品</b>（如按顧客膚質度身調配護膚精華）；<br>
+      &nbsp;&nbsp;(ii) <b>推出積點計劃或會員計劃</b>（如精品書店會員儲分換購限量文具），鼓勵再次光顧；<br>
+      &nbsp;&nbsp;(iii) <b>提供附加服務（增值服務）</b>（如傢俬店提供免費 3D 室內擺位設計諮詢、眼鏡店提供免費終身超聲波洗眼鏡服務）；以及<br>
+      &nbsp;&nbsp;(iv) <b>有效地處理顧客的投訴</b>。
+    </div>`,
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--teal);font-size:15.5px;line-height:1.8">
+      <b style="color:var(--teal);font-size:17px">市場營銷管理對企業的四項重要性：</b><br>
+      • <b>(i) 協助企業找出和滿足顧客的需要。</b><br>
+      • <b>(ii) 透過制定合適的市場營銷策略，幫助企業應付競爭</b>（只要比競爭對手更能滿足目標顧客需要，就能創造收益）。<br>
+      • <b>(iii) 幫助企業與顧客維持長遠關係，從而提升顧客忠誠度。</b><br>
+      • <b>(iv) 幫助企業監察和應對市場變化</b>（如透過進行市場研究緊貼市場變化，並調整市場營銷策略應對轉變）。<br>
+      <div style="margin-top:10px;padding:10px 14px;background:var(--red-light);color:#881337;border-radius:8px;border-left:4px solid var(--red);font-weight:700">
+        必記職責邊界：市場營銷部不會執行「品質保證（制定內部產品品質標準或檢查產品）」（這是營運部的職責），也不會「訓練銷售人員或決定銷售人員花紅」（這是人力資源部的職責）！
+      </div>
+    </div>`
+  ];
+  function renderMktSim(idx) {
+    document.querySelectorAll('#mktSimChips .chip').forEach((c, i) => c.classList.toggle('active', i === idx));
+    document.getElementById('mktSimBox').innerHTML = mktSimData[idx];
+  }
+  renderMktSim(0);
+
+  // 對稱深度設計的 6 道營運與市場營銷挑戰題（100% 原創情境）
+  const omQuizItems = [
+    {
+      q: "1. 指出某智能家電連鎖店的以下四項市場營銷策略，分別涉及市場營銷組合（「4P」）中的哪個元素：<br>(a) 提供購買日起計三年內免費上門保養服務 ｜ (b) 為冬季推出的新款陶瓷暖風機釐定零售價格 ｜ (c) 舉辦歲晚感謝祭大減價以吸引更多顧客 ｜ (d) 開發手機應用程式，讓顧客在網上選購家電",
+      opts: [
+        "A. (a) 產品策略 ｜ (b) 定價策略 ｜ (c) 推廣策略 ｜ (d) 分銷策略",
+        "B. (a) 推廣策略 ｜ (b) 定價策略 ｜ (c) 產品策略 ｜ (d) 分銷策略",
+        "C. (a) 分銷策略 ｜ (b) 產品策略 ｜ (c) 推廣策略 ｜ (d) 定價策略"
+      ],
+      ans: 0,
+      exp: "正確。(a) 提供免費上門保養等附加服務屬於「產品策略」；(b) 釐定暖風機價格屬於「定價策略」；(c) 舉辦歲晚感謝祭大減價吸引顧客屬於「推廣策略」；(d) 開發手機應用程式讓顧客網購取得產品屬於「分銷策略」。"
+    },
+    {
+      q: "2. 以下哪幾項是一家手工曲奇餅製造商「營運經理」的職責？<br>(1) 為烘焙工場招聘新西餅師傅 ｜ (2) 持續追蹤貨倉內牛油麵粉及曲奇禮盒的存貨數量 ｜ (3) 在工場建立自動烘焙及包裝生產線 ｜ (4) 訂立衛生與品質控制規定，讓烘焙工人遵守 ｜ (5) 處理顧客對曲奇餅碎裂的投訴 ｜ (6) 安排和分配工作給不同崗位的工場工人",
+      opts: [
+        "A. 只有 (2)、(3)、(4) 和 (6)（為工場招聘西餅師傅屬於人力資源部職責；處理顧客對產品品質的投訴則屬於市場營銷部管理顧客關係的職責）",
+        "B. 只有 (1)、(2)、(3) 和 (5)（訂立品質控制規定屬於市場營銷部職責；安排崗位工作屬於財務部職責）",
+        "C. (1)、(2)、(3)、(4)、(5) 和 (6) 全部都是曲奇餅製造商營運經理的職責"
+      ],
+      ans: 0,
+      exp: "正確。持續追蹤存貨 (2)、建立生產線 (3)、訂立品質控制規定 (4) 及安排崗位工作 (6) 均屬營運經理職責；但招聘烘焙工人 (1) 屬人力資源部，處理顧客投訴 (5) 屬市場營銷部。"
+    },
+    {
+      q: "3. 以下哪幾項是一家本地連鎖體檢中心「市場營銷經理」的職責？<br>(1) 評估在九龍區增設新化驗中心在財務上是否有利可圖 ｜ (2) 為長者設計全面心血管身體檢查套票 ｜ (3) 決定向健康顧問派發的年終花紅金額 ｜ (4) 就市民對身體檢查項目的需要進行問卷調查 ｜ (5) 為前線接待員舉辦提升禮儀的培訓工作坊 ｜ (6) 處理顧客對預約服務安排的投訴",
+      opts: [
+        "A. 只有 (1)、(3) 和 (5)（評估投資項目、決定員工花紅及舉辦員工培訓全部屬於市場營銷經理的職責）",
+        "B. 只有 (2)、(4) 和 (6)（設計體檢套票屬產品策略、調查市民需要屬市場研究、處理顧客投訴屬管理顧客關係；而(1)評估投資是否有利可圖屬財務部，(3)決定花紅及(5)舉辦員工培訓屬人力資源部）",
+        "C. 只有 (1)、(2)、(4) 和 (6)（評估增設新中心在財務上是否有利可圖屬於市場營銷研究的一部分）"
+      ],
+      ans: 1,
+      exp: "正確。設計體檢套票 (2)、調查市民需要 (4) 及處理顧客投訴 (6) 屬市場營銷經理職責；而評估投資是否有利可圖 (1) 屬財務部，決定花紅 (3) 及舉辦員工培訓 (5) 屬人力資源部。"
+    },
+    {
+      q: "4. 某精釀飲品廠為節省成本計劃搬遷廠房：它在新界工業區找到合適的新廠房地點，正計劃如何向銀行籌集搬遷所需資金；企業在落實計劃後，將舉行一次員工大會，通知所有員工有關搬遷的決定及交通安排。上述個案涉及哪幾項主要商業功能？",
+      opts: [
+        "A. 只涉及營運管理及財務管理，因為通知員工搬遷決定並不屬於任何商業功能",
+        "B. 同時涉及 (1) 營運管理（選擇生產地點）、(2) 財務管理（籌集所需資金）以及 (3) 人力資源管理（舉行員工大會向所有員工傳達決定，屬促進僱員關係）",
+        "C. 只涉及市場營銷管理及風險管理，與營運、財務或人力資源管理無關"
+      ],
+      ans: 1,
+      exp: "正確。找到合適新廠房地點屬「營運管理（選擇生產地點）」；計劃如何籌集資金屬「財務管理（作出融資決策）」；舉行員工大會通知所有員工屬「人力資源管理（促進僱員關係）」。"
+    },
+    {
+      q: "5. 某大型連鎖健身中心為改善使用效率，正進行室內翻新工程，以「改動重訓器械區間隔和更衣室儲物櫃擺位」。這與下列哪項營運管理工作最為相關？",
+      opts: [
+        "A. 計劃生產能力 — 決定健身中心在某段期間運用現有資源的最高接待人數",
+        "B. 設計生產場地的佈局 — 決定應採用甚麼設備和放置它們的位置，以提升員工與會員使用設備的效率",
+        "C. 選擇生產地點 — 為健身中心在另一地區尋找一個可減低租金成本的新分店選址"
+      ],
+      ans: 1,
+      exp: "正確。在現有場館內進行翻新以改動間隔和設備擺位，屬於設計有效生產程序中的「設計生產場地的佈局」。"
+    },
+    {
+      q: "6. 市場營銷經理負責執行下列哪些工作？<br>(1) 決定生產甚麼產品（產品策略） ｜ (2) 決定目標市場 ｜ (3) 訓練銷售人員 ｜ (4) 制定企業內部的產品品質標準 ｜ (5) 決定是否採用零售商來分銷產品（分銷策略）",
+      opts: [
+        "A. 只有 (1)、(2) 和 (5)（訓練銷售人員屬於人力資源部的工作；制定內部產品品質標準則屬於營運部品質保證的工作）",
+        "B. 只有 (1)、(2)、(3) 和 (4)（決定是否採用零售商分銷產品屬於財務部的工作）",
+        "C. 只有 (3)、(4) 和 (5)（決定生產甚麼產品及決定目標市場屬於營運經理的工作）"
+      ],
+      ans: 0,
+      exp: "正確。市場營銷經理負責決定生產甚麼產品 (1)、決定目標市場 (2) 及決定是否採用零售商分銷產品 (5)；訓練銷售人員 (3) 屬人力資源部，制定內部產品品質標準與安排送貨 (4) 屬營運部。"
+    }
+  ];
+  let curOMQ = 0;
+  function renderOmQuiz() {
+    const it = omQuizItems[curOMQ];
+    document.getElementById('omQuizProg').textContent = `題目 ${curOMQ + 1} / ${omQuizItems.length}`;
+    document.getElementById('omQuizQ').innerHTML = it.q;
+    document.getElementById('omQuizBtns').innerHTML = it.opts.map((o, i) => `<button class="opt-card" style="margin:0;padding:12px 16px" onclick="checkOmQuiz(${i})">${o}</button>`).join('');
+    document.getElementById('omQuizFb').innerHTML = '';
+  }
+  function checkOmQuiz(idx) {
+    const it = omQuizItems[curOMQ];
+    const fb = document.getElementById('omQuizFb');
+    if (idx === it.ans) {
+      fb.innerHTML = `<span style="color:var(--green);font-weight:700">${it.exp}</span> <button class="btn btn-outline" style="margin-left:8px;padding:6px 14px;font-size:14.5px" onclick="curOMQ=(curOMQ+1)%omQuizItems.length;renderOmQuiz()">下一題</button>`;
+    } else {
+      fb.innerHTML = `<span style="color:var(--red);font-weight:700">答案不正確。${it.exp.replace('正確。','')}</span>`;
+    }
+  }
+  renderOmQuiz();
+
+  // ====== 3. 資訊管理與風險管理（100% 原創例子） ======
+  const imSimData = [
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--teal);font-size:15.5px;line-height:1.8">
+      <b style="color:var(--teal);font-size:17px">資訊管理部的三大角色與三項重要性：</b><br>
+      • <b>角色 1：儲存、處理和管理業務交易數據</b> — 建立系統記錄每日的交易並更新銷售記錄、儲存和處理採購和配送數據、按銷售數據更新存貨數量，以及編製會計報告（<b>數據經過處理和分析後，便成為資訊或資料</b>）。<br>
+      • <b>角色 2：建立和維護資訊系統，以支援其他部門</b> — 讓其他部門可從系統獲取可靠和適時的資訊，以作出適當的決策（請點擊上方各部門按鈕查看具體例子）。<br>
+      • <b>角色 3：建立和維護網絡系統，以促進溝通</b> — 設立內聯網、電郵系統、網上雲端儲存空間分享文件、視像會議和網絡廣播系統，促進員工之間的內部溝通和合作。<br>
+      <div style="margin-top:8px;background:var(--card);padding:10px 14px;border-radius:8px;border-left:4px solid var(--teal)">
+        <b>資訊管理的 3 項重要性：</b>(i) 向各個部門提供有用的商業資訊，<b>支援各個部門作出決策</b>；(ii) 儲存、處理和管理業務的交易數據，<b>支援企業的日常運作</b>；(iii) 建立和維護用於溝通的網絡系統，<b>促進員工之間的溝通和合作</b>。
+      </div>
+    </div>`,
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--green);font-size:15.5px;line-height:1.8">
+      <b style="color:var(--green);font-size:17px">資訊系統如何幫助【人力資源部】：</b><br>
+      • <b>1. 記錄和儲存員工的個人資料、出勤記錄和員工考績結果</b><br>
+      &nbsp;&nbsp;➔ <b>對人力資源部的重要性：</b>協助<b>作出各種人力資源管理決策，例如決定員工晉升、續約和薪金調整</b>。<br>
+      • <b>2. 儲存員工的培訓記錄和技能檔案</b><br>
+      &nbsp;&nbsp;➔ <b>對人力資源部的重要性：</b>協助識別技能差距以<b>為員工提供合適的培訓課程</b>。
+    </div>`,
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--primary);font-size:15.5px;line-height:1.8">
+      <b style="color:var(--primary);font-size:17px">資訊系統如何幫助【財務部】：</b><br>
+      • <b>收集和儲存財務數據（例如企業每日的收入和各項支出），並自動編製會計報告</b><br>
+      &nbsp;&nbsp;➔ <b>對財務部的重要性 (i)：</b>協助<b>編製財務報表（損益表和財務狀況表）和進行財務分析（計算會計比率），以評估企業的業績</b>。<br>
+      &nbsp;&nbsp;➔ <b>對財務部的重要性 (ii)：</b>提供收支歷史數據參考，協助<b>為企業各部門編製預算</b>。
+    </div>`,
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--amber);font-size:15.5px;line-height:1.8">
+      <b style="color:var(--amber);font-size:17px">資訊系統如何幫助【營運部】：</b><br>
+      • <b>1. 追蹤存貨和自動更新存貨數量</b><br>
+      &nbsp;&nbsp;➔ <b>對營運部的重要性：</b>讓營運部<b>能輕易地檢查各倉庫及分店的存貨數量，並適時訂購補充存貨，避免出現缺貨或生產停頓</b>。<br>
+      • <b>2. 儲存和分析顧客退貨及次貨的數據</b><br>
+      &nbsp;&nbsp;➔ <b>對營運部的重要性：</b>協助營運部<b>找出潛在的產品品質和生產程序問題</b>，從而改善品質保證。
+    </div>`,
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid #be185d;font-size:15.5px;line-height:1.8">
+      <b style="color:#be185d;font-size:17px">資訊系統如何幫助【市場營銷部】：</b><br>
+      • <b>1. 儲存和分析市場研究數據</b> ➔ <b>重要性：</b>了解顧客的需要和喜好並預測需求；制定合適的市場營銷策略，評估企業的市場營銷表現。<br>
+      • <b>2. 儲存顧客個人資料和過往購買記錄</b> ➔ <b>重要性：</b>為顧客度身訂造貨品或服務；根據以往的購買記錄向顧客精準推薦產品。<br>
+      • <b>3. 收集、儲存和處理各產品的銷售數據</b> ➔ <b>重要性：</b>量度及評估各項市場營銷策略和推廣活動的成效。
+    </div>`
+  ];
+  function renderImSim(idx) {
+    document.querySelectorAll('#imSimChips .chip').forEach((c, i) => c.classList.toggle('active', i === idx));
+    document.getElementById('imSimBox').innerHTML = imSimData[idx];
+  }
+  renderImSim(0);
+
+  const rmSimData = [
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--primary);font-size:15.5px;line-height:1.8">
+      <b style="color:var(--primary);font-size:17px">風險管理部的兩大角色與兩項重要性：</b><br>
+      • <b>角色 1：識別和量度風險</b> — 識別和評估企業可能面對的風險（包括火災、員工傷亡、盜竊、機件故障、工人罷工、針對企業的訴訟和颱風暴雨等自然災害）。<br>
+      • <b>角色 2：控制風險</b> — 為企業制定風險管理策略（風險迴避、風險承擔、風險減少、風險轉移），並選擇最合適的措施來控制和管理風險。<br>
+      <div style="margin-top:8px;background:var(--card);padding:10px 14px;border-radius:8px;border-left:4px solid var(--primary)">
+        <b>風險管理的 2 項重要性：</b>(i) 透過識別和評估可能導致損失的風險，<b>減少企業運作的不確定性</b>；(ii) 透過使用最合適的風險管理策略，<b>將損失減到最少，並保障企業員工和資產的安全</b>。
+      </div>
+    </div>`,
+    `<table class="comp-table" style="font-size:15px">
+      <thead><tr><th style="width:22%">風險管理策略</th><th style="width:38%">運作原理</th><th style="width:40%">原創商業例子</th></tr></thead>
+      <tbody>
+        <tr><td><b>1. 風險迴避</b><br><small>Risk Avoidance</small></td><td>透過<b>不參與</b>導致損失的活動，<b>徹底消除</b>可能導致損失的風險。</td><td>• 紅色暴雨警告生效時，西貢獨木舟租賃中心停止所有出海活動<br>• 商務包機公司取消飛往政局動盪地區的航線<br>• 財務公司拒絕批出貸款予信貸評級極差的申請人</td></tr>
+        <tr><td><b>2. 風險承擔</b><br><small>Risk Assumption</small></td><td><b>預留一筆資金</b>來應付潛在損失，以<b>自行承擔</b>可能導致損失的風險。</td><td>• 共享工作空間認為原子筆及便利貼價值不高，決定自行承擔文具損耗或遺失的風險<br>• 手機遊戲開發商預留儲備金承擔新遊戲不受玩家歡迎的損失</td></tr>
+        <tr><td><b>3. 風險減少</b><br><small>Risk Reduction</small></td><td><b>減少出現損失的機會或損失的規模</b>，從而減少可能導致損失的風險。</td><td>• 珠寶展廳安裝紅外線防盜警鐘及防彈玻璃以減少被劫風險<br>• 冷氣工程公司要求所有技工進行高空工作時必須扣上安全帶<br>• 數據中心安裝後備發電機及自動滅火系統</td></tr>
+        <tr><td><b>4. 風險轉移</b><br><small>Risk Transfer</small></td><td>把可能導致損失的風險<b>轉移給他人來承擔（通常透過購買保險或簽訂外判合約）</b>。</td><td>• 商場將高空玻璃幕牆清潔工程外判給專業吊船工程公司<br>• 連鎖藥妝店購買火險及水險，就店鋪發生火災或水浸的風險獲取保障</td></tr>
+      </tbody>
+    </table>`,
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--red);font-size:15px;line-height:1.75">
+      <b style="color:var(--red);font-size:16.5px">原創案例實戰（「綠野露營裝備體驗館」面對三大風險：① 雨季在山澗舉辦戶外露營團遇山洪暴發的危險；② 顧客在店內試玩室內攀石牆時扭傷及器材起火索償；③ 陳列架上的廉價塑膠營釘小配件偶爾被順手牽羊）：</b><br>
+      風險經理可如何運用不同風險管理策略來處理上述風險？<br>
+      • <b>1. 風險迴避（針對雨季山澗露營危險）</b>：決定取消所有在雨季於高危山澗舉行的戶外露營體驗團，透過不參與該高危活動徹底消除山洪暴發引致傷亡的風險。<br>
+      • <b>2. 風險轉移 ＆ 風險減少（針對室內攀石牆意外及火警）</b>：向保險公司<b>購買公眾責任保險及火險</b>，把賠償與財物損失風險轉移給保險公司（風險轉移）；同時在攀石牆下鋪設加厚防撞軟墊、規定必須由教練扣好安全繩才可試爬，並安裝自動灑水系統（風險減少）。<br>
+      • <b>3. 風險承擔（針對廉價營釘小配件失竊）</b>：由於塑膠營釘價值極低，體驗館可預留一筆小額備用金<b>自行承擔</b>重置少量遺失配件的損失！
+    </div>`
+  ];
+  function renderRmSim(idx) {
+    document.querySelectorAll('#rmSimChips .chip').forEach((c, i) => c.classList.toggle('active', i === idx));
+    document.getElementById('rmSimBox').innerHTML = rmSimData[idx];
+  }
+  renderRmSim(0);
+
+  // 對稱深度設計的 6 道資訊與風險挑戰題（100% 原創情境）
+  const irQuizItems = [
+    {
+      q: "1. 以下哪幾項是一家連鎖健身中心「資訊經理」的職責？<br>(1) 為分區經理會議設立加密視像會議系統 ｜ (2) 維護企業的會計系統，以編製會計報告 ｜ (3) 聯絡健身器械供應商，爭取較優惠的採購價格 ｜ (4) 設計會員推薦積分計劃，以提升顧客忠誠度 ｜ (5) 分析企業的會計比率，評估其變現能力 ｜ (6) 建立一套處理會員運動習慣調查數據的系統",
+      opts: [
+        "A. 只有 (1)、(2) 和 (6)（聯絡器械供應商屬營運部；設計會員計劃屬市場營銷部；而分析會計比率評估變現能力則屬於財務經理的職責）",
+        "B. 只有 (2)、(4) 和 (5)（維護會計系統與分析會計比率都屬於資訊經理的職責）",
+        "C. (1)、(2)、(3)、(4)、(5) 和 (6) 全部都是連鎖健身中心資訊經理的職責"
+      ],
+      ans: 0,
+      exp: "正確。設立視像會議系統 (1)、維護會計系統 (2) 及建立處理調查數據的系統 (6) 屬資訊經理職責；注意區分：「維護會計系統」屬資訊部，但「分析企業的會計比率 (5)」則屬財務部！"
+    },
+    {
+      q: "2. 辨別以下四個情況分別採用了哪種「風險管理策略」：<br>(a) 某手機遊戲公司預留一筆儲備金，用來承擔新遊戲不受玩家歡迎而可能招致的損失 ｜ (b) 某連鎖藥房購買火險及水險，就店鋪發生火災或水浸的風險獲取保障 ｜ (c) 某財務公司決定拒絕批出貸款予沒有穩定收入證明的申請人 ｜ (d) 某冷氣工程公司要求所有技工在進行高空工作時，必須扣上安全帶",
+      opts: [
+        "A. (a) 風險承擔 ｜ (b) 風險轉移 ｜ (c) 風險迴避 ｜ (d) 風險減少",
+        "B. (a) 風險迴避 ｜ (b) 風險減少 ｜ (c) 風險轉移 ｜ (d) 風險承擔",
+        "C. (a) 風險承擔 ｜ (b) 風險減少 ｜ (c) 風險迴避 ｜ (d) 風險轉移"
+      ],
+      ans: 0,
+      exp: "正確。(a) 預留資金自行應付損失屬「風險承擔」；(b) 購買保險把風險交由保險公司承擔屬「風險轉移」；(c) 拒絕貸款予未符標準申請人以不參與該高風險貸款屬「風險迴避」；(d) 扣安全帶減少受傷嚴重程度屬「風險減少」。"
+    },
+    {
+      q: "3. 「尚雅傢俬」是一家大型傢俬零售企業，最近其位於元朗的中央貨倉不幸發生火警，損失頗巨。該企業哪個部門應負責向保險公司申索保險賠償？這部門在公司還有甚麼主要角色？",
+      opts: [
+        "A. 財務部；主要角色是為新傢俬產品釐定價格及招聘貨倉管理員",
+        "B. 風險管理部；主要角色是識別和評估（量度）企業可能面對的各種潛在風險，並制定風險管理策略（迴避、承擔、減少、轉移）以控制風險，務求盡量減少損失",
+        "C. 營運部；主要角色是為員工大會設立視像會議系統及分析市場研究數據"
+      ],
+      ans: 1,
+      exp: "正確。負責處理保險投保及就火災損失向保險公司索償的是「風險管理部」，其兩大角色為：(1) 識別和量度風險；(2) 控制風險。"
+    },
+    {
+      q: "4. 關於「資訊經理」的職責，下列哪項描述是正確的？<br>(1) 運用各部門提供的資訊為全公司制定最高戰略計劃 ｜ (2) 向其他管理人員提供可靠和適時的資訊，方便他們作出決策 ｜ (3) 為企業開發和維護內部溝通網絡系統",
+      opts: [
+        "A. 只有 (1) 和 (2)（資訊經理是企業的最高決策者，負責替所有部門制定戰略計劃）",
+        "B. 只有 (2) 和 (3)（資訊經理擁有幕僚職權，負責建立維護資訊系統向其他管理人員提供資訊以支援他們作決策，並開發內部溝通網絡系統，但不會替公司或各部門制定戰略計劃）",
+        "C. (1)、(2) 和 (3) 全部都是資訊經理的職責"
+      ],
+      ans: 1,
+      exp: "正確。資訊經理負責向其他管理人員提供資訊以方便他們作決策 (2) 及開發內部溝通系統 (3)；制定全公司戰略計劃 (1) 是高層管理人員（如行政總裁）的職責。"
+    },
+    {
+      q: "5. 資訊管理部為「營運部」建立了一套資訊系統。這套資訊系統可如何幫助營運部，並對營運部帶來甚麼重要性？",
+      opts: [
+        "A. 系統可追蹤存貨和更新存貨數量（讓營運部輕易檢查存貨數量並適時訂購存貨，避免缺貨），同時可儲存和分析退貨的數據（協助找出潛在的產品品質和生產問題）",
+        "B. 系統可代替營運部自動向銀行借取長期貸款，並自動為新入職的廠房工人進行面試甄選",
+        "C. 系統可儲存顧客的個人購買記錄，讓營運部為每位顧客度身訂造會員積分計劃"
+      ],
+      ans: 0,
+      exp: "正確。資訊系統對營運部的兩項幫助與重要性是：(1) 追蹤存貨和更新存貨數量 ➔ 輕易檢查存貨數量、適時訂購避免缺貨；(2) 儲存和分析退貨數據 ➔ 找出潛在的產品品質和生產問題。"
+    },
+    {
+      q: "6. 識別以下六項工作分別涉及哪項「主要商業功能」：<br>(a) 管理企業的營運資金 ｜ (b) 為藍牙耳機進行出廠品質檢查 ｜ (c) 維護一套用來儲存員工考績結果的系統 ｜ (d) 為求職者進行面試甄選 ｜ (e) 比較不同保險公司的公眾責任保險計劃 ｜ (f) 為新款智能手錶舉辦產品發布會",
+      opts: [
+        "A. (a) 財務管理 ｜ (b) 營運管理 ｜ (c) 資訊管理 ｜ (d) 人力資源管理 ｜ (e) 風險管理 ｜ (f) 市場營銷管理",
+        "B. (a) 營運管理 ｜ (b) 市場營銷管理 ｜ (c) 人力資源管理 ｜ (d) 資訊管理 ｜ (e) 財務管理 ｜ (f) 風險管理",
+        "C. (a) 財務管理 ｜ (b) 營運管理 ｜ (c) 人力資源管理 ｜ (d) 人力資源管理 ｜ (e) 財務管理 ｜ (f) 市場營銷管理"
+      ],
+      ans: 0,
+      exp: "正確。特別留意 (c)「維護儲存考績結果的系統」屬資訊管理；(e)「比較不同保險公司的保險計劃」屬風險管理。"
+    }
+  ];
+  let curIRQ = 0;
+  function renderIrQuiz() {
+    const it = irQuizItems[curIRQ];
+    document.getElementById('irQuizProg').textContent = `題目 ${curIRQ + 1} / ${irQuizItems.length}`;
+    document.getElementById('irQuizQ').innerHTML = it.q;
+    document.getElementById('irQuizBtns').innerHTML = it.opts.map((o, i) => `<button class="opt-card" style="margin:0;padding:12px 16px" onclick="checkIrQuiz(${i})">${o}</button>`).join('');
+    document.getElementById('irQuizFb').innerHTML = '';
+  }
+  function checkIrQuiz(idx) {
+    const it = irQuizItems[curIRQ];
+    const fb = document.getElementById('irQuizFb');
+    if (idx === it.ans) {
+      fb.innerHTML = `<span style="color:var(--green);font-weight:700">${it.exp}</span> <button class="btn btn-outline" style="margin-left:8px;padding:6px 14px;font-size:14.5px" onclick="curIRQ=(curIRQ+1)%irQuizItems.length;renderIrQuiz()">下一題</button>`;
+    } else {
+      fb.innerHTML = `<span style="color:var(--red);font-weight:700">答案不正確。${it.exp.replace('正確。','')}</span>`;
+    }
+  }
+  renderIrQuiz();
+
+  // ====== 4. 六大功能相互支援與合作沙盤（100% 原創專案） ======
+  const supportMatrixData = [
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--green);font-size:15.5px;line-height:1.8">
+      <b style="color:var(--green);font-size:17px">1. 【人力資源管理】如何支援其他商業功能？</b><br>
+      • <b>支援方式</b>：按其他部門的要求為其招聘、培訓和評核員工，並設計合適薪酬制度以提升其他部門員工的生產力。<br>
+      • <b>原創例子</b>：根據<b>財務部</b>提出的專業資格要求，為財務部招聘新的註冊會計師；在生產高峰期為<b>營運部</b>增聘技工、提供精密焊接培訓及設計品質花紅，協助在不犧牲產品質素下提升工人生產力。
+    </div>`,
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--primary);font-size:15.5px;line-height:1.8">
+      <b style="color:var(--primary);font-size:17px">2. 【財務管理】如何支援其他商業功能？</b><br>
+      • <b>支援方式 (i) 為其他部門編製預算</b>：例如為<b>營運部</b>編製年度原材料採購費用和生產人工費用的預算。<br>
+      • <b>支援方式 (ii) 籌集和分配資金，以維持其他部門的營運</b>：<br>
+      &nbsp;&nbsp;• 向銀行借取貸款，以獲得資金讓<b>營運部</b>添置自動化機械臂或擴充生產線；<br>
+      &nbsp;&nbsp;• 每年在預算中為<b>風險管理部</b>預留資金，為企業購買火險及公眾責任保險。
+    </div>`,
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--amber);font-size:15.5px;line-height:1.8">
+      <b style="color:var(--amber);font-size:17px">3. 【營運管理】如何支援其他商業功能？</b><br>
+      • <b>支援方式</b>：確保企業的產品和生產程序符合其他部門的要求。<br>
+      • <b>原創例子</b>：<br>
+      &nbsp;&nbsp;(i) 支援<b>市場營銷部</b>：確保廠房生產出來的智能手錶功能與品質，符合市場營銷部所制定的產品策略，並保持充足存貨配合促銷活動；<br>
+      &nbsp;&nbsp;(ii) 支援<b>風險管理部</b>：根據風險管理部提出的安全要求設計生產程序及場地佈局，以盡量降低生產工人所面對的工業安全風險。
+    </div>`,
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid #be185d;font-size:15.5px;line-height:1.8">
+      <b style="color:#be185d;font-size:17px">4. 【市場營銷管理】如何支援其他商業功能？</b><br>
+      • <b>支援方式</b>：進行市場研究並收集顧客反饋，為其他部門獲取有用的市場資訊。<br>
+      • <b>原創例子</b>：<br>
+      &nbsp;&nbsp;(i) 支援<b>財務部</b>：透過市場研究向財務部提供來年的<b>銷售預測數據</b>，以協助編製銷售預算及現金預算；<br>
+      &nbsp;&nbsp;(ii) 支援<b>營運部</b>：把收集到的顧客對產品品質或送貨組裝服務太慢的投訴告知營運部，讓營運部採取措施改善流程。
+    </div>`,
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid var(--teal);font-size:15.5px;line-height:1.8">
+      <b style="color:var(--teal);font-size:17px">5. 【資訊管理】如何支援其他商業功能？</b><br>
+      • <b>支援方式</b>：建立和維護資訊系統及溝通網絡，讓其他部門獲取可靠和適時的資訊以作出適當決策。<br>
+      • <b>原創例子</b>：為<b>人力資源部</b>開發系統記錄出勤、考績結果及培訓記錄；為<b>財務部</b>收集儲存財務數據編製會計報告；為<b>營運部</b>追蹤更新存貨數量及分析退貨數據；為<b>市場營銷部</b>分析市場研究數據、儲存顧客購買記錄及處理銷售數據。
+    </div>`,
+    `<div style="background:var(--surface);padding:16px 20px;border-radius:12px;border:1.5px solid #4338ca;font-size:15.5px;line-height:1.8">
+      <b style="color:#4338ca;font-size:17px">6. 【風險管理】如何支援其他商業功能？</b><br>
+      • <b>支援方式 (i) 識別和評估其他部門在營運中所涉及的風險，並提出合適措施</b>：例如為<b>營運部</b>識別和評估使用新型激光切割設備所涉及的安全風險。<br>
+      • <b>支援方式 (ii) 為其他部門購買保險，以獲取保障</b>：例如為<b>營運部</b>購買火險及機器損壞保險，就廠房發生火災的風險獲取保障。
+    </div>`
+  ];
+  function renderSupportMatrix(idx) {
+    document.querySelectorAll('#supFromBtns .dept-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+    document.getElementById('supportMatrixOutput').innerHTML = supportMatrixData[idx];
+  }
+  renderSupportMatrix(0);
+
+  const projSimData = [
+    `<div style="background:var(--surface);padding:16px 18px;border-radius:12px;border:1px solid var(--line);font-size:14.5px;line-height:1.75">
+      <b style="color:var(--primary);font-size:16px">原創專案 1：北歐智能家居連鎖品牌「北極星」計劃擴充業務，在香港開設首間大型體驗旗艦店：</b><br>
+      所有商業功能須互相合作，有效執行各自工作以確保擴充計劃成功：<br>
+      • <b>1. 人力資源管理</b>：進行人力規劃（決定體驗店的智能家居顧問及安裝技工數量）、招聘新員工、決定新員工的薪酬、為新員工提供智能系統操作與待客培訓。<br>
+      • <b>2. 財務管理</b>：評估香港開設體驗店計劃是否值得投資（如計算 NPV）、為擴充計劃籌集資金、為新店編製裝修及營運預算。<br>
+      • <b>3. 營運管理</b>：為新體驗店選擇合適的商場鋪位地點（選址）、為體驗店設計智能客廳示範區與陳列架的場地佈局、採購展廳示範設備及管理存貨與上門安裝物流。<br>
+      • <b>4. 市場營銷管理</b>：進行市場研究找出香港小單位家庭的空間需要、決定體驗店會提供的智能傢俬及燈控產品、為產品釐定價格、把新體驗店推廣給香港市民。<br>
+      • <b>5. 資訊管理</b>：為新體驗店建立一套能儲存和傳遞日常業務交易數據的 POS 系統，以及建立一套能實時追蹤存貨與預約安裝的系統。<br>
+      • <b>6. 風險管理</b>：識別和評估營運大型體驗店所涉及的風險，並制定風險管理策略來控制風險（如為體驗店購買火險及公眾責任保險）。
+    </div>`,
+    `<div style="background:var(--surface);padding:16px 18px;border-radius:12px;border:1px solid var(--line);font-size:14.5px;line-height:1.75">
+      <b style="color:var(--primary);font-size:16px">原創專案 2：「康健連鎖藥妝店」考慮推出「網上保健品訂購及視像配藥速遞平台」：</b><br>
+      • <b>(1a) 財務部須執行的兩項工作</b>：① 評估推出網上配藥平台計劃是否值得投資（如計算淨現值），並為開發及營運平台編製預算；② 為平台計劃籌集所需資金，並管理網上信用卡及電子支付收款的營運資金流。<br>
+      • <b>(1b) 資訊管理部須執行的兩項工作</b>：① 建立和維護網上配藥平台的電腦及手機應用程式系統，以儲存、處理和管理顧客的網上訂購與電子支付交易數據；② 將網上平台與各分店存貨系統連接，按網上銷售數據自動更新保健品存貨數量，並傳遞配送數據予物流車隊。<br>
+      • <b>(2) 市場營銷部如何利用網上平台提升競爭力？</b>① <b>制定市場營銷策略（分銷與推廣）</b>：透過網上平台拓展全天候網上分銷渠道（方便顧客足不出戶配藥購物並安排送貨或門市自取），並推出網購專屬折扣優惠；② <b>管理顧客關係</b>：利用平台系統儲存顧客資料和購買維他命記錄，為顧客發送定期補貨提醒與度身推薦保健品，提升顧客忠誠度。
+    </div>`,
+    `<div style="background:var(--surface);padding:16px 18px;border-radius:12px;border:1px solid var(--line);font-size:14.5px;line-height:1.75">
+      <b style="color:var(--primary);font-size:16px">原創專案 3A：「極光電競椅專門店」收到很多投訴指「組裝及送貨上門服務太慢，員工需較長時間在倉庫組裝及運送電競椅」：</b><br>
+      • <b>營運部如何根據兩項營運管理功能提升送貨速度？</b>① <b>設計有效的生產／組裝程序</b>：重新設計貨倉內預先組裝電競椅配件的工序流程與裝配區場地佈局（或添置電動氣動工具以提升組裝產能），縮短組裝所需時間；② <b>物流及配送管理</b>：妥善包裝電競椅並重新規劃各區送貨貨車的最佳派送路線，縮短運輸時間。<br>
+      • <b>資訊管理部如何提供協助？</b>建立一套自動化的訂單分流及 GPS 智能車隊路線導航資訊系統，將門市及網店訂單即時傳送至貨倉，並實時分析交通路況為送貨車隊規劃最快派送路線。<br>
+      <hr style="border:0;border-top:1px dashed var(--line);margin:8px 0">
+      <b style="color:var(--teal);font-size:16px">原創專案 3B：「聲動藍牙耳機廠」在促銷旺季因催促工人加快趕工導致「音質不良次貨率遠高於平常」：</b><br>
+      • <b>營運部如何維持產品質素？</b>① <b>品質保證</b>：訂立嚴格品質控制規定讓工人遵守、定期檢查耳機製成品及聲學測試儀器、向供應商購買優質發聲單元原料；② <b>設計有效的生產程序</b>：妥善計劃生產能力及重新設計生產流程與工作分配，避免工人因過度趕工疲勞而出錯。<br>
+      • <b>人力資源部如何協助在不犧牲產品質素下提升工人生產力？</b>① <b>員工編制（及人力規劃）</b>：在生產高峰期增聘臨時或全職熟練技工以分擔工作量；② <b>培訓和發展</b>：為工人提供精密焊接技術培訓以提升速度與減少出錯；③ <b>報酬管理（及員工考績）</b>：發放與耳機品質合格率及產量同時掛鈎的花紅，激勵工人兼顧效率與質素。
+    </div>`
+  ];
+  function renderProjSim(idx) {
+    document.querySelectorAll('#projSimChips .chip').forEach((c, i) => c.classList.toggle('active', i === idx));
+    document.getElementById('projSimOutput').innerHTML = projSimData[idx];
+  }
+  renderProjSim(0);
+
+  // 對稱深度設計的 6 道跨部門關係挑戰題（100% 原創情境）
+  const interQuizItems = [
+    {
+      q: "1. 辨別以下陳述是否正確：「市場營銷部根據人力資源部所設的條件，自行聘請一名新的市場營銷主任。」",
+      opts: [
+        "A. 正確 — 每個部門都必須自行在求職網站刊登廣告及面試聘請自己部門的新員工，人力資源部只負責定立條件",
+        "B. 不正確 — 主客體顛倒了！應該是『人力資源部』根據『市場營銷部』所提出的職位要求條件，替市場營銷部招聘、甄選和聘請一名新的市場營銷主任（按其他部門的要求為其招聘員工）",
+        "C. 不正確 — 聘請市場營銷主任屬於財務部的融資決策，與市場營銷部及人力資源部均無關係"
+      ],
+      ans: 1,
+      exp: "正確（陳述不正確）。執行招聘和甄選（員工編制）是「人力資源部」的角色；人力資源部會按其他部門（如市場營銷部或財務部）提出的要求，為該部門招聘合適的員工。"
+    },
+    {
+      q: "2. 辨別以下陳述是否正確：「財務部根據資訊管理部提供的資訊，為公司的新產品釐定銷售價格。」",
+      opts: [
+        "A. 正確 — 凡是涉及產品價格與金錢數字的決定，一律由財務部根據會計系統資訊全權釐定",
+        "B. 不正確 — 為新產品釐定銷售價格（定價策略）是『市場營銷部』的職責，並非財務部的職責；應是市場營銷部根據資訊管理部系統提供的市場研究及成本數據，為新產品釐定價格",
+        "C. 不正確 — 為新產品釐定銷售價格是風險管理部控制風險的唯一策略"
+      ],
+      ans: 1,
+      exp: "正確（陳述不正確）。財務部不會釐定產品的價格；決定目標顧客購買產品時須支付的金額（定價策略）是「市場營銷部」的職責。"
+    },
+    {
+      q: "3. 辨別以下兩項陳述是否正確：<br>(i)「風險管理部為營運部評估生產過程所涉及的風險，並為廠房購買火險。」<br>(ii)「資訊管理部為人力資源部開發一套系統來記錄出勤情況和儲存出勤記錄。」",
+      opts: [
+        "A. (i) 和 (ii) 兩項陳述均正確 — 這準確展示了風險管理部如何支援營運部控制生產風險，以及資訊管理部如何建立資訊系統支援人力資源部作出人事決策",
+        "B. (i) 正確，但 (ii) 不正確 — 開發電腦系統屬於人力資源經理自己的日常工作，與資訊管理部無關",
+        "C. (i) 和 (ii) 兩項陳述均不正確 — 六項主要商業功能是完全獨立運作的，絕對不會互相提供任何支援"
+      ],
+      ans: 0,
+      exp: "正確。這兩項陳述均準確反映了商業功能之間互相支援的關係。"
+    },
+    {
+      q: "4. 「脆味手工曲奇餅廠」的東主見生產部在中秋旺季人手不足，提議：「不如要求財務部借調一些會計文員到營運部工場幫手包裝曲奇禮盒，反正我覺得財務部平時的工作量並不多。」營運經理即場反對，指出營運部十分倚賴財務部的協助。財務部在日常運作中如何支援營運部？",
+      opts: [
+        "A. 財務部負責替營運部在工場設計烘焙生產線流程，並親自操作大型焗爐生產曲奇餅",
+        "B. 財務部負責為營運部編製牛油麵粉原料費用和人工費用的預算，並為營運部籌集和分配資金（例如向銀行借取貸款，以獲得資金讓營運部購買原料及擴充烘焙生產線），維持營運部的順暢運作",
+        "C. 財務部負責為營運部進行消費者口味問卷調查，並處理顧客對曲奇餅包裝的投訴"
+      ],
+      ans: 1,
+      exp: "正確。財務部透過 (1) 為營運部編製原料及人工費用預算，以及 (2) 籌集和分配資金以維持營運部的生產與擴充，對支援營運部發揮關鍵作用。"
+    },
+    {
+      q: "5. 「藍天商務包機公司」因短途直升機線受渡輪競爭蒙受虧損，財務經理說：「除了財務部致力控制成本改善盈利能力外，由於我們大部分收入來自包機服務收費，我們也應調整包機收費及加強推廣以提高營業額。」(i) 哪個主要商業功能負責為藍天公司釐定包機收費？(ii) 除了調整價格外，該商業功能還可如何幫助藍天公司提高營業額？",
+      opts: [
+        "A. (i) 財務管理；(ii) 透過發行新股、借取銀行貸款及收緊應收帳款收帳政策來提高包機營業額",
+        "B. (i) 市場營銷管理；(ii) 可透過進行市場研究找出跨國企業高管的出行需要、改良機艙貴賓餐飲與會議設施（產品策略）、與五星級酒店及私人銀行合作拓展預訂渠道（分銷策略）、向企業客戶推廣（推廣策略），以及推出企業飛行積分計劃與專車接送附加服務（管理顧客關係）來提高營業額",
+        "C. (i) 營運管理；(ii) 透過定期檢查飛機引擎及購買航空燃油來提高包機營業額"
+      ],
+      ans: 1,
+      exp: "正確。負責釐定產品或服務收費價格的是「市場營銷管理」；除調整價格（定價策略）外，市場營銷管理還可透過市場研究、其餘 3P 策略（產品、分銷、推廣）及管理顧客關係（會員積分計劃、附加服務、度身訂造服務、處理投訴）來提高營業額。"
+    },
+    {
+      q: "6. 「星光公司」和「月影公司」是兩家銷售智能家電的零售企業。星光公司在總經理下設「會計及財務經理、營銷及市場經理、人力資源經理、風險管理經理」（共 4 位直屬經理）；月影公司在總經理下設「廚房電器經理、客廳影音經理、智能清潔電器經理」（共 3 位直屬經理）。結合第 1 課及第 2 課知識，指出兩家公司的部門劃分方式及哪家公司總經理的控制幅度較闊：",
+      opts: [
+        "A. 星光公司：按產品劃分 ｜ 月影公司：按功能劃分 ｜ 月影公司總經理的控制幅度較闊（3人 ＞ 4人）",
+        "B. 星光公司：按功能劃分 ｜ 月影公司：按產品劃分 ｜ 星光公司總經理的控制幅度較闊（直接管理 4 位經理，多於月影公司的 3 位經理）",
+        "C. 星光公司：按地區劃分 ｜ 月影公司：按功能劃分 ｜ 兩家公司總經理的控制幅度完全相同"
+      ],
+      ans: 1,
+      exp: "正確。星光公司按商業功能設財務、市場、人資、風險管理部，屬「按功能劃分」；月影公司按廚房電器、客廳影音、清潔電器設部，屬「按產品劃分」。星光公司總經理直接管理 4 名下屬，比月影公司的 3 名多，故星光公司總經理的控制幅度較闊。"
+    }
+  ];
+  let curITQ = 0;
+  function renderInterQuiz() {
+    const it = interQuizItems[curITQ];
+    document.getElementById('interQuizProg').textContent = `題目 ${curITQ + 1} / ${interQuizItems.length}`;
+    document.getElementById('interQuizQ').innerHTML = it.q;
+    document.getElementById('interQuizBtns').innerHTML = it.opts.map((o, i) => `<button class="opt-card" style="margin:0;padding:12px 16px" onclick="checkInterQuiz(${i})">${o}</button>`).join('');
+    document.getElementById('interQuizFb').innerHTML = '';
+  }
+  function checkInterQuiz(idx) {
+    const it = interQuizItems[curITQ];
+    const fb = document.getElementById('interQuizFb');
+    if (idx === it.ans) {
+      fb.innerHTML = `<span style="color:var(--green);font-weight:700">${it.exp}</span> <button class="btn btn-outline" style="margin-left:8px;padding:6px 14px;font-size:14.5px" onclick="curITQ=(curITQ+1)%interQuizItems.length;renderInterQuiz()">下一題</button>`;
+    } else {
+      fb.innerHTML = `<span style="color:var(--red);font-weight:700">答案不正確。${it.exp.replace('正確。','')}</span>`;
+    }
+  }
+  renderInterQuiz();
+
+  // ====== 5. 論點建構問答工作坊 (12題：100% 原創商業情境・一題一論點・按論述邏輯點評) ======
+  const workshopQuestions = [
+    {
+      id: "s1", cat: "short", typeBadge: "短答題（單一論點 · 2 分 · 2 步建構）",
+      title: "短答 1：星耀演藝娛樂集團（負責籌集資金的商業功能及其確保運作順暢的重要性）", topic: "財務管理：單一論點剖析「作出融資決策」與重要性", maxMarks: 2,
+      scenario: "上市娛樂公司「星耀演藝娛樂集團」計劃在啟德體育園舉辦一連十場跨年大型演唱會及升級舞台全息投影設備，因此須要籌集大筆資金。",
+      question: "試建構一個獨立論點段落，指出負責為上述演唱會項目籌集資金的主要商業功能（1分），並以「確保企業可順利運作」為核心解釋該功能對該演藝娛樂集團的重要性（1分）。（2 分）",
+      steps: [
+        { label: "第 1 步：準確指出負責籌集資金的主要商業功能名稱與核心職責邏輯（1分）", colorClass: "hl-s1", opts: [
+          { text: "負責為演唱會項目籌集資金的主要商業功能是市場營銷管理，因為這筆資金是用來舉辦大型演唱會及宣傳推廣的。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】混淆了「資金的使用部門」與「籌集資金的負責部門」。雖然資金用於舉辦演唱會及宣傳，但負責選擇融資方式為企業籌集所需資金的是「財務管理」，而非市場營銷管理。" },
+          { text: "負責為上述項目籌集資金的主要商業功能是「財務管理」：財務管理負責管理企業的財務資源和財務責任，當中的作出融資決策功能專門負責選擇合適的融資方式（如發行股票、債券或獲取銀行貸款）以籌集所需資金。", score: 1, status: "best", comment: "【滿分論述示範】準確點出「財務管理」功能，並清晰界定其透過作出融資決策為企業籌集發展資金的核心職責邏輯。" },
+          { text: "負責幫演藝娛樂集團搵錢返來搞演唱會的部門是公司的會計及出納部。", score: 0, status: "partial", comment: "【常見失分示範：用詞口語／未寫出標準商業功能名稱】「搵錢部門、出納部」屬於日常口語，在商業管理論述中必須準確寫出六大主要商業功能的標準名稱：「財務管理 (Financial Management)」。" }
+        ]},
+        { label: "第 2 步：扣連「娛樂集團籌辦演唱會與日常營運」，推演其確保順利運作的重要性（1分）", colorClass: "hl-s2", opts: [
+          { text: "透過為娛樂集團籌集所需的舞台設備與製作資金，並有效地維持日常營運資金（管理流動資產與流動負債），財務管理能確保集團具備充足資金支付場租、全息投影器材及演職人員薪酬等開支，使集團可順利運作而不會因資金周轉不靈而結業。", score: 1, status: "best", comment: "【滿分論述示範】緊扣娛樂集團舉辦演唱會的資金需要，完整推演出「籌集所需資金＋維持營運資金 ➔ 應付場租器材與薪酬開支 ➔ 確保順利運作不會結業」的嚴密因果鏈。" },
+          { text: "因為如果沒有財務管理幫手籌集資金，星耀演藝娛樂集團就不夠錢去搞今次的跨年演唱會。", score: 0, status: "partial", comment: "【常見失分示範：同義反覆／論述深度不足】僅以反話重複題目「須要籌集資金」的背景，未有深化說明財務管理如何「透過籌集資金及有效維持營運資金，確保企業日常與專案業務順利運作而不會結業」。" },
+          { text: "財務管理能直接替演藝娛樂集團訓練舞蹈員的排舞技巧，從而提升演唱會的視覺效果。", score: 0, status: "wrong", comment: "【概念應用錯誤】訓練舞蹈員排舞技巧屬於「人力資源管理（培訓和發展）」的作用，與財務管理籌集及運用資金的職能無關。" }
+        ]}
+      ]
+    },
+    {
+      id: "s2", cat: "short", typeBadge: "短答題（單一論點 · 2 分 · 2 步建構）",
+      title: "短答 2：仁心私家專科醫院（以「培訓和發展」解釋如何提升病人服務質素）", topic: "人力資源管理：單一論點闡釋「培訓和發展」的作用", maxMarks: 2,
+      scenario: "「仁心私家專科醫院」希望全面提升門診登記處及住院病房的病人服務質素，院長要求人力資源部發揮其功能以達成此目標。",
+      question: "試單獨以人力資源管理中的「培訓和發展」功能為核心，建構一個獨立論點段落，解釋該功能可如何幫助私家醫院提升病人服務質素。（2 分）",
+      steps: [
+        { label: "第 1 步：指出「培訓和發展」功能並界定其改善員工技能與能力的核心作用（1分）", colorClass: "hl-s1", opts: [
+          { text: "人力資源部可執行「培訓和發展」功能：即根據企業需要為現職僱員設計有系統的培訓和發展計劃，藉此改善他們執行職務所需的知識、技能、能力和工作態度。", score: 1, status: "best", comment: "【滿分論述示範】準確鎖定「培訓和發展」單一子功能，並清晰界定其「設計培訓計劃以改善員工技能、能力與工作態度」的核心機制。" },
+          { text: "人力資源部可執行「品質保證」功能，透過定期檢查病房的醫療儀器來提升病人服務質素。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】跨部門職責錯配。定期檢查醫療儀器屬於「營運管理」的品質保證角色，並非人力資源管理的功能。" },
+          { text: "人力資源部同時有招聘、考績、培訓、發放薪酬和搞好員工關係五個不同的方法去幫私家醫院。", score: 0, status: "partial", comment: "【常見失分示範：羅列多項功能標題而無聚焦單一論點】違反「一段一論點」要求，把五項子功能標題全部堆砌在一起，卻沒有針對題目要求的單一功能闡明其運作邏輯。" }
+        ]},
+        { label: "第 2 步：扣連「私家醫院門診接待員及病房助護」設定具體培訓內容並推演至服務質素提升（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如人力資源部可為前線醫護及門診登記處接待員舉辦醫患溝通技巧、同理心關懷及處理病人查詢的培訓工作坊；當醫護及接待員掌握了專業的應對技巧並建立親切耐心的態度後，便能更細心妥善地照顧病人需要，從而直接提升私家醫院的病人服務質素。", score: 1, status: "best", comment: "【滿分論述示範】具體設定「醫患溝通與同理心關懷工作坊」的私家醫院例子，並清楚建立「掌握溝通技巧與耐心態度 ➔ 細心照顧病人需要 ➔ 提升整體病人服務質素」的因果推論。" },
+          { text: "例如人力資源部安排醫院的護士和接待員去上培訓堂，上完堂之後醫院的服務質素自然就會變好。", score: 0, status: "partial", comment: "【常見失分示範：缺乏中間推演過程】由「上培訓堂」直接跳到「服務質素變好」，漏了說明「培訓傳授甚麼具體醫患溝通與護理技巧，以及這些技巧如何改善員工接待病人時的實際表現」。" },
+          { text: "例如人力資源部為私家醫院推出長者年度體檢折扣套票，吸引更多病人預約檢查。", score: 0, status: "wrong", comment: "【概念應用錯誤】推出體檢折扣套票屬於「市場營銷部」的產品與推廣策略，並非人力資源部的員工培訓措施。" }
+        ]}
+      ]
+    },
+    {
+      id: "s3", cat: "short", typeBadge: "短答題（單一論點 · 2 分 · 2 步建構）",
+      title: "短答 3：極光太陽能電池板製造商（以「選擇生產地點」解釋設計新廠房生產程序的工作）", topic: "營運管理：單一論點剖析「選擇生產地點」", maxMarks: 2,
+      scenario: "「極光新能源公司」在評估擴充項目後，決定在越南設置一家新廠房以生產高效能太陽能電池板。營運部現正為新廠房執行「設計有效的生產程序」的工作。",
+      question: "試單獨以設計有效生產程序中的「選擇生產地點」這項工作為核心，建構一個獨立論點段落，解釋該公司的營運部應如何執行這項工作。（2 分）",
+      steps: [
+        { label: "第 1 步：指出「選擇生產地點」工作並闡明其「減低成本與增加效率」的選址準則（1分）", colorClass: "hl-s1", opts: [
+          { text: "營運部在設計有效生產程序時須執行「選擇生產地點」的工作：即全面評估不同地區的條件，為新廠房選擇一個既能盡量減低生產成本，又可增加營運效率的合適地點。", score: 1, status: "best", comment: "【滿分論述示範】準確點出「選擇生產地點」這項單一工作，並清楚闡明選址的兩大核心管理準則——「盡量減低生產成本」與「增加營運效率」。" },
+          { text: "營運部在設計有效生產程序時須負責在股票市場發行新股，以籌集購買越南廠房土地的資金。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】發行新股籌集買地資金屬於「財務管理（作出融資決策）」的工作，而非營運管理設計生產程序的工作。" },
+          { text: "營運部在設計越南新廠房的生產程序時，第一件事就是要去越南找一塊地皮來起新廠房。", score: 0, status: "partial", comment: "【常見失分示範：用詞口語／未點出選址的管理準則】只寫「找地皮起廠」，漏了說明營運管理在選擇生產地點時必須考量的核心準則——即「既能盡量減低生產成本，又可增加營運效率」。" }
+        ]},
+        { label: "第 2 步：扣連「太陽能電池板製造商在越南設廠」設定具體的選址考量例子（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如太陽能板製造商的營運部可在越南考察不同工業園區，選擇一個工業地價低廉、高壓電力供應穩定充足，且鄰近深水貨櫃碼頭方便將大型太陽能電池板海運出口的廠址，從而同時壓低廠房生產成本並提升出口物流的營運效率。", score: 1, status: "best", comment: "【滿分論述示範】緊扣「太陽能電池板製造與出口」的行業特性（需電力充足、地價低廉及鄰近港口運載大型面板），具體展示該廠址如何同時實現減低成本與提升效率。" },
+          { text: "例如營運部在越南揀了一個很好的工業區起新廠房，令公司以後生產太陽能板的時候更加順利。", score: 0, status: "partial", comment: "【常見失分示範：例子空泛抽象】「揀了一個很好的工業區」毫無具體內容；必須結合太陽能板製造商的業務需要，具體說明該地點具備甚麼條件（如地價水電低廉、鄰近港口方便出口運輸）以減低成本及提高效率。" },
+          { text: "例如營運部決定為越南新廠房招聘三百名當地技工，並為他們制定每月的薪酬及花紅制度。", score: 0, status: "wrong", comment: "【概念應用錯誤】招聘技工與制定薪酬花紅制度屬於「人力資源管理」的工作，偏離了本段聚焦的「選擇生產地點（廠房選址）」主題。" }
+        ]}
+      ]
+    },
+    {
+      id: "s4", cat: "short", typeBadge: "短答題（單一論點 · 2 分 · 2 步建構）",
+      title: "短答 4：奇幻室內滑雪場（以「品質保證」解釋營運部如何確保滑雪客安全）", topic: "營運管理：單一論點剖析「品質保證 (Quality Assurance)」", maxMarks: 2,
+      scenario: "「奇幻室內滑雪場」為吸引極限運動愛好者，計劃於明年在場館內加設一個「高難度自由式滑雪跳台區」。該滑雪場打算透過執行「營運管理」的功能，確保入場滑雪客的安全。",
+      question: "試單獨以營運管理中的「品質保證」功能為核心，建構一個獨立論點段落，解釋營運部可如何確保室內滑雪場滑雪客的安全。（2 分）",
+      steps: [
+        { label: "第 1 步：指出營運管理的「品質保證」功能並界定其透過檢查設備與訂立規定確保質素的機制（1分）", colorClass: "hl-s1", opts: [
+          { text: "營運部可透過執行「品質保證」功能來確保滑雪客安全：營運部有責任確保企業提供的服務及設施是安全優質的，可透過訂立嚴格的品質及安全控制規定讓員工遵守，以及定期檢查服務工具和場館設施裝備來維持高安全標準。", score: 1, status: "best", comment: "【滿分論述示範】準確提出「品質保證」單一功能，並清晰點出其兩項核心執行機制——「訂立品質安全控制規定讓員工遵守」及「定期檢查工具和設備」。" },
+          { text: "營運部可透過向保險公司購買巨額公眾責任保險，把滑雪客跌倒骨折的索償風險轉移給保險公司。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】混淆了營運管理與風險管理。購買公眾責任保險以轉移賠償風險屬於「風險管理部」的工作，且買保險只能轉移事後財務賠償，並不能在事前防止滑雪設施故障傷人。" },
+          { text: "室內滑雪場的營運部會盡力做好滑雪跳台區的管理工作，確保入場玩的滑雪客不會發生意外。", score: 0, status: "partial", comment: "【常見失分示範：未指出具體營運管理功能名稱】純粹重抄題目句子，沒有點出「品質保證」這項標準營運管理功能，亦未說明透過「定期檢查設備及訂立安全控制規定」來預防意外的機制。" }
+        ]},
+        { label: "第 2 步：扣連「室內滑雪場跳台與雪道設施」設定具體檢查與安全規定例子（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如營運部可規定工程人員每天開館前定期檢查造雪機、吊車纜索、跳台着陸區防撞氣墊及出租滑雪板的固定器，並訂立安全控制規定，要求駐場人員嚴格檢查每位進入跳台區的滑雪客是否已穿妥頭盔護具及控制起跳間距，從而防止因設備故障或碰撞而引致滑雪客受傷。", score: 1, status: "best", comment: "【滿分論述示範】緊扣室內滑雪場場景，具體說明如何「定期檢查吊車纜索、防撞氣墊與滑雪板設備」及「訂立穿戴護具與起跳間距規定讓員工遵守」，直接推演出防止意外、保障滑雪客安全的效果。" },
+          { text: "例如營運部會叫員工多些檢查滑雪場入面的東西，如果有爛就立即修理好它。", score: 0, status: "partial", comment: "【常見失分示範：解說過於口語簡略】「檢查入面的東西」不夠具體專業；應明確結合滑雪場設施（如造雪機、吊車纜索、跳台防撞墊及出租滑雪裝備的定期安全檢查，以及訂立現場安全操作規定）。" },
+          { text: "例如營運部為室內滑雪場設計全港最便宜的夜場門票價格，並在社交媒體播放宣傳廣告。", score: 0, status: "wrong", comment: "【概念應用錯誤】門票定價與社交媒體廣告屬於「市場營銷管理」的 4P 策略，與確保滑雪客安全無關。" }
+        ]}
+      ]
+    },
+    {
+      id: "e1", cat: "essay", typeBadge: "進階論述題（單一論點 · 3 分 · 3 步深度建構）",
+      title: "論述 1：北極星北歐智能家居品牌（單獨以「營運管理」闡釋實踐香港開店擴充計劃的工作）", topic: "六大商業功能：單一功能深度建構（「營運管理」）", maxMarks: 3,
+      scenario: "著名的北歐智能家居連鎖品牌「北極星」計劃擴展業務至香港，在九龍及港島開設大型智能家居體驗店。其六項主要商業功能合力確保這項擴充計劃成功。",
+      question: "試單獨以「營運管理 (Operations Management)」這項主要商業功能為核心，建構一個 3 分深度論述段落，舉例說明該功能須執行哪些工作以實踐上述香港擴充計劃。（3 分）",
+      steps: [
+        { label: "第 1 步：指出「營運管理」功能並界定其在開設新體驗店中的核心角色（1分）", colorClass: "hl-s1", opts: [
+          { text: "在實踐香港擴充計劃時，「營運管理」負責管理將投入轉化為零售及安裝服務產出的營運系統；其核心角色包括設計有效的服務生產程序（如為新體驗店選擇合適地點及設計場地佈局）、採購展廳設備，以及管理日常存貨與物流配送。", score: 1, status: "best", comment: "【滿分論述示範】準確鎖定「營運管理」單一商業功能，並清晰概括其在零售體驗店擴充中的三大核心角色（選址與場地佈局、設備採購、存貨與物流配送管理）。" },
+          { text: "在實踐香港擴充計劃時，營運管理負責評估香港開店計劃的淨現值，並透過發行新股籌集開店資金。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】評估投資項目淨現值及發行股票籌集資金，全部屬於「財務管理」的角色，而非營運管理的工作。" },
+          { text: "北極星智能家居品牌要成功擴展業務去香港，需要營運管理、財務管理、市場營銷管理和人力資源管理一齊合作。", score: 0, status: "partial", comment: "【常見失分示範：羅列多個部門名稱而未界定營運管理】題目要求單獨以「營運管理」為核心建構深度論點，不能只列出多個部門名稱而不解釋營運管理本身的角色。" }
+        ]},
+        { label: "第 2 步：針對「北歐智能家居品牌在香港開設體驗店」設定具體的營運管理工作例子（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如營運部須在香港物色交通便利且面積寬敞的商場鋪位作為新體驗店位置（選擇生產地點）、設計店內的智能客廳示範單位、語音燈飾陳列架與收銀諮詢處的擺位（設計生產場地的佈局），並建立本地倉庫及物流車隊，持續追蹤智能門鎖及電動窗簾的存貨量以安排按時送貨上門（存貨及物流配送管理）。", score: 1, status: "best", comment: "【滿分論述示範】緊扣智能家居體驗店香港開店的實際運作，將商場選址、智能客廳示範區佈局、存貨追蹤及送貨物流完美融入例子中，內容極為充實。" },
+          { text: "例如營運部會幫香港的新體驗店搵一個鋪位，然後買一些傢俬放進店舖入面準備開張。", score: 0, status: "partial", comment: "【常見失分示範：例子過於口語單薄】「買一些傢俬放進店舖」缺乏專業管理內涵；應具體指出「設計店內智能家居示範區與陳列架場地佈局、採購展廳示範設備，以及持續追蹤存貨數量並安排物流配送」。" },
+          { text: "例如營運部為新體驗店招聘三十名本地智能家居顧問，並決定他們的底薪及佣金制度。", score: 0, status: "wrong", comment: "【概念應用錯誤】招聘家居顧問及決定底薪佣金制度屬於「人力資源管理」的工作，並非營運部的職責。" }
+        ]},
+        { label: "第 3 步：深化論述至提升店員展示與服務效率、確保貨源充足免缺貨並使新店運作暢順的影響（1分）", colorClass: "hl-s3", opts: [
+          { text: "透過選出優越鋪位、設計動線順暢的示範區佈局以及維持高效的存貨物流系統，營運部能提升店員向顧客示範智能設備的效率，並確保香港新體驗店時刻保持充足完好的智能家居存貨按時交付顧客（避免出現缺貨延誤），使新店順利投入日常運作以支持擴充成功。", score: 1, status: "best", comment: "【滿分論述示範】清楚推演出選址、佈局與存貨物流工作如何「提升店員示範與服務效率、避免缺貨延誤並確保新店順利運作」，完美呼應營運管理的重要性。" },
+          { text: "這樣北極星智能家居品牌的營運部便做完了他們的工作，香港的新體驗店就可以順利開張了。", score: 0, status: "partial", comment: "【常見失分示範：同義反覆／未深化管理效益】結尾過於表面，未有說明上述營運管理工作如何「提升員工使用設備與服務的效率、避免新店缺貨，從而提升整體生產力並確保新店順利運作」。" },
+          { text: "這能保證體驗店完全不會發生任何電線短路火警或盜竊意外，無須再進行任何風險管理。", score: 0, status: "wrong", comment: "【邏輯推論錯誤】良好的營運管理能提升效率與確保貨源，但不能徹底消除火災或盜竊等外在純風險，仍須配合風險管理。" }
+        ]}
+      ]
+    },
+    {
+      id: "e2", cat: "essay", typeBadge: "進階論述題（單一論點 · 3 分 · 3 步深度建構）",
+      title: "論述 2：北極星北歐智能家居品牌（單獨以「市場營銷管理」闡釋實踐香港開店擴充計劃的工作）", topic: "六大商業功能：單一功能深度建構（「市場營銷管理」）", maxMarks: 3,
+      scenario: "承上題，北歐智能家居連鎖品牌「北極星」計劃擴展業務至香港，在九龍及港島開設大型智能家居體驗店。",
+      question: "試單獨以「市場營銷管理 (Marketing Management)」這項主要商業功能為核心，建構一個 3 分深度論述段落，舉例說明該功能須執行哪些工作以實踐上述香港擴充計劃。（3 分）",
+      steps: [
+        { label: "第 1 步：指出「市場營銷管理」功能並界定其在開拓新市場中的核心角色（1分）", colorClass: "hl-s1", opts: [
+          { text: "在實踐香港擴充計劃時，「市場營銷管理」負責確認香港顧客的需要並制定及執行市場營銷策略；其核心角色包括進行市場研究以了解本地家庭需要、選定目標市場與定位，以及制定市場營銷組合（4P：產品、定價、分銷、推廣）及管理顧客關係。", score: 1, status: "best", comment: "【滿分論述示範】準確界定「市場營銷管理」在開拓新市場中的完整角色鏈（市場研究 ➔ 目標市場定位 ➔ 制定 4P 策略與管理顧客關係）。" },
+          { text: "在實踐香港擴充計劃時，市場營銷管理負責為新體驗店建立儲存日常交易數據及自動更新存貨的電腦系統。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】建立交易數據與存貨追蹤電腦系統屬於「資訊管理」的角色，而非市場營銷管理的工作。" },
+          { text: "在實踐香港擴充計劃時，市場營銷管理的主要工作就是幫新開張的智能家居體驗店做宣傳和賣廣告。", score: 0, status: "partial", comment: "【常見失分示範：將市場營銷窄化為單一廣告宣傳】宣傳推廣只是 4P 中的其中一環；必須同時點出「進行市場研究以找出香港顧客需要、決定新店提供的產品組合（產品策略）及釐定價格（定價策略）」。" }
+        ]},
+        { label: "第 2 步：針對「北歐智能家居品牌進入香港市場」設定具體的市調與 4P 營銷工作例子（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如由於香港住宅單位面積普遍較北歐細小，市場營銷部須先進行「市場研究」調查香港家庭對節省空間及智能燈控的需要；據此決定在香港體驗店主打小戶型多功能變形智能傢俬及語音窗簾組合（產品策略）、釐定具吸引力的套裝售價（定價策略），並透過家居雜誌廣告、新張體驗折扣及提供免費 3D 室內擺位諮詢服務（推廣策略與顧客關係管理）把品牌推廣給香港市民。", score: 1, status: "best", comment: "【滿分論述示範】緊扣北歐家居品牌進軍香港小單位市場的情境，具體展示如何先做市調了解港人空間需要，再落實產品選擇、定價、新張推廣與免費設計諮詢，層次豐富貼切。" },
+          { text: "例如市場營銷部在香港做了一些市場調查，然後定好價錢同埋在商場派傳單宣傳新開的體驗店。", score: 0, status: "partial", comment: "【常見失分示範：例子缺乏行業細節】描述過於籠統，未有結合「北歐智能家居品牌」與香港住宅環境的特點（如調查港人對小單位智能傢俬與燈控的需要，並據此決定新店提供的產品組合與價格）。" },
+          { text: "例如市場營銷部負責定期檢查智能門鎖的指紋感應晶片品質，並向工廠工人訂立品質控制規定。", score: 0, status: "wrong", comment: "【概念應用錯誤】檢查零件品質與訂立內部品質控制規定屬於「營運管理（品質保證）」的職責，市場營銷部不會執行品質保證工作。" }
+        ]},
+        { label: "第 3 步：深化論述至滿足本地家庭空間需要、在競爭中突圍並為新體驗店創造銷售收益的影響（1分）", colorClass: "hl-s3", opts: [
+          { text: "透過深入找出並滿足香港小單位家庭的實際需要，配合具吸引力的產品定價與推廣策略，市場營銷部能幫助這個北歐智能家居品牌在香港市場迅速打響知名度、吸引大批置業及裝修人士光顧並建立顧客忠誠度，從而為新體驗店創造可觀的銷售收益以確保擴充成功。", score: 1, status: "best", comment: "【滿分論述示範】清楚推演出「找出並滿足本地家庭需要＋有效推廣應付競爭 ➔ 吸引顧客建立忠誠度 ➔ 創造銷售收益以支持擴充成功」的完整邏輯。" },
+          { text: "這樣香港市民就會認識這個北歐智能家居品牌，去新體驗店買東西，令擴充計劃成功。", score: 0, status: "partial", comment: "【常見失分示範：推論過於表面】應運用市場營銷的核心概念作結：「確保新店提供的產品比競爭對手更能滿足香港目標顧客的需要，從而應付競爭、提升顧客忠誠度並創造銷售收益」。" },
+          { text: "這能保證新體驗店無須向香港政府繳交任何利得稅或遵守最低工資法例。", score: 0, status: "wrong", comment: "【邏輯推論錯誤】市場營銷策略與稅務或勞工法例豁免毫無關係。" }
+        ]}
+      ]
+    },
+    {
+      id: "e3", cat: "essay", typeBadge: "進階論述題（單一論點 · 3 分 · 3 步深度建構）",
+      title: "論述 3：守護者智能健康手錶生產商（單獨以支援「營運部」闡釋資訊系統的作用）", topic: "資訊管理的角色：單一論點建構資訊系統如何支援「營運部」", maxMarks: 3,
+      scenario: "「守護者科技」是一家智能健康手錶（具備心電圖及血氧監測功能）生產商。行政總裁認為良好的資訊管理能幫助其他商業功能作出更好的決策，因此設立「資訊部」，藉以為其他部門建立資訊系統。",
+      question: "試單獨以支援「營運管理部」為核心，建構一個 3 分深度論述段落，舉例說明守護者科技的資訊部如何透過建立資訊系統支援營運部作出決策。（3 分）",
+      steps: [
+        { label: "第 1 步：指出資訊部為「營運部」建立的資訊系統功能及所處理的兩類核心數據（1分）", colorClass: "hl-s1", opts: [
+          { text: "資訊部可為「營運管理部」建立和維護一套生產及存貨資訊系統：該系統專門負責「實時追蹤存貨和自動更新存貨數量」，以及「儲存和分析顧客退貨及次貨的數據」，向營運部提供可靠和適時的資訊。", score: 1, status: "best", comment: "【滿分論述示範】精準聚焦於支援「營運部」單一對象，並準確指出系統處理的兩項核心數據功能——「追蹤和更新存貨數量」及「儲存和分析退貨數據」。" },
+          { text: "資訊部可為營運管理部建立一套用來計算公司資產負債表流動比率及編製年度損益表的會計系統。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】編製會計報告與財務報表以進行比率分析，是資訊系統支援「財務部」的方式，而非支援營運部管理生產與存貨的方式。" },
+          { text: "智能健康手錶生產商的資訊部可以建立不同的電腦系統，用來支援營運部、財務部、市場營銷部和人力資源部。", score: 0, status: "partial", comment: "【常見失分示範：羅列部門名稱而無具體數據功能】沒有針對題目要求的「營運部」，指出資訊系統具體為營運部收集、儲存和處理甚麼數據（存貨數量數據與退貨數據）。" }
+        ]},
+        { label: "第 2 步：針對「智能健康手錶生產商」設定存貨追蹤與退貨數據分析的具體運作例子（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如當手錶廠房每日領用大量心電圖光學感應晶片、藍寶石玻璃錶面及矽膠錶帶進行組裝時，資訊系統會自動扣減並更新零件倉庫的存貨結餘；同時，系統會匯集並分析售後維修中心收到的顧客退貨數據（如統計出某批次運動手錶在游泳後出現入水故障或心率讀數失準的退貨比例異常偏高）。", score: 1, status: "best", comment: "【滿分論述示範】緊扣智能健康手錶生產商的業務特徵（心電圖感應晶片與藍寶石錶面存貨更新、游泳入水或讀數失準退貨統計），將抽象的系統功能轉化為鮮明具體的行業例子。" },
+          { text: "例如營運部經理每日打開資訊部整好的電腦系統，就可以睇到手錶工廠入面所有存貨和退貨的資料。", score: 0, status: "partial", comment: "【常見失分示範：例子空洞／缺乏智能手錶製造業細節】僅重複第 1 步的「存貨和退貨資料」字眼，沒有結合智能健康手錶生產商的具體零件（如感應晶片、錶面）或具體品質退貨原因作實例說明。" },
+          { text: "例如資訊系統自動為每位手錶裝配工人計算年終考績評分，並決定他們的晉升名單。", score: 0, status: "wrong", comment: "【概念應用錯誤】記錄考績結果以決定晉升和調薪，屬於支援「人力資源部」的人事決策，並非支援營運部的存貨與品質管理。" }
+        ]},
+        { label: "第 3 步：深化論述至協助營運部適時訂貨免缺貨停工、並及早找出潛在品質與生產問題的影響（1分）", colorClass: "hl-s3", opts: [
+          { text: "這套資訊系統對營運部作出決策極為重要：一方面讓營運部能輕易檢查感應晶片與錶面的存貨數量，並適時向供應商訂購補充存貨，避免生產線因缺料而停頓；另一方面透過退貨數據分析，協助營運部及早找出潛在的錶殼防水密封品質缺陷和生產程序問題，從而迅速採取改善措施。", score: 1, status: "best", comment: "【滿分論述示範】將系統的兩項數據功能分別推演至營運部的兩大核心決策效益——「適時訂購存貨避免缺貨」與「找出潛在產品品質和生產問題」，因果對應無懈可擊。" },
+          { text: "這樣守護者科技的營運部有了這套資訊系統之後，就可以作出更好的決策，把工廠管理得更好。", score: 0, status: "partial", comment: "【常見失分示範：結論籠統／未點出具體決策作用】「作出更好決策」過於空泛；必須明確寫出支援了哪兩項具體營運決策：(1)「輕易檢查存貨數量並適時訂購存貨，避免缺貨」；及 (2)「找出潛在的產品品質和生產問題」。" },
+          { text: "這能令智能手錶生產商完全無須再聘請任何品質檢查人員或向供應商支付零件貨款。", score: 0, status: "wrong", comment: "【邏輯推論錯誤】資訊系統只提供數據分析支援決策，並不能免除實體品質檢驗工作或支付貨款的責任。" }
+        ]}
+      ]
+    },
+    {
+      id: "e4", cat: "essay", typeBadge: "進階論述題（單一論點 · 3 分 · 3 步深度建構）",
+      title: "論述 4：守護者智能健康手錶生產商（單獨以支援「市場營銷部」闡釋資訊系統的作用）", topic: "資訊管理的角色：單一論點建構資訊系統如何支援「市場營銷部」", maxMarks: 3,
+      scenario: "承上題，「守護者科技」（智能健康手錶生產商）設立資訊部，藉以為其他部門建立資訊系統。",
+      question: "試單獨以支援「市場營銷管理部」為核心，建構一個 3 分深度論述段落，舉例說明守護者科技的資訊部如何透過建立資訊系統支援市場營銷部作出決策。（3 分）",
+      steps: [
+        { label: "第 1 步：指出資訊部為「市場營銷部」建立的資訊系統功能及所處理的核心數據（1分）", colorClass: "hl-s1", opts: [
+          { text: "資訊部可為「市場營銷管理部」建立和維護一套市場營銷及顧客資訊系統：該系統負責「儲存和分析市場研究數據」、「儲存顧客資料和購買記錄」，以及「收集、儲存和處理各產品的銷售數據」。", score: 1, status: "best", comment: "【滿分論述示範】精準鎖定支援「市場營銷部」單一論點，並完整列出系統為該部門處理的三類核心數據（市場研究數據、顧客資料與購買記錄、銷售數據）。" },
+          { text: "資訊部可為市場營銷部建立一套用來追蹤工廠車間在製品數量及機器維修保養紀錄的系統。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】追蹤車間在製品與機器保養紀錄屬於支援「營運部」的系統功能，而非支援市場營銷部。" },
+          { text: "資訊部會幫市場營銷部建立一個電腦系統，將市場上面同買賣手錶有關的資料儲存在電腦入面。", score: 0, status: "partial", comment: "【常見失分示範：表述含糊／缺乏專業數據分類】「同買賣有關的資料」過於口語化；應明確區分為「市場研究數據」、「顧客個人資料和過往購買記錄」以及「產品銷售數據」。" }
+        ]},
+        { label: "第 2 步：針對「智能健康手錶生產商」設定分析市調、顧客購買記錄與銷售數據的具體例子（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如該資訊系統可自動統計及分析消費者問卷中對睡眠呼吸監測與無創血糖評估功能的喜好數據、詳細記錄每位註冊用家過往購買哪款運動手錶及替換真皮錶帶、智能體脂磅的歷史紀錄，並實時匯總馬拉松博覽會促銷期間各型號手錶的銷量數據。", score: 1, status: "best", comment: "【滿分論述示範】緊扣智能健康手錶生產商的業務，具體舉出「睡眠血糖監測功能喜好調查、用家過往購錶與體脂磅紀錄、馬拉松促銷銷量統計」三個實例，與第 1 步的三類數據完美呼應。" },
+          { text: "例如市場營銷部可以用這個電腦系統來睇下顧客鍾意買甚麼手錶，同埋睇下公司今年賣出了幾多隻手錶。", score: 0, status: "partial", comment: "【常見失分示範：例子過於簡略】未有結合智能健康手錶的具體產品特點（如心率、睡眠監測功能偏好）以及「儲存個別用家過往購買手錶及配件的歷史記錄」作具體闡述。" },
+          { text: "例如市場營銷部利用該系統自動計算全公司員工的強積金供款及出勤率。", score: 0, status: "wrong", comment: "【概念應用錯誤】計算強積金與出勤率屬於人事及薪酬管理範疇，並非市場營銷部的業務。" }
+        ]},
+        { label: "第 3 步：深化論述至了解顧客需要預測需求、精準推薦產品及評估營銷策略成效的影響（1分）", colorClass: "hl-s3", opts: [
+          { text: "這些資訊能全面支援市場營銷部作出明智決策：透過市場研究分析可深入了解運動及長者用家的健康監測需要並準確預測新型號需求；透過顧客購買記錄可為用家度身訂造服務及精準推薦新款替換錶帶或升級型號；而透過銷售數據則可客觀評估各項推廣策略的成效，從而制定更具競爭力的市場營銷策略。", score: 1, status: "best", comment: "【滿分論述示範】清晰將三類數據轉化為市場營銷部的三大決策優勢——「了解喜好並預測需求」、「根據購買記錄度身推薦產品」及「評估市場營銷策略的成效」，論證極為嚴密。" },
+          { text: "這樣守護者科技的市場營銷部便能夠利用這些資訊，幫公司賣出更多智能健康手錶了。", score: 0, status: "partial", comment: "【常見失分示範：跳過決策過程直接寫賣出更多手錶】必須說明這些資訊如何協助市場營銷部作出具體決策（即「了解顧客需要並預測需求」、「根據以往購買記錄向顧客推薦產品」及「評估市場營銷策略的成效」）。" },
+          { text: "這能保證智能健康手錶生產商在推出任何新手錶時，生產線的次貨率自動降至零。", score: 0, status: "wrong", comment: "【邏輯推論錯誤】市場營銷資訊系統旨在支援市場定位、推廣與顧客關係決策，並不能直接控制工廠生產線的次貨率。" }
+        ]}
+      ]
+    },
+    {
+      id: "e5", cat: "essay", typeBadge: "進階論述題（單一論點 · 3 分 · 3 步深度建構）",
+      title: "論述 5：學海無涯連鎖教育中心（單獨以「進行財務分析」闡釋財務管理的功能）", topic: "財務管理的角色：單一論點深度建構（「進行財務分析」）", maxMarks: 3,
+      scenario: "「學海無涯」是一家在香港擁有十間分校的連鎖語言及專科教育中心，行政總裁十分關注企業的盈利能力。一名商業顧問建議他檢討公司的「財務管理」功能。",
+      question: "試單獨以財務管理中的「進行財務分析」這項功能為核心，結合該連鎖教育中心的情境建構一個 3 分深度論述段落。（3 分）",
+      steps: [
+        { label: "第 1 步：指出「進行財務分析」功能並界定其利用會計比率評估業績的核心機制（1分）", colorClass: "hl-s1", opts: [
+          { text: "財務管理的核心功能之一是「進行財務分析」：即根據企業財務報表中的數字計算各類會計比率，用來全面評估企業在盈利能力、變現能力（短期償債能力）、償債能力和管理效能各方面的業績。", score: 1, status: "best", comment: "【滿分論述示範】準確聚焦於「進行財務分析」單一功能，並完整界定其工具（根據財務報表數字計算會計比率）與四個評估維度（盈利能力、變現能力、償債能力、管理效能）。" },
+          { text: "財務管理中的進行財務分析，是指為教育中心的新暑期商業英語課程釐定學費價格，並進行家長問卷調查。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】釐定課程學費價格與進行家長問卷調查屬於「市場營銷管理」的職責，財務部不會釐定產品或課程價格。" },
+          { text: "財務管理同時有進行財務分析、財務規劃編製預算、作出投資決策、融資決策和營運資金決策五項功能。", score: 0, status: "partial", comment: "【常見失分示範：羅列五項功能標題而未解釋「進行財務分析」】違反「一段一論點」原則，把五項功能標題全部寫出，卻沒有解釋「進行財務分析」是如何透過計算會計比率來評估企業業績。" }
+        ]},
+        { label: "第 2 步：針對「學海無涯連鎖教育中心關注盈利能力」設定計算及比較會計比率的具體例子（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如教育中心的財務部可根據過去數年的損益表及財務狀況表，計算出中心的毛利率、淨利率及運用資金報酬率 (ROCE) 等盈利能力比率（以及流動比率等變現能力比率），並將這些會計比率與中心往年的數據以及教育行業的平均水平作深入比較。", score: 1, status: "best", comment: "【滿分論述示範】緊扣個案「行政總裁關注盈利能力」的線索，具體說明財務部如何計算毛利率、淨利率與 ROCE 等會計比率並與往年及同業數據作比較。" },
+          { text: "例如教育中心的財務部會拿十間分校的數簿出來睇下，計下今年中心一共收了幾多學費同埋使了幾多錢。", score: 0, status: "partial", comment: "【常見失分示範：用詞口語／缺乏專業財務工具】「拿數簿睇收幾多學費」過於口語化；必須運用專業概念說明「計算盈利能力及變現能力等會計比率，並與過往年度或競爭對手的比率數據作比較」。" },
+          { text: "例如財務部為教育中心建立一套儲存學生報讀資料及網上繳費交易數據的電腦系統。", score: 0, status: "wrong", comment: "【概念應用錯誤】建立和維護儲存交易數據的電腦系統屬於「資訊管理部」的工作，而非財務部的財務分析工作。" }
+        ]},
+        { label: "第 3 步：深化論述至找出教育中心強項與財務問題根源、協助管理層對症下藥改善盈利的影響（1分）", colorClass: "hl-s3", opts: [
+          { text: "透過客觀評估這些會計比率，財務部便能協助教育中心找出業務上的強項與導致盈利能力欠佳的問題根源（例如發現是個別分校課室日間空置率過高或商場租金與印刷教材開支過大拖低了淨利率），讓行政總裁能據此對症下藥採取整合分校資源或控制開支的措施。", score: 1, status: "best", comment: "【滿分論述示範】清楚推演出「利用會計比率評估業績 ➔ 找出企業的強項與問題根源 ➔ 協助管理層對症下藥改善盈利能力」的完整管理價值。" },
+          { text: "這樣學海無涯連鎖教育中心的財務部便完成了財務分析的工作，知道中心的業績好不好了。", score: 0, status: "partial", comment: "【常見失分示範：未點出「找出強項與問題以改善表現」的目的】評估業績並非終點，必須指出透過評估業績，財務部能「找出企業的強項與問題所在，協助管理層制定改善盈利能力的決策」。" },
+          { text: "只要計算出會計比率，教育中心下學期報讀課程的學生人數便會自動增加一倍。", score: 0, status: "wrong", comment: "【邏輯推論錯誤】計算會計比率只能協助內部診斷財務強弱項，並不會自動吸引外部學生報讀（吸引學生屬市場營銷功能）。" }
+        ]}
+      ]
+    },
+    {
+      id: "e6", cat: "essay", typeBadge: "進階論述題（單一論點 · 3 分 · 3 步深度建構）",
+      title: "論述 6：學海無涯連鎖教育中心（單獨以「管理顧客關係」闡釋市場營銷管理如何提高營業額）", topic: "市場營銷管理的角色：單一論點深度建構（「管理顧客關係」）", maxMarks: 3,
+      scenario: "承上題，商業顧問同時建議「學海無涯連鎖教育中心」透過「市場營銷管理」來提高學費營業額。",
+      question: "試單獨以市場營銷管理中的「管理顧客關係」這項角色為核心，結合該連鎖教育中心的情境建構一個 3 分深度論述段落，解釋如何協助教育中心提高營業額。（3 分）",
+      steps: [
+        { label: "第 1 步：指出市場營銷管理的「管理顧客關係」角色並界定其核心目的（1分）", colorClass: "hl-s1", opts: [
+          { text: "市場營銷部可透過執行「管理顧客關係」這項角色來提高營業額：即透過建立和維持與學生及家長的長遠關係，協助企業吸引新學生和留住現有學生，並提升顧客忠誠度（顧客願意長久支持並重複報讀的程度）。", score: 1, status: "best", comment: "【滿分論述示範】準確鎖定「管理顧客關係」單一角色，並清晰闡明其「維持與顧客的長遠關係 ➔ 吸引新客、留住舊客並提升顧客忠誠度」的核心機制。" },
+          { text: "市場營銷部可透過執行「管理顧客關係」，向銀行借取低息貸款來收購其他競爭對手的補習社。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】向銀行借貸及收購其他公司屬於「財務管理」與高層投資決策，與管理顧客關係無關。" },
+          { text: "市場營銷部同時有進行市場研究、選定目標市場定位、制定 4P 策略、執行控制和管理顧客關係五個角色。", score: 0, status: "partial", comment: "【常見失分示範：羅列五個角色標題而無深入闡釋】違反「一段一論點」要求，沒有針對「管理顧客關係」界定其維持長遠關係與提升顧客忠誠度的作用。" }
+        ]},
+        { label: "第 2 步：針對「學海無涯連鎖教育中心」設定建立和維持長遠顧客關係的具體方式例子（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如教育中心的市場營銷部可推出「持續報讀學分及舊生會員計劃」（讓學生報讀累積積分換取下期學費減免以鼓勵再次報讀）、採用顧客關係管理系統記錄每位學生的測驗弱項以度身推薦專科拔尖或補底班、提供免費網上課後問書平台及升學講座等「附加服務（增值服務）」，並有效地處理家長對課堂安排的查詢與投訴。", score: 1, status: "best", comment: "【滿分論述示範】緊扣連鎖教育中心業務，具體運用管理顧客關係的四種有效方式（推出會員積分計劃、度身推薦課程、提供附加問書服務、有效處理家長投訴），例子極為充實貼切。" },
+          { text: "例如教育中心的職員對來報名的學生和家長態度好一點、多些同家長傾偈，同他們打好關係。", score: 0, status: "partial", comment: "【常見失分示範：例子過於口語表面】「多些傾偈打好關係」缺乏制度化的市場營銷措施；應具體舉出「推出舊生積分計劃、利用顧客關係管理系統度身推薦課程、提供課後問書附加服務或有效處理家長投訴」。" },
+          { text: "例如教育中心為全職導師發放年終表現花紅，並舉辦教學技巧培訓工作坊。", score: 0, status: "wrong", comment: "【概念應用錯誤】發放導師花紅及舉辦教學培訓屬於「人力資源部」對內部僱員的管理，而非市場營銷部對外部學生與家長的「管理顧客關係」。" }
+        ]},
+        { label: "第 3 步：深化論述至提升學生與家長忠誠度、促使舊生持續升班報讀及口碑推薦以提高營業額的影響（1分）", colorClass: "hl-s3", opts: [
+          { text: "透過上述措施與學生及家長維持良好的長遠關係，能顯著提升他們對教育中心的顧客忠誠度，不但能留住現有學生、促使他們在新學年持續報讀高年級進階課程，更能透過家長之間的良好口碑推薦吸引新生報讀，從而持續提高教育中心的整體學費營業額。", score: 1, status: "best", comment: "【滿分論述示範】清楚推演出「維持長遠關係 ➔ 提升顧客忠誠度 ➔ 留住舊生重複報讀並吸引新生 ➔ 持續提高營業額」的完整商業邏輯鏈。" },
+          { text: "這樣學海無涯教育中心同學生家長的關係就會變得很好，教育中心的營業額自然就會提高了。", score: 0, status: "partial", comment: "【常見失分示範：漏了「提升顧客忠誠度及重複購買」的關鍵橋樑】必須明確點出良好顧客關係如何透過「提升顧客忠誠度（使現有學生願意長久支持並持續報讀，同時吸引新生）」來轉化為更高的營業額。" },
+          { text: "這能令商場業主免費豁免教育中心十間分校的全年租金開支。", score: 0, status: "wrong", comment: "【邏輯推論錯誤】管理與學生的關係並不會令外部商場業主免費豁免分校租金。" }
+        ]}
+      ]
+    },
+    {
+      id: "e7", cat: "essay", typeBadge: "進階論述題（單一論點 · 3 分 · 3 步深度建構）",
+      title: "論述 7：藍天商務包機公司（單獨以財務部「作出投資決策」闡釋如何改善盈利能力）", topic: "財務管理的角色：單一論點深度建構（「作出投資決策」）", maxMarks: 3,
+      scenario: "「藍天航空服務公司」經營港澳直升機及亞太區商務包機業務。今年因短途渡輪競爭蒙受虧損，管理層決定停辦虧損的短途觀光直升機線，未來方向是專注於高利潤的「跨國企業行政人員長途私人包機服務」，並要求「財務部」運用其功能協助公司改善長遠的盈利能力。",
+      question: "試單獨以財務管理中的「作出投資決策」這項功能為核心，結合藍天公司轉型發展私人商務包機的情境，建構一個 3 分深度論述段落，解釋財務部可如何幫助公司改善盈利能力。（3 分）",
+      steps: [
+        { label: "第 1 步：指出財務管理的「作出投資決策」功能並界定其評估與選取項目的機制（1分）", colorClass: "hl-s1", opts: [
+          { text: "財務部可透過執行「作出投資決策」功能來改善盈利能力：財務部負責運用各種資本投資評估方法（例如計算潛在投資項目的淨現值 Net Present Value），客觀評估某項目是否值得投資，從而選取良好的投資項目。", score: 1, status: "best", comment: "【滿分論述示範】準確聚焦於「作出投資決策」單一功能，並清晰點出「運用淨現值等評估方法評估項目是否值得投資 ➔ 選取良好投資項目」的運作機制。" },
+          { text: "財務部可透過親自為新開辦的跨國私人商務包機服務釐定收費價格，直接提高包機收益。", score: 0, status: "wrong", comment: "【概念邏輯錯誤】為包機服務釐定收費價格屬於「市場營銷管理（定價策略）」的職責，財務部不會負責釐定產品或服務的價格。" },
+          { text: "藍天公司的財務部可以透過做財務分析、編製預算、做投資決策、融資決策和營運資金決策來幫公司改善盈利。", score: 0, status: "partial", comment: "【常見失分示範：羅列五項功能標題而無聚焦單一論點】沒有針對「作出投資決策」說明財務部如何運用淨現值等評估方法篩選有利可圖的投資項目。" }
+        ]},
+        { label: "第 2 步：扣連「藍天公司轉型專注發展跨國私人商務包機」設定具體的投資評估例子（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如配合藍天公司專注發展跨國企業私人包機服務的新方向，財務部可估算購置不同型號的超遠程省油商務噴射機或興建專屬貴賓候機室的初期資本支出與未來預期現金流入，計算各潛在項目的「淨現值 (NPV)」，並從中篩選出淨現值為正數且最高的商務機投資項目。", score: 1, status: "best", comment: "【滿分論述示範】緊扣個案「停辦短途直升機、專注發展跨國私人商務包機」的轉型背景，具體說明如何計算購置遠程商務噴射機與貴賓室項目的淨現值以選取最佳項目。" },
+          { text: "例如藍天公司的財務部會幫公司揀一些好賺錢的投資項目來做，唔好再做那些蝕錢的直升機項目。", score: 0, status: "partial", comment: "【常見失分示範：例子空泛／未結合個案背景與評估工具】既沒有提及「淨現值 (NPV)」等具體財務評估方法，亦沒有扣連個案中「添置遠程私人商務包機或開拓新包機航點」的具體業務情境。" },
+          { text: "例如財務部為留任的商務機機師及專機侍應舉辦模擬飛行與貴賓禮儀訓練，以提升服務質素。", score: 0, status: "wrong", comment: "【概念應用錯誤】為機師及侍應舉辦培訓屬於「人力資源部」的工作，並非財務部的投資決策。" }
+        ]},
+        { label: "第 3 步：深化論述至善用龐大資本開展有利可圖項目、協助公司達至穩定增長與扭虧為盈的影響（1分）", colorClass: "hl-s3", opts: [
+          { text: "由於購置私人商務噴射機涉及極龐大的資金，審慎明智的投資決策能避免藍天公司將資金錯投於回報欠佳的機型或航點，確保公司只開展最有利可圖的高端商務包機項目，從而提升整體盈利能力、協助公司達至穩定增長並為股東賺取最大財富。", score: 1, status: "best", comment: "【滿分論述示範】清楚推演出「避免資金錯配＋開展有利可圖的商務包機項目 ➔ 提升長遠盈利能力、達至穩定增長並為東主賺取最大財富」的完整企業影響。" },
+          { text: "這樣藍天公司的財務部便做好了投資決策，公司的盈利能力就會得到改善了。", score: 0, status: "partial", comment: "【常見失分示範：同義反覆】未有深化說明明智的投資決策如何「確保龐大資金投放於最有利可圖的商務包機項目，協助企業達至穩定增長並為東主賺取最大財富」。" },
+          { text: "這能保證藍天公司完全無須承擔任何航空燃油價格波動或外在經濟衰退的風險。", score: 0, status: "wrong", comment: "【邏輯推論錯誤】資本投資評估能篩選預期回報較高的項目，但無法完全消除外在宏觀經濟或油價波動的市場風險。" }
+        ]}
+      ]
+    },
+    {
+      id: "e8", cat: "essay", typeBadge: "進階論述題（單一論點 · 3 分 · 3 步深度建構）",
+      title: "論述 8：安居大型物業管理公司（單獨以「報酬管理」闡釋如何應對高流失率與人力短缺問題）", topic: "人力資源管理的角色：單一論點深度建構（「報酬管理」）", maxMarks: 3,
+      scenario: "「安居物業管理公司」負責管理全港多個大型屋苑及商場。其人力資源部在進行「人力規劃」時，發現公司將會出現前線物業管理員及保安員「人力短缺」的問題，其中一個主要原因是現職員工的流失率高企。",
+      question: "試單獨以人力資源管理中的「報酬管理 (Reward Management)」這項功能為核心，結合該物業管理公司的情境建構一個 3 分深度論述段落，解釋如何應對上述人力短缺問題。（3 分）",
+      steps: [
+        { label: "第 1 步：指出「報酬管理」功能並界定其吸引和留住人才的核心機制（1分）", colorClass: "hl-s1", opts: [
+          { text: "物業管理公司的人力資源部可運用「報酬管理」功能來應對人力短缺：報酬管理負責為企業制定一套公平和具競爭力的報酬制度（涵蓋金錢報酬及附帶福利等非金錢報酬），藉此激勵員工努力工作，並為企業吸引和留住人才。", score: 1, status: "best", comment: "【滿分論述示範】準確鎖定「報酬管理」單一功能（避開題目已排除的人力規劃），並清晰闡明其「制定公平具競爭力的報酬制度 ➔ 吸引新人才及留住現職人才」的核心機制。" },
+          { text: "物業管理公司的人力資源部可運用「人力規劃」功能，重新預測公司明年需要多少名保安員。", score: 0, status: "wrong", comment: "【審題失誤】題目已指明在進行「人力規劃」時發現人力短缺，並要求運用人力資源管理的「其他功能」來應對問題，重複回答人力規劃不獲給分。" },
+          { text: "物業管理公司的人力資源部可以同時用員工編制、員工考績、報酬管理、培訓發展和促進僱員關係五個功能去解決問題。", score: 0, status: "partial", comment: "【常見失分示範：羅列五項功能標題而未深入闡釋單一論點】違反「一段一論點」原則，沒有針對「報酬管理」說明如何透過設計具競爭力的薪酬福利制度來解決高流失率與人手短缺。" }
+        ]},
+        { label: "第 2 步：針對「物業管理公司前線保安及物管員流失率高企」設定具體的薪酬與附帶福利改革例子（1分）", colorClass: "hl-s2", opts: [
+          { text: "例如針對物管員及保安員須長時間站立巡邏及輪值通宵更、容易被其他屋苑挖角的情況，人力資源部可檢討並調高物管員的每月基本底薪、通宵更津貼及年終表現花紅，使薪酬水平高於同業；同時提供更優厚的附帶福利，如門診及住院醫療保險、有薪生日假、舒適的冷氣員工休息室及設立「每月傑出物管員獎」公開表揚。", score: 1, status: "best", comment: "【滿分論述示範】緊扣物業管理及保安員的工作特性，具體提出調高底薪、通宵更津貼與花紅（金錢報酬）以及醫療保險、休息室與公開表揚（非金錢報酬），措施具體可行。" },
+          { text: "例如物業管理公司的人力資源部決定給所有的保安員加人工同埋給多一點福利他們。", score: 0, status: "partial", comment: "【常見失分示範：例子空泛簡略】「加人工同給多一點福利」缺乏行業針對性；應結合物管及保安員的工作特點，具體舉出「調高基本底薪與通宵輪班津貼，並提供醫療保險、員工休息設施及有薪休假等附帶福利」。" },
+          { text: "例如人力資源部為管理的屋苑重新設計大堂的閉路電視佈局，並定期檢查升降機機件。", score: 0, status: "wrong", comment: "【概念應用錯誤】設計大堂設施佈局與檢查升降機機件屬於「營運管理」的工作，並非人力資源部的報酬管理。" }
+        ]},
+        { label: "第 3 步：深化論述至減低現職物管員流失率並吸引外部求職者應徵、從雙方面消除人力短缺的影響（1分）", colorClass: "hl-s3", opts: [
+          { text: "這套具競爭力的報酬制度能從兩方面解決物業管理公司的人力短缺：一方面讓現職物管員感到辛勞輪班獲得公平豐厚的回報，提升工作滿意度與忠誠度，從根源上大幅減低高企的員工流失率；另一方面優厚的薪酬福利亦能增強職位在就業市場的吸引力，吸引更多外來求職者應徵填補屋苑空缺，確保人力供應配合公司需求。", score: 1, status: "best", comment: "【滿分論述示範】完美扣連題目「因員工流失率高企而引致人力短缺」的因果關係，清楚推演出具競爭力的報酬如何一面「留住現職員工壓低流失率」、一面「吸引新求職者填補空缺」，邏輯嚴密完整。" },
+          { text: "這樣物業管理公司的保安員拿到更多人工和福利之後就會好開心，公司就不會再出現人力短缺了。", score: 0, status: "partial", comment: "【常見失分示範：未扣連「降低高流失率＋吸引新求職者」的雙重機制】應明確推論具競爭力的報酬制度如何「提高現職物管員忠誠度以減低高企的流失率，同時吸引外部求職者應徵以補充人手，使人力供應配合企業需求」。" },
+          { text: "這能令物業管理公司的全年人工開支立即減少一半，同時令屋苑的保安巡邏次數自動減少。", score: 0, status: "wrong", comment: "【邏輯推論錯誤】調高薪酬與福利會增加（而非減少）短期人工開支，其目的是為了留住及吸引物管員以維持充足的屋苑保安人手。" }
+        ]}
+      ]
+    }
+  ];
+
+  let curBuilderCat = 'short';
+  let curQIdx = 0;
+  let userSelections = {};
+  let isSubmitted = false;
+
+  function switchBuilderCat(cat, btn) {
+    curBuilderCat = cat;
+    btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('builderCatLabel').textContent = cat === 'short' ? '選擇短答題（每題建構單一 2 分論點）：' : '選擇進階論述題（每題建構單一 3 分深度論點）：';
+    curQIdx = cat === 'short' ? 0 : 4;
+    userSelections = {};
+    isSubmitted = false;
+    renderQuestionChips();
+    renderWorkshop();
+  }
+
+  function renderQuestionChips() {
+    document.getElementById('questionChips').innerHTML = workshopQuestions
+      .map((q, i) => ({ q, i }))
+      .filter(x => x.q.cat === curBuilderCat)
+      .map(x => `<button class="chip ${x.i===curQIdx?'active':''}" onclick="selectWorkshopQ(${x.i})">${x.q.title}</button>`)
+      .join('');
+  }
+
+  function selectWorkshopQ(idx) {
+    curQIdx = idx;
+    userSelections = {};
+    isSubmitted = false;
+    renderQuestionChips();
+    renderWorkshop();
+  }
+
+  function pickStepOption(sIdx, oIdx) {
+    userSelections[sIdx] = oIdx;
+    isSubmitted = false;
+    renderWorkshop();
+  }
+
+  function submitConstructedAnswer() {
+    const q = workshopQuestions[curQIdx];
+    if (Object.keys(userSelections).length < q.steps.length) {
+      alert(`請先完成全部 ${q.steps.length} 個步驟的選擇，再點擊批改。`);
+      return;
+    }
+    isSubmitted = true;
+    renderWorkshop();
+  }
+
+  function fillBestChoices() {
+    const q = workshopQuestions[curQIdx];
+    q.steps.forEach((st, sIdx) => {
+      userSelections[sIdx] = st.opts.findIndex(o => o.status === 'best');
+    });
+    isSubmitted = true;
+    renderWorkshop();
+  }
+
+  function renderWorkshop() {
+    const q = workshopQuestions[curQIdx];
+    const letters = ['A', 'B', 'C'];
+
+    let totalScore = 0;
+    q.steps.forEach((st, sIdx) => {
+      if (userSelections[sIdx] !== undefined) {
+        totalScore += st.opts[userSelections[sIdx]].score;
+      }
+    });
+
+    const previewParts = q.steps.map((st, sIdx) => {
+      const selIdx = userSelections[sIdx];
+      if (selIdx === undefined) {
+        return `<span style="color:var(--mute);border-bottom:1px dashed var(--mute)">［未選擇第 ${sIdx + 1} 步］</span>`;
+      }
+      return `<span class="${st.colorClass}">${st.opts[selIdx].text}</span>`;
+    });
+
+    document.getElementById('builderWorkspace').innerHTML = `
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px">
+          <div>
+            <span class="badge b-blue">${q.typeBadge}</span>
+            <span class="badge b-teal">${q.topic}</span>
+          </div>
+          <b style="color:var(--primary);font-size:16px">本段單一論點滿分：${q.maxMarks} 分</b>
+        </div>
+        <div style="background:var(--surface);padding:16px 20px;border-radius:12px;border-left:4px solid var(--primary);font-size:16.5px;margin-bottom:14px"><b>背景情境：</b>${q.scenario}</div>
+        <div style="font-size:18px;font-weight:800;color:var(--ink)">${q.question}</div>
+      </div>
+
+      ${q.steps.map((st, sIdx) => {
+        const selIdx = userSelections[sIdx];
+        return `
+          <div class="builder-stage">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+              <h4 style="font-size:16.5px"><span class="${st.colorClass}">${st.label}</span></h4>
+              <span style="font-size:14px;font-weight:600;color:var(--mute)">${selIdx !== undefined ? '已選 ' + letters[selIdx] : '請點選一項'}</span>
+            </div>
+            ${st.opts.map((o, oIdx) => {
+              const isSel = selIdx === oIdx;
+              let gradeCls = '';
+              if (isSubmitted && isSel) {
+                gradeCls = o.status === 'best' ? 'graded-best' : o.status === 'partial' ? 'graded-partial' : 'graded-wrong';
+              }
+              return `
+                <button class="opt-card ${isSel ? 'selected' : ''} ${gradeCls}" onclick="pickStepOption(${sIdx}, ${oIdx})">
+                  <span class="opt-letter">${letters[oIdx]}</span>
+                  <span style="flex:1">${o.text}</span>
+                </button>
+              `;
+            }).join('')}
+          </div>
+        `;
+      }).join('')}
+
+      <div class="card" style="border:2px solid var(--primary);margin-bottom:0">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:14px">
+          <h3 style="color:var(--primary);font-size:19px">單一論點段落預覽</h3>
+          <div style="display:flex;gap:10px">
+            <button class="btn btn-green" onclick="submitConstructedAnswer()">批改論述邏輯</button>
+            <button class="btn btn-outline" onclick="fillBestChoices()">示範滿分論點建構</button>
+          </div>
+        </div>
+        <div style="font-size:17px;line-height:1.85;background:var(--surface);padding:18px 22px;border-radius:12px;border:1px solid var(--line)">
+          ${previewParts.join(' ')}
+        </div>
+
+        ${isSubmitted ? `
+          <div style="margin-top:20px;padding-top:18px;border-top:1px solid var(--line)">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+              <h4 style="font-size:17.5px">逐層論述邏輯點評</h4>
+              <span class="badge ${totalScore === q.maxMarks ? 'b-green' : totalScore >= 1 ? 'b-amber' : 'b-red'}" style="font-size:15px;padding:6px 14px">
+                本段得分：${totalScore} / ${q.maxMarks} 分
+              </span>
+            </div>
+            ${q.steps.map((st, sIdx) => {
+              const chosen = st.opts[userSelections[sIdx]];
+              const cCls = chosen.status === 'best' ? 'c-best' : chosen.status === 'partial' ? 'c-partial' : 'c-wrong';
+              return `
+                <div class="critique-item ${cCls}">
+                  <b>第 ${sIdx + 1} 步（選項 ${letters[userSelections[sIdx]]} · ${chosen.score} 分）：</b>${chosen.comment}
+                </div>
+              `;
+            }).join('')}
+          </div>
+        ` : ''}
+      </div>
+    `;
+  }
+
+  renderQuestionChips();
+  renderWorkshop();
+</script>
+</body>
+</html>
